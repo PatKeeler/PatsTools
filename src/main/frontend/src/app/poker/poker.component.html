@@ -1,0 +1,229 @@
+<div style="background: #f4f4f4">
+  <table bgcolor="#98edb4" border="0" width="100%" cellpadding="10">
+    <tr>
+      <td>
+        <h1 align="center">Poker Tournament Worksheet</h1>
+        <h4>
+          <table border="0" width="100%" cellpadding="10">
+            <tr>
+              <td width="15%">
+                <button (click)="getPokerAbout()">User Guide</button>
+              </td>
+              <td width="55%">Email errors, comments or suggestions to
+                <a href="mailto:keelerpl@gmail.com">keelerpl@gmail.com</a>.
+              </td>
+              <td width="30%"></td>
+            </tr>
+          </table>
+        </h4>
+      </td>
+    </tr>
+  </table>
+  <br/>
+  <div>
+    <div class="f-17" align="left" width="50%">
+      Enter first player name, set amounts for game and click 'Save Player'.<br>
+      After first player, change amounts if needed, enter each new player name, and hit Enter.
+    </div>
+    <table class="full-width-table">
+      <thead>
+      <th align="left">Player Name</th>
+      <th align="left">BuyIn</th>
+      <th align="left">Bounty</th>
+      <th align="left">Fee</th>
+      <th align="left">Last Man</th>
+      <th align="left">AddOn</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td><input #playerTextEl size="12" width="10" [(ngModel)]='playerName' (keyup.enter)="savePlayer()"/></td>
+        <td><input size="6" [(ngModel)]='buyInAmount'/></td>
+        <td><input size="6" [(ngModel)]='bountyAmount'/></td>
+        <td><input size="6" [(ngModel)]='feeAmount'/></td>
+        <td><input size="6" [(ngModel)]='lastManAmount'/></td>
+        <td><input size="6" [(ngModel)]='addOnAmount'/></td>
+      </tr>
+      </tbody>
+    </table>
+    <button (click)="savePlayer()" class="ml-3">Save Player</button>
+    <br>
+    <br>
+    <div [hidden]="playersHide">
+      <table mat-table matSort [dataSource]="dataSource" border="0" class="table-width-80 mt-10">
+        <ng-container matColumnDef="select">
+          <th class="w-80 f-15" mat-header-cell *matHeaderCellDef> Select</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(element) : null"
+                          [checked]="selection.isSelected(element)"
+                          [aria-label]="checkboxLabel(element)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Player Name</th>
+          <td mat-cell class="f-15" *matCellDef="let element; let i = index"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="buyIn">
+          <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Buy In</th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{element.buyIn | number:'1.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="bounty">
+          <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Bounty</th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{element.bounty | number:'1.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fee">
+          <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Fee</th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{element.fee | number:'1.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastMan">
+          <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Last Man</th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{element.lastMan | number:'1.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="addOn">
+          <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Add On</th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{element.addOn | number:'1.2-2'}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"
+            style="background-color:lightgray;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+      </table>
+      <br>
+      These buttons are all about the checkboxes.
+      <div class="row push-right">
+        <input type="button" class="btn btn-danger" (click)="selectAll()" value="Select All">
+        <input type="button" class="btn btn-danger ml-5" (click)="unSelectAll()" value="Unselect All">
+        <input type="button" class="btn btn-danger ml-15" (click)="addRebuy()" value="+ Rebuy">
+        <input type="button" class="btn btn-danger ml-5" (click)="addAddOn()" value="+ AddOn">
+        <br>
+        <span class="mt-5 ml-10">Mistakes:</span>
+        <input type="button" class="btn btn-danger ml-5 mt-5" (click)="deletePlayer()" value="Delete Player">
+        <input type="button" class="btn btn-danger ml-5 mt-5" (click)="minusRebuy()" value="- Rebuy">
+        <input type="button" class="btn btn-danger ml-8 mt-10" (click)="minusAddOn()" value="- AddOn">
+        <br>
+      </div>
+    </div>
+    <br/>
+    <br/>
+    <div class="f-15" align="left">
+      <h2>Running Totals:</h2>
+    </div>
+    <table class="full-width-table">
+      <tr>
+        <th align="left">Players</th>
+        <th align="left">BuyIn</th>
+        <th align="left">Bounty</th>
+        <th align="left">Fee</th>
+        <th align="left">Last Man</th>
+        <th align="left">AddOn</th>
+      </tr>
+      <tr>
+        <td><input size="7" maxwidth="10" type="text" [(ngModel)]="totalPlayers"></td>
+        <td><input size="7" maxwidth="10" type="text" [(ngModel)]="buyInTotal"></td>
+        <td><input size="7" maxwidth="10" type="text" [(ngModel)]="bountyTotal"></td>
+        <td><input size="7" maxwidth="10" type="text" [(ngModel)]="feeTotal"></td>
+        <td><input size="7" maxwidth="10" type="text" [(ngModel)]="lastManTotal"></td>
+        <td><input size="7" maxwidth="10" type="text" [(ngModel)]="addOnTotal"></td>
+      </tr>
+    </table>
+    <br/>
+    <br/>
+    <div align="left" width="50%">
+      <h1>Chops:</h1>
+    </div>
+    <table border="0" width="100%" cellpadding="5">
+      <tr>
+        <th align="left" width="25%">Player Count</th>
+        <th align="left" width="25%">Chop Amount</th>
+        <th align="left" width="20%">Last Man Count</th>
+        <th align="left" width="30%">Chop Amount</th>
+      </tr>
+      <tr>
+        <td><input size="7" maxwidth="10" [(ngModel)]="chopPlayers"></td>
+        <td><input size="7" maxwidth="10" [(ngModel)]="chopAmount"></td>
+        <td><input size="7" maxwidth="10" [(ngModel)]="lastManPlayers"></td>
+        <td><input size="7" maxwidth="10" [(ngModel)]="lastManChopAmount"></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th align="left" width="20%"></th>
+        <th align="left" width="30%"></th>
+        <th align="left" width="50%"></th>
+      </tr>
+      <tr>
+        <td><button (click)="chopBtn()">BuyIn & AddOn</button></td>
+        <td><button (click)="chopAllBtn()">+ Last Man</button></td>
+        <td><button (click)="chopLastManBtn()">Last Man</button></td>
+        <td></td>
+      </tr>
+    </table>
+    <br/>
+    <br/>
+    <div align="left" width="50%">
+      <h1>Winners:</h1>
+    </div>
+    <table border="0" width="100%" cellpadding="5">
+      <thead>
+        <tr>
+          <th align="left" width="60%">Enter percentages, seperated by spaces, commas, dashes, whatever.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input #winnerTextEl type="text" [(ngModel)]="percentages"></td>
+        </tr>
+      </tbody>
+    </table>
+    <br/>
+    Compute:
+    <button type="button" class="ml-3" (click)="computeWinnerBtn()">BuyIn & AddOn</button>
+    <button type="button" class="ml-3" (click)="computeWinnerLastManBtn()">+ Last Man</button>
+  </div>
+  <br>
+  <div [hidden]="winnersHide">
+    <table mat-table matSort [dataSource]="winnerData" border="0" class="table-width-93 mt-10">
+      <ng-container matColumnDef="position">
+        <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Winner position</th>
+        <td mat-cell class="f-15" *matCellDef="let element; let i = index"> {{element.position}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Winner Amount</th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{element.amount | number:'1.2-2'}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="winnerColumns"
+          style="background-color:lightgray;"></tr>
+      <tr mat-row *matRowDef="let row; columns: winnerColumns;"></tr>
+    </table>
+    <br>
+  </div>
+
+  <br>
+  <fieldset>
+    <legend> Donations</legend>
+    <table border="0" width="100%" cellpadding="10">
+      <tr>
+        <td>
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="encrypted"
+                   value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0"
+                   name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+          </form>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+</div>
+
+

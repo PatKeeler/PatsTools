@@ -1,0 +1,58 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Backend
+.idea/
+Formatters.iml
+logs/
+target/
+.classpath
+.project
+.settings/
+
+
+# Frontend
+
+# compiled output
+/src/main/frontend/dist
+/src/main/frontend/tmp
+/src/main/frontend/out-tsc
+# Only exists if Bazel was run
+/src/main/frontend/bazel-out
+
+# dependencies
+/src/main/frontend/node_modules
+
+# profiling files
+/src/main/frontend/chrome-profiler-events*.json
+/src/main/frontend/speed-measure-plugin*.json
+
+# IDEs and editors
+/src/main/frontend/.idea
+/src/main/frontend/.project
+/src/main/frontend/.classpath
+/src/main/frontend/.c9/
+/src/main/frontend/*.launch
+/src/main/frontend/.settings/
+/src/main/frontend/*.sublime-workspace
+
+# IDE - VSCode
+/src/main/frontend/.vscode/*
+!/src/main/frontend/.vscode/settings.json
+!/src/main/frontend/.vscode/tasks.json
+!/src/main/frontend/.vscode/launch.json
+!/src/main/frontend/.vscode/extensions.json
+/src/main/frontend/.history/*
+
+# misc
+/src/main/frontend/.sass-cache
+/src/main/frontend/connect.lock
+/src/main/frontend/coverage
+/src/main/frontend/libpeerconnection.log
+/src/main/frontend/npm-debug.log
+/src/main/frontend/yarn-error.log
+/src/main/frontend/testem.log
+/src/main/frontend/typings
+
+# System Files
+/src/main/frontend/.DS_Store
+/src/main/frontend/Thumbs.db
