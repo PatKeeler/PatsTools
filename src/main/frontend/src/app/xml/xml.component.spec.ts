@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { XmlComponent } from './xml.component';
 
@@ -6,7 +6,7 @@ describe('XmlComponent', () => {
   let component: XmlComponent;
   let fixture: ComponentFixture<XmlComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ XmlComponent ]
     })
