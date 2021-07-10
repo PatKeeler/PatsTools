@@ -20,7 +20,7 @@ target/
 /src/main/frontend/bazel-out
 
 # dependencies
-/src/main/frontend/node_modules
+# /src/main/frontend/node_modules
 
 # profiling files
 /src/main/frontend/chrome-profiler-events*.json
