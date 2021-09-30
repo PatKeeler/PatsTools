@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { first, map, tap} from "rxjs/operators";
 
 
 interface Parameters {
@@ -28,9 +29,17 @@ export class SqlComponent implements OnInit {
   @ViewChild('removeQuotesReformat') removeQuotesReformat: ElementRef;
   @ViewChild('removeQuotesOnly') removeQuotesOnly: ElementRef;
 
+  title = 'PatsWebtools';
+  myMessage;
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.http.get("/message/").pipe(
+      first(),
+      tap(result => console.log("Message from server: ", result)),
+      map(result => this.myMessage = (result as any).message)
+    ).subscribe();
   }
 
   inputSQL:  string;
