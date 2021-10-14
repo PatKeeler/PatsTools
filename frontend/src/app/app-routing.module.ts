@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MathComponent} from "./math/math.component";
-import { PasswordsComponent} from "./passwords/passwords.component";
-import { PokerComponent} from "./poker/poker.component";
+import { MathComponent} from './math/math.component';
+import { PasswordsComponent} from './passwords/passwords.component';
+import { PokerComponent} from './poker/poker.component';
 import { SqlComponent} from './sql/sql.component';
 import { XmlComponent} from './xml/xml.component';
 

@@ -12,6 +12,6 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   myMethod() {
-    return console.log("Whats up");
+    return console.log('Whats up');
   }
 }

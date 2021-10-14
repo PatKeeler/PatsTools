@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
-import { isPlatformBrowser } from "@angular/common";
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-math',
@@ -11,13 +11,13 @@ export class MathComponent implements OnInit {
 
   // ViewChild references html id
   // ElementRef references ts property
-  @ViewChild("answerInput") answerIn: ElementRef;
-  @ViewChild("divideInput") divideIn: ElementRef;
+  @ViewChild('answerInput') answerIn: ElementRef;
+  @ViewChild('divideInput') divideIn: ElementRef;
 
-  invalidNumber = "You must enter valid numbers for your answer, please try again!";
+  invalidNumber = 'You must enter valid numbers for your answer, please try again!';
 
-  notStarted = "You must select a number and a math function and then click " +
-    "on the \"Start\" button to start the tutor.";
+  notStarted = 'You must select a number and a math function and then click ' +
+    'on the \'Start\' button to start the tutor.';
 
   selectedNumber: any;
   tempNumber: any;
@@ -83,14 +83,14 @@ export class MathComponent implements OnInit {
     }
     this.selectedMathFunction = this.tempFunction;
 
-    //Holder for divide or other "answer" display
+    //Holder for divide or other 'answer' display
     // answer = other - default for add, subtract and multiply.
 
     switch (this.selectedMathFunction) {
       //Add
       case '1': {
-        this.operator = "+";
-        this.answer = "other";
+        this.operator = '+';
+        this.answer = 'other';
         this.otherHide = false;
         this.divideHide = true;
         this.randomNumber = this.getRandomInteger(12);
@@ -98,8 +98,8 @@ export class MathComponent implements OnInit {
       }
       //Subtract
       case '2': {
-        this.operator = "-";
-        this.answer = "other";
+        this.operator = '-';
+        this.answer = 'other';
         this.otherHide = false;
         this.divideHide = true;
         this.randomNumber = this.getRandomInteger(this.selectedNumber);
@@ -107,8 +107,8 @@ export class MathComponent implements OnInit {
       }
       //Multiply
       case '3': {
-        this.operator = "x";
-        this.answer = "other";
+        this.operator = 'x';
+        this.answer = 'other';
         this.otherHide = false;
         this.divideHide = true;
         this.randomNumber = this.getRandomInteger(12);
@@ -116,15 +116,15 @@ export class MathComponent implements OnInit {
       }
       //Divide
       case '4': {
-        this.operator = "/";
+        this.operator = '/';
         this.otherHide = true;
         this.divideHide = false;
         this.randomNumber = this.getRandomInteger(this.selectedNumber);
-        this.answer = "divide";
+        this.answer = 'divide';
         break;
       }
       default: {
-        alert("Number Doh!");
+        alert('Number Doh!');
         break;
       }
     }
@@ -137,7 +137,7 @@ export class MathComponent implements OnInit {
       this.numberRight = 0;
       this.numberWrong = 0;
       this.percentage = 0;
-      // $("[name=percentage]").css("background", "#FFFFFF");
+      // $('[name=percentage]').css('background', '#FFFFFF');
     }
 
     this.answerDisplay(this.answer);
@@ -267,7 +267,7 @@ export class MathComponent implements OnInit {
   answerDisplay(display) {
 
     //Display for all but divide
-    if (display == "other") {
+    if (display == 'other') {
 
       //blank answer, set focus
       this.otherAnswer = '';
@@ -279,7 +279,7 @@ export class MathComponent implements OnInit {
       this.setFocus(this.answerIn);
     }
     //Display divide answer boxes
-    else if (display == "divide") {
+    else if (display == 'divide') {
 
       //blank answer, set focus
       this.divideAnswer = '';
@@ -292,7 +292,7 @@ export class MathComponent implements OnInit {
     }
     //Doh!
     else {
-      alert("invalid answer display: " + display);
+      alert('invalid answer display: ' + display);
     }
   }
 
@@ -319,16 +319,16 @@ export class MathComponent implements OnInit {
     }
 
     //Reset background color to white
-    // this.percentage.css("background", "#FFFFFF");
+    // this.percentage.css('background', '#FFFFFF');
 
   }
 
   setResponseBackground() {
     let bgColor = {
       white: this.responseText == '',
-      green: this.responseText == "Correct",
-      yellow: this.responseText == "Try again",
-      red: this.responseText == "Wrong"
+      green: this.responseText == 'Correct',
+      yellow: this.responseText == 'Try again',
+      red: this.responseText == 'Wrong'
     }
     return bgColor;
   }
@@ -350,8 +350,8 @@ export class MathComponent implements OnInit {
   correctAnswer() {
 
     //Signal correct
-    this.responseText = "Correct";
-    // this.responseText.css("background", "#40FF00");
+    this.responseText = 'Correct';
+    // this.responseText.css('background', '#40FF00');
 
     if (this.selectedMathFunction != 4) {
       //Set otherAnswer to blank and focus
@@ -387,8 +387,8 @@ export class MathComponent implements OnInit {
 
     if (this.repetition == 2) {
       //Signal wrong answer
-      this.responseText = "Wrong";
-      // this.responseText]").css("background", "#FF0000");
+      this.responseText = 'Wrong';
+      // this.responseText]').css('background', '#FF0000');
 
       if (this.selectedMathFunction != 4) {
         this.otherAnswer = '';
@@ -414,7 +414,7 @@ export class MathComponent implements OnInit {
 
       //Signal wrong answer
       this.responseText = 'Try again';
-      // this.responseText]").css("background", "#FFFF00");
+      // this.responseText]').css('background', '#FFFF00');
 
       //hide hint button
       this.hintHide = false;
@@ -457,19 +457,19 @@ export class MathComponent implements OnInit {
     //Set color for score
     if (percent >= 90) {
       //Green
-      // this.percentage]").css("background", "#40FF00");
+      // this.percentage]').css('background', '#40FF00');
     } else if (percent >= 80) {
       //Yellow
-      // this.percentage]").css("background", "#FFFF00");
+      // this.percentage]').css('background', '#FFFF00');
     } else if (percent >= 70) {
       //Orange
-      // this.percentage]").css("background", "#FF6600");
+      // this.percentage]').css('background', '#FF6600');
     } else if (percent >= 1) {
       //Red
-      // this.percentage]").css("background", "#FF0000");
+      // this.percentage]').css('background', '#FF0000');
     } else {
       //White
-      // this.percentage]").css("background", "#FFFFFF");
+      // this.percentage]').css('background', '#FFFFFF');
     }
 
 
@@ -548,15 +548,15 @@ export class MathComponent implements OnInit {
    */
   getAdditionHints() {
 
-    var display = "";
-    var newLine = "\n";
+    var display = '';
+    var newLine = '\n';
 
     for (var i = 0; i < 12; i++) {
-      display += newLine + this.selectedNumber + " + " + Number(i + 1) + " = " +
+      display += newLine + this.selectedNumber + ' + ' + Number(i + 1) + ' = ' +
         (Number(this.selectedNumber) + Number(i + 1));
     }
 
-    alert("Hint: " + display);
+    alert('Hint: ' + display);
   }
 
 
@@ -565,19 +565,19 @@ export class MathComponent implements OnInit {
    */
   getDivisionHints() {
 
-    var display = "";
-    var newLine = "\n";
+    var display = '';
+    var newLine = '\n';
 
     for (var i = 0; i < this.selectedNumber; i++) {
       var mod = Number(this.selectedNumber) % Number(i + 1);
       var number = Number(this.selectedNumber) / Number(i + 1);
       number = Math.floor(number);
 
-      display += newLine + this.selectedNumber + " / " + Number(i + 1) + " = " +
-        number + ", remainder: " + mod;
+      display += newLine + this.selectedNumber + ' / ' + Number(i + 1) + ' = ' +
+        number + ', remainder: ' + mod;
     }
 
-    alert("Hint: " + display);
+    alert('Hint: ' + display);
   }
 
 
@@ -586,15 +586,15 @@ export class MathComponent implements OnInit {
    */
   getMultiplicationHints() {
 
-    var display = "";
-    var newLine = "\n";
+    var display = '';
+    var newLine = '\n';
 
     for (var i = 0; i < 12; i++) {
-      display += newLine + this.selectedNumber + " x " + Number(i + 1) + " = " +
+      display += newLine + this.selectedNumber + ' x ' + Number(i + 1) + ' = ' +
         (Number(this.selectedNumber) * Number(i + 1));
     }
 
-    alert("Hint: " + display);
+    alert('Hint: ' + display);
   }
 
 
@@ -603,15 +603,15 @@ export class MathComponent implements OnInit {
    */
   getSubtractionHints() {
 
-    var display = "";
-    var newLine = "\n";
+    var display = '';
+    var newLine = '\n';
 
     for (var i = 0; i < this.selectedNumber; i++) {
-      display += newLine + this.selectedNumber + " - " + Number(i + 1) + " = " +
+      display += newLine + this.selectedNumber + ' - ' + Number(i + 1) + ' = ' +
         (Number(this.selectedNumber) - Number(i + 1));
     }
 
-    alert("Hint: " + display);
+    alert('Hint: ' + display);
   }
 
 
@@ -620,32 +620,32 @@ export class MathComponent implements OnInit {
    */
   getMathAbout() {
 
-    alert("This Elementary Math Tutor helps teach the basic math skills through the use of repetition. "
-      + "The tutor uses random \nnumber generation to repetitively challenge the user for answers "
-      + "to the selected number and a randomly generated number."
-      + "\n\nFollow these steps to get started:"
-      + "\n\n\t 1. Select the radio button by the number you want to practice."
-      + "\n\t 2. Select the radio button by the math function you want to practice."
-      + "\n\t 3. Press the \"Start\" button to begin the training."
-      + "\n\t 4. Enter the answer for the generated problem."
-      + "\n\nThe tutor will count each time you get the answer correct. You will get 2 chances "
-      + "to enter the correct number, if you \nget them both wrong it will count as a wrong answer. "
-      + "If you want to change the answer you have entered, use the \nbackspace button on your keyboard "
-      + "to erase the answer."
-      + "\n\nYou can check your answer by pressing the \"Check Answer\" button or by pressing the \"Enter\" key."
-      + "\n\nThe problems are randomly generated so sometimes you might get the same problem 2 or 3 times "
-      + "in a row."
-      + "\n\nYou can change the number and/or math function at any time by selecting the new values and "
-      + "pressing the \"Start\" button again. "
-      + "\n\nWhen you select \"Divide\" the remainder is set to \"0\" "
-      + " so you only need to change it if the remainder is not zero. "
-      + "\n\nThis tool only keeps score for the current session. It shows the number correct, the number "
-      + "wrong and the percentage correct."
-      + "\n\nNeed help with the answer?  Press the \"Hint\" button for help anytime you can see it. "
-      + "The \"Hint\" button will help you \nlearn the right answers.  But, when you use hints, study them so "
-      + "you don't have to look at hints so often."
-      + "\n\nIf you have suggestions for enhancements or encounter errors, send an email "
-      + "to keelerpl@gmail.com and I'll look into it. ");
+    alert('This Elementary Math Tutor helps teach the basic math skills through the use of repetition. '
+      + 'The tutor uses random \nnumber generation to repetitively challenge the user for answers '
+      + 'to the selected number and a randomly generated number.'
+      + '\n\nFollow these steps to get started:'
+      + '\n\n\t 1. Select the radio button by the number you want to practice.'
+      + '\n\t 2. Select the radio button by the math function you want to practice.'
+      + '\n\t 3. Press the \'Start\' button to begin the training.'
+      + '\n\t 4. Enter the answer for the generated problem.'
+      + '\n\nThe tutor will count each time you get the answer correct. You will get 2 chances '
+      + 'to enter the correct number, if you \nget them both wrong it will count as a wrong answer. '
+      + 'If you want to change the answer you have entered, use the \nbackspace button on your keyboard '
+      + 'to erase the answer.'
+      + '\n\nYou can check your answer by pressing the \'Check Answer\' button or by pressing the \'Enter\' key.'
+      + '\n\nThe problems are randomly generated so sometimes you might get the same problem 2 or 3 times '
+      + 'in a row.'
+      + '\n\nYou can change the number and/or math function at any time by selecting the new values and '
+      + 'pressing the \'Start\' button again. '
+      + '\n\nWhen you select \'Divide\' the remainder is set to \'0\' '
+      + ' so you only need to change it if the remainder is not zero. '
+      + '\n\nThis tool only keeps score for the current session. It shows the number correct, the number '
+      + 'wrong and the percentage correct.'
+      + '\n\nNeed help with the answer?  Press the \'Hint\' button for help anytime you can see it. '
+      + 'The \'Hint\' button will help you \nlearn the right answers.  But, when you use hints, study them so '
+      + 'you do not have to look at hints so often.'
+      + '\n\nIf you have suggestions for enhancements or encounter errors, send an email '
+      + 'to keelerpl@gmail.com and I will look into it. ');
 
     return true;
   }
