@@ -13,26 +13,24 @@ export class PasswordsComponent implements OnInit {
    */
   passwordImage = [
     // 16 chars - Hex
-    "0","1","2","3","4","5","6","7","8","9",
-    "A","B","C","D","E","F",
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+    'A', 'B', 'C', 'D', 'E', 'F',
 
-    // 62 chars - all but special characters
-    "G","H","I","J","K","L","M","N","O","P","Q","R","S",
-    "T","U","V","W","X","Y","Z",
-    "a","b","c","d","e","f","g","h","i","j","k","l","m",
-    "n","o","p","q","r","s","t","u","v","w","x","y","z",
+     // 62 chars - all but special characters
+    'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+    'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 
     // 74 chars - all.
-    "!","@","#","$","%","^","*","(",")","_","+","="
+    '!', '@', '#', '$', '%', '^', '*', '(', ')', '_', '+', '='
   ];
 
-  pwdLength:     number = 16;
-
-  excludeChars:  string = '';
-
-  hexOnly:       string = '';
-  hexUpperLower: string = '';
-  hexAllSpecial: string = '';
+  pwdLength = 16;
+  excludeChars = '';
+  hexOnly = '';
+  hexUpperLower = '';
+  hexAllSpecial = '';
 
   constructor() { }
 
@@ -40,16 +38,16 @@ export class PasswordsComponent implements OnInit {
   }
 
 
-  getPasswords() {
+  getPasswords(): any {
 
-    let pwdLen = Number(this.pwdLength);
+    const pwdLen = Number(this.pwdLength);
 
     let range = 0;
-    let pwds = ['','','',''];
+    const pwds = ['', '', '', ''];
 
-    //Loop and generate a password for each depth level.
+    // Loop and generate a password for each depth level.
     for (let n = 0; n < 3; n++) {
-      switch(n) {
+      switch (n) {
         case 0:
           range = 15;
           break;
@@ -57,13 +55,13 @@ export class PasswordsComponent implements OnInit {
           range = 61;
           break;
         default:
-          range = 73
+          range = 73;
       }
 
-      let buffer = "";
+      let buffer = '';
 
       for (let i = 0; buffer.length < pwdLen; i++) {
-        let karacter = this.passwordImage[this.getRandomInteger(range)];
+        const karacter = this.passwordImage[this.getRandomInteger(range)];
         if (this.excludeChars.includes(karacter)) {
           continue;
         }
@@ -81,7 +79,7 @@ export class PasswordsComponent implements OnInit {
    * Insure password length is numeric.
    */
   numericOnly(event): boolean {
-    let pattern = /^([0-9])$/;
+    const pattern = /^([0-9])$/;
     return pattern.test(event.key);
   }
 
@@ -89,7 +87,7 @@ export class PasswordsComponent implements OnInit {
   /**
    * Random number generator.
    */
-  getRandomInteger(range) {
+  getRandomInteger(range): any {
 
     return Math.floor(Math.random() * range + 1);
   }
@@ -98,7 +96,7 @@ export class PasswordsComponent implements OnInit {
   /**
    * Load the passwords onto the page forms.
    */
-  setPassowrdsOnPage(pwds) {
+  setPassowrdsOnPage(pwds): void {
 
     this.hexOnly = pwds[0];
     this.hexUpperLower = pwds[1];
@@ -109,27 +107,27 @@ export class PasswordsComponent implements OnInit {
   /*
  * This is the user information for Password Generator.
  */
-  getPasswordAbout() {
+  getPasswordAbout(): boolean {
 
-    alert("This Password Generator creates 3 levels of password strength "
-      + "\n   which are defined in the table under the \"Generate\" button. "
-      + "\n"
-      + "\n  First - enter the password length you want. "
-      + "\n     The default is 16, you can change it to any length less "
-      + "\n     than 100. "
-      + "\n"
-      + "\n  Next - Add in any characters you do not want in the passwords. "
-      + "\n     This space is used if some of the special characters are not "
-      + "\n     allowed in passwords for the system you are logging into."
-      + "\n"
-      + "\n  Next - Select the \"Generate\" button to generate the passwords, "
-      + "\n     you can select this button as many times as you want until "
-      + "\n     you get a password you like. "
-      + "\n"
-      + "\n  Finally - Select the password you want and paste it into your "
-      + "\n     systems new password settings. "
-      + "\n"
-      + "\n  Have fun! ");
+    alert('This Password Generator creates 3 levels of password strength '
+      + '\n   which are defined in the table under the \'Generate\' button. '
+      + '\n'
+      + '\n  First - enter the password length you want. '
+      + '\n     The default is 16, you can change it to any length less '
+      + '\n     than 100. '
+      + '\n'
+      + '\n  Next - Add in any characters you do not want in the passwords. '
+      + '\n     This space is used if some of the special characters are not '
+      + '\n     allowed in passwords for the system you are logging into.'
+      + '\n'
+      + '\n  Next - Select the \'Generate\' button to generate the passwords, '
+      + '\n     you can select this button as many times as you want until '
+      + '\n     you get a password you like. '
+      + '\n'
+      + '\n  Finally - Select the password you want and paste it into your '
+      + '\n     systems new password settings. '
+      + '\n'
+      + '\n  Have fun! ');
 
     return true;
   }

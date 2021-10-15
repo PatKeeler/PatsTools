@@ -27,21 +27,21 @@ export class MathComponent implements OnInit {
   operator: any;
   responseText: any = '';
 
-  rightCount: number = 0;
-  wrongCount: number = 0;
-  repetition: number = 1;
-  numberRight: number = 0;
-  numberWrong: number = 0;
-  percentage: number = 0;
-  remainder: number = 0;
+  rightCount = 0;
+  wrongCount = 0;
+  repetition = 1;
+  numberRight = 0;
+  numberWrong = 0;
+  percentage = 0;
+  remainder = 0;
 
-  answer: string = 'other';
+  answer = 'other';
   otherAnswer: any;
   divideAnswer: any;
 
-  otherHide: boolean = false;
-  divideHide: boolean = true;
-  hintHide: boolean = true;
+  otherHide = false;
+  divideHide = true;
+  hintHide = true;
 
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
@@ -54,7 +54,7 @@ export class MathComponent implements OnInit {
   /**
    * Get the selected number.
    */
-  numberRadioHandler(event): any {
+  numberRadioHandler(event): void {
     this.tempNumber = event.target.value;
   }
 
@@ -62,32 +62,32 @@ export class MathComponent implements OnInit {
   /**
    * Get the selected operation.
    */
-  functionRadioHandler(event): any {
+  functionRadioHandler(event): void {
     this.tempFunction = event.target.value;
   }
 
   /**
    * Validate radio buttons and start.
    */
-  startTutor() {
+  startTutor(): any {
 
-    if (this.tempNumber == null) {
+    if (this.tempNumber === null) {
       alert(this.notStarted);
       return false;
     }
     this.selectedNumber = this.tempNumber;
 
-    if (this.tempFunction == null) {
+    if (this.tempFunction === null) {
       alert(this.notStarted);
       return false;
     }
     this.selectedMathFunction = this.tempFunction;
 
-    //Holder for divide or other 'answer' display
+    // Holder for divide or other 'answer' display
     // answer = other - default for add, subtract and multiply.
 
     switch (this.selectedMathFunction) {
-      //Add
+      // Add
       case '1': {
         this.operator = '+';
         this.answer = 'other';
@@ -96,7 +96,7 @@ export class MathComponent implements OnInit {
         this.randomNumber = this.getRandomInteger(12);
         break;
       }
-      //Subtract
+      // Subtract
       case '2': {
         this.operator = '-';
         this.answer = 'other';
@@ -105,7 +105,7 @@ export class MathComponent implements OnInit {
         this.randomNumber = this.getRandomInteger(this.selectedNumber);
         break;
       }
-      //Multiply
+      // Multiply
       case '3': {
         this.operator = 'x';
         this.answer = 'other';
@@ -114,7 +114,7 @@ export class MathComponent implements OnInit {
         this.randomNumber = this.getRandomInteger(12);
         break;
       }
-      //Divide
+      // Divide
       case '4': {
         this.operator = '/';
         this.otherHide = true;
@@ -132,8 +132,8 @@ export class MathComponent implements OnInit {
     // blank responseText and background color to white.
     this.responseText = '';
 
-    //set scores to zero if counts are zero
-    if (Number(this.rightCount) == 0 && Number(this.wrongCount) == 0) {
+    // set scores to zero if counts are zero
+    if (Number(this.rightCount) === 0 && Number(this.wrongCount) === 0) {
       this.numberRight = 0;
       this.numberWrong = 0;
       this.percentage = 0;
@@ -153,18 +153,18 @@ export class MathComponent implements OnInit {
    * Verifies the answer is correct, records the result and
    * resets for the next challenge.
    */
-  checkAnswer() {
+  checkAnswer(): any {
 
     let guess = -1;
 
-    //Make sure the tutor has been started correctly first.
-    if (this.selectedNumber == null || this.selectedMathFunction == null) {
+    // Make sure the tutor has been started correctly first.
+    if (this.selectedNumber === null || this.selectedMathFunction === null) {
       alert(this.notStarted);
       return false;
     }
 
-    //Make sure there is an answer to check.
-    if (this.selectedMathFunction != 4) {
+    // Make sure there is an answer to check.
+    if (this.selectedMathFunction !== 4) {
       if (! this.verifyNumber(this.otherAnswer)) {
         return false;
       }
@@ -175,7 +175,7 @@ export class MathComponent implements OnInit {
         return false;
       }
     }
-    //Make sure remainder is blank or a number
+    // Make sure remainder is blank or a number
     if (! this.remainder) {
       if (! this.verifyNumber(this.remainder)) {
         alert(this.invalidNumber);
@@ -183,53 +183,53 @@ export class MathComponent implements OnInit {
       }
     }
 
-    //Compute answer based on math function
-    //Addition
-    if (this.selectedMathFunction == 1) {
+    // Compute answer based on math function
+    // Addition
+    if (this.selectedMathFunction === 1) {
       guess = Number(this.selectedNumber) + Number(this.randomNumber);
 
-      if (guess == this.otherAnswer) {
+      if (guess === this.otherAnswer) {
         this.correctAnswer();
 
-        //Reset random number
+        // Reset random number
         this.randomNumber = this.getRandomInteger(12);
       } else {
         this.wrongAnswer();
       }
     }
-    //Subtraction
-    else if (this.selectedMathFunction == 2) {
+    // Subtraction
+    else if (this.selectedMathFunction === 2) {
       guess = Number(this.selectedNumber) - Number(this.randomNumber);
 
-      if (guess == this.otherAnswer) {
+      if (guess === this.otherAnswer) {
         this.correctAnswer();
 
-        //Reset random number
+        // Reset random number
         this.randomNumber = this.getRandomInteger(this.selectedNumber);
       } else {
         this.wrongAnswer();
       }
     }
-    //Multiplication
-    else if (this.selectedMathFunction == 3) {
+    // Multiplication
+    else if (this.selectedMathFunction === 3) {
       guess = Number(this.selectedNumber) * Number(this.randomNumber);
 
-      if (guess == this.otherAnswer) {
+      if (guess === this.otherAnswer) {
         this.correctAnswer();
 
-        //Reset random number
+        // Reset random number
         this.randomNumber = this.getRandomInteger(12);
       } else {
         this.wrongAnswer();
       }
     }
-    //Division
-    else if (this.selectedMathFunction == 4) {
+    // Division
+    else if (this.selectedMathFunction === 4) {
 
       let remainder;
       let mod;
 
-      if (this.remainder == null) {
+      if (this.remainder === null) {
         remainder = Number(0);
       }
       else {
@@ -241,9 +241,9 @@ export class MathComponent implements OnInit {
 
       mod = Number(this.selectedNumber) % Number(this.randomNumber);
 
-      if (guess == this.divideAnswer && mod == this.remainder) {
+      if (guess === this.divideAnswer && mod === this.remainder) {
         this.correctAnswer();
-        //For division get a number that gives mod zero
+        // For division get a number that gives mod zero
         this.randomNumber = this.getRandomInteger(Number(this.selectedNumber));
 
       } else {
@@ -255,33 +255,31 @@ export class MathComponent implements OnInit {
   /**
    * Set focus on the desired input field.
    */
-  setFocus(element) {
-    setTimeout(() => { element.nativeElement.focus() },50);
+  setFocus(element): void {
+    setTimeout(() => { element.nativeElement.focus(); }, 50);
   }
 
   /**
    * Determine the correct answer display
-   *
-   * @param display
    */
-  answerDisplay(display) {
+  answerDisplay(display): void {
 
-    //Display for all but divide
-    if (display == 'other') {
+    // Display for all but divide
+    if (display === 'other') {
 
-      //blank answer, set focus
+      // blank answer, set focus
       this.otherAnswer = '';
 
-      //Show other and hide divide
+      // Show other and hide divide
       this.otherHide = false;
       this.divideHide = true;
       // this.setOtherFocus();
       this.setFocus(this.answerIn);
     }
-    //Display divide answer boxes
-    else if (display == 'divide') {
+    // Display divide answer boxes
+    else if (display === 'divide') {
 
-      //blank answer, set focus
+      // blank answer, set focus
       this.divideAnswer = '';
       this.remainder = 0;
 
@@ -290,7 +288,7 @@ export class MathComponent implements OnInit {
       // this.setDivideFocus();
       this.setFocus(this.divideIn);
     }
-    //Doh!
+    // Doh!
     else {
       alert('invalid answer display: ' + display);
     }
@@ -300,82 +298,82 @@ export class MathComponent implements OnInit {
   /**
    * Reset the score
    */
-  resetScore() {
+  resetScore(): void {
 
-    //set score to blanks.
+    // set score to blanks.
     this.numberWrong = 0;
     this.numberRight = 0;
     this.percentage = 0;
 
-    //set counts to zero
+    // set counts to zero
     this.wrongCount = 0;
     this.rightCount = 0;
 
-    if (this.selectedMathFunction == 4) {
+    if (this.selectedMathFunction === 4) {
       this.setFocus(this.divideIn);
     }
     else {
       this.setFocus(this.answerIn);
     }
 
-    //Reset background color to white
+    // Reset background color to white
     // this.percentage.css('background', '#FFFFFF');
 
   }
 
-  setResponseBackground() {
-    let bgColor = {
-      white: this.responseText == '',
-      green: this.responseText == 'Correct',
-      yellow: this.responseText == 'Try again',
-      red: this.responseText == 'Wrong'
-    }
+  setResponseBackground(): any {
+    const bgColor = {
+      white: this.responseText === '',
+      green: this.responseText === 'Correct',
+      yellow: this.responseText === 'Try again',
+      red: this.responseText === 'Wrong'
+    };
     return bgColor;
   }
 
-  setPercentBackground() {
-    let myColor = {
-      white:  this.percentage == 0,
+  setPercentBackground(): any {
+    const myColor = {
+      white:  this.percentage === 0,
       red:    this.percentage <  70 && this.percentage > 1,
       orange: this.percentage >= 70 && this.percentage < 80,
       yellow: this.percentage >= 80 && this.percentage < 90,
       green:  this.percentage >= 90,
-    }
+    };
     return myColor;
   }
 
   /**
    * Correct answer.
    */
-  correctAnswer() {
+  correctAnswer(): void {
 
-    //Signal correct
+    // Signal correct
     this.responseText = 'Correct';
     // this.responseText.css('background', '#40FF00');
 
-    if (this.selectedMathFunction != 4) {
-      //Set otherAnswer to blank and focus
+    if (this.selectedMathFunction !== 4) {
+      // Set otherAnswer to blank and focus
       this.otherAnswer = '';
       this.setFocus(this.answerIn);
     } else {
-      //Set divideAnswer to blank and focus
+      // Set divideAnswer to blank and focus
       this.divideAnswer = '';
       this.setFocus(this.divideIn);
       this.remainder = 0;
     }
 
 
-    //Increment number correct
+    // Increment number correct
     this.rightCount += 1;
     this.numberRight = this.rightCount;
 
-    //Compute new percentage
+    // Compute new percentage
     this.computePercentage();
 
-    //reset
+    // reset
     this.repetition = 1;
 
-    //hide hint button
+    // hide hint button
     this.hintHide = true;
   }
 
@@ -383,14 +381,14 @@ export class MathComponent implements OnInit {
   /**
    * Wrong answer.
    */
-  wrongAnswer() {
+  wrongAnswer(): void {
 
-    if (this.repetition == 2) {
-      //Signal wrong answer
+    if (this.repetition === 2) {
+      // Signal wrong answer
       this.responseText = 'Wrong';
       // this.responseText]').css('background', '#FF0000');
 
-      if (this.selectedMathFunction != 4) {
+      if (this.selectedMathFunction !== 4) {
         this.otherAnswer = '';
         this.setFocus(this.answerIn);
       }
@@ -405,23 +403,23 @@ export class MathComponent implements OnInit {
 
       this.repetition = 1;
 
-      //hide hint button
+      // hide hint button
       this.hintHide = true;
 
     } else {
-      //bump by one
+      // bump by one
       this.repetition += 1;
 
-      //Signal wrong answer
+      // Signal wrong answer
       this.responseText = 'Try again';
       // this.responseText]').css('background', '#FFFF00');
 
-      //hide hint button
+      // hide hint button
       this.hintHide = false;
 
     }
 
-    //Compute new percentage
+    // Compute new percentage
     this.computePercentage();
 
   }
@@ -430,45 +428,45 @@ export class MathComponent implements OnInit {
   /**
    * Compute percentage
    */
-  computePercentage() {
+  computePercentage(): void {
 
-    let percent;
-    let total;
+    let percent = 0.0;
+    let total = 0.0;
 
-    if (this.rightCount == 0) {
+    if (this.rightCount === 0) {
       percent = 0;
     } else {
       total = Number(this.rightCount) + Number(this.wrongCount);
 
-      //Get percent
+      // Get percent
       percent = Number(this.rightCount) / total;
 
-      //Move decimal 2 positions to make percent
+      // Move decimal 2 positions to make percent
       percent = percent * 100;
 
-      //Get whole number
+      // Get whole number
       percent = Math.round(percent);
 
     }
 
-    //show percentage
+    // show percentage
     this.percentage = percent;
 
-    //Set color for score
+    // Set color for score
     if (percent >= 90) {
-      //Green
+      // Green
       // this.percentage]').css('background', '#40FF00');
     } else if (percent >= 80) {
-      //Yellow
+      // Yellow
       // this.percentage]').css('background', '#FFFF00');
     } else if (percent >= 70) {
-      //Orange
+      // Orange
       // this.percentage]').css('background', '#FF6600');
     } else if (percent >= 1) {
-      //Red
+      // Red
       // this.percentage]').css('background', '#FF0000');
     } else {
-      //White
+      // White
       // this.percentage]').css('background', '#FFFFFF');
     }
 
@@ -481,7 +479,7 @@ export class MathComponent implements OnInit {
    *
    * Uses an input parameter to create the random integer for flexibility.
    */
-  getRandomInteger(range) {
+  getRandomInteger(range): any {
 
     return this.randomNumber = Math.floor(Math.random() * range + 1);
   }
@@ -489,10 +487,8 @@ export class MathComponent implements OnInit {
 
   /**
    * Verify that number passed in is a valid integer.
-   *
-   * @param a
    */
-  verifyNumber(num) {
+  verifyNumber(num): boolean {
 
     if (num >= 0 && num <= 999) {
       return true;
@@ -505,39 +501,39 @@ export class MathComponent implements OnInit {
   /**
    * Hint - shows the possible correct answers from minimum to maximum.
    */
-  getHint() {
+  getHint(): any {
 
-    if (this.selectedNumber == null || this.selectedMathFunction == null) {
+    if (this.selectedNumber === null || this.selectedMathFunction === null) {
       alert(this.notStarted);
       return false;
     }
 
-    //Addition
-    if (this.selectedMathFunction == 1) {
+    // Addition
+    if (this.selectedMathFunction === 1) {
       this.getAdditionHints();
-      //Set focus on answer
+      // Set focus on answer
       this.setFocus(this.answerIn);
     }
-    //Subtraction
-    else if (this.selectedMathFunction == 2) {
+    // Subtraction
+    else if (this.selectedMathFunction === 2) {
       this.getSubtractionHints();
-      //Set focus on answer
+      // Set focus on answer
       this.setFocus(this.answerIn);
     }
-    //Multiplication
-    else if (this.selectedMathFunction == 3) {
+    // Multiplication
+    else if (this.selectedMathFunction === 3) {
       this.getMultiplicationHints();
-      //Set focus on answer
+      // Set focus on answer
       this.setFocus(this.answerIn);
     }
-    //Division
-    else if (this.selectedMathFunction == 4) {
+    // Division
+    else if (this.selectedMathFunction === 4) {
       this.getDivisionHints();
-      //Set focus on answer
+      // Set focus on answer
       this.setFocus(this.divideIn);
     }
 
-    //Set focus on answer
+    // Set focus on answer
     this.setFocus(this.answerIn);
 
   }
@@ -546,12 +542,12 @@ export class MathComponent implements OnInit {
   /**
    * Get addition possibilities.
    */
-  getAdditionHints() {
+  getAdditionHints(): void {
 
-    var display = '';
-    var newLine = '\n';
+    let display = '';
+    const newLine = '\n';
 
-    for (var i = 0; i < 12; i++) {
+    for (let i = 0; i < 12; i++) {
       display += newLine + this.selectedNumber + ' + ' + Number(i + 1) + ' = ' +
         (Number(this.selectedNumber) + Number(i + 1));
     }
@@ -563,18 +559,18 @@ export class MathComponent implements OnInit {
   /**
    * Get division possibilities.
    */
-  getDivisionHints() {
+  getDivisionHints(): void {
 
-    var display = '';
-    var newLine = '\n';
+    let display = '';
+    const newLine = '\n';
 
-    for (var i = 0; i < this.selectedNumber; i++) {
-      var mod = Number(this.selectedNumber) % Number(i + 1);
-      var number = Number(this.selectedNumber) / Number(i + 1);
-      number = Math.floor(number);
+    for (let i = 0; i < this.selectedNumber; i++) {
+      const mod = Number(this.selectedNumber) % Number(i + 1);
+      let divNum = Number(this.selectedNumber) / Number(i + 1);
+      divNum = Math.floor(divNum);
 
       display += newLine + this.selectedNumber + ' / ' + Number(i + 1) + ' = ' +
-        number + ', remainder: ' + mod;
+        divNum + ', remainder: ' + mod;
     }
 
     alert('Hint: ' + display);
@@ -584,12 +580,12 @@ export class MathComponent implements OnInit {
   /**
    * Get multiplication possibilities.
    */
-  getMultiplicationHints() {
+  getMultiplicationHints(): void {
 
-    var display = '';
-    var newLine = '\n';
+    let display = '';
+    const newLine = '\n';
 
-    for (var i = 0; i < 12; i++) {
+    for (let i = 0; i < 12; i++) {
       display += newLine + this.selectedNumber + ' x ' + Number(i + 1) + ' = ' +
         (Number(this.selectedNumber) * Number(i + 1));
     }
@@ -601,12 +597,12 @@ export class MathComponent implements OnInit {
   /**
    * Get subtraction possibilities.
    */
-  getSubtractionHints() {
+  getSubtractionHints(): void {
 
-    var display = '';
-    var newLine = '\n';
+    let display = '';
+    const newLine = '\n';
 
-    for (var i = 0; i < this.selectedNumber; i++) {
+    for (let i = 0; i < this.selectedNumber; i++) {
       display += newLine + this.selectedNumber + ' - ' + Number(i + 1) + ' = ' +
         (Number(this.selectedNumber) - Number(i + 1));
     }
@@ -618,7 +614,7 @@ export class MathComponent implements OnInit {
   /**
    * This is the about information for the Math Tutor.
    */
-  getMathAbout() {
+  getMathAbout(): void {
 
     alert('This Elementary Math Tutor helps teach the basic math skills through the use of repetition. '
       + 'The tutor uses random \nnumber generation to repetitively challenge the user for answers '
@@ -646,8 +642,6 @@ export class MathComponent implements OnInit {
       + 'you do not have to look at hints so often.'
       + '\n\nIf you have suggestions for enhancements or encounter errors, send an email '
       + 'to keelerpl@gmail.com and I will look into it. ');
-
-    return true;
   }
 
 }

@@ -1,6 +1,5 @@
 package tools.java.pats.formatters.EmbeddedSelects.Factory;
 
-import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
 import tools.java.pats.nodes.Node;
 
@@ -16,7 +15,6 @@ import java.security.InvalidParameterException;
  * Time: 7:58 PM
  * To change this template use File | Settings | File Templates.
  */
-@ThreadSafe
 public class EmbeddedSelectsFormatterFactory {
 
 

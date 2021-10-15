@@ -1,6 +1,5 @@
 package tools.java.pats.formatters;
 
-import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
 
 import java.io.Serializable;
@@ -16,7 +15,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author keeler.pat
  * @version 1.0.0:$
  */
-@ThreadSafe
 public class AsLinesFormatter implements Serializable, ProjectStaticConstants {
 
     private static final long serialVersionUID = 1951L;

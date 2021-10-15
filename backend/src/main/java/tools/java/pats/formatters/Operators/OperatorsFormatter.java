@@ -1,6 +1,5 @@
 package tools.java.pats.formatters.Operators;
 
-import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
 import tools.java.pats.formatters.CaseLinesFormatter;
 import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
@@ -23,7 +22,6 @@ import static java.lang.String.format;
  * Date: 4/12/12
  * Time: 9:25 PM
  */
-@ThreadSafe
 public class OperatorsFormatter implements Serializable, ProjectStaticConstants {
 
     private static final long serialVersionUID = 1951L;

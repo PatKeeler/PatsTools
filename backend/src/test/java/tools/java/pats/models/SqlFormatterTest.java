@@ -14,6 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 import static java.lang.String.format;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Pat on 7/11/2016.

@@ -1,6 +1,5 @@
 package tools.java.pats.formatters;
 
-import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.utils.StringIndexes;
 
 import java.io.Serializable;
@@ -12,7 +11,6 @@ import java.io.Serializable;
  * Format any set of comma delimited values into proper
  * indents, each on a single line.
  */
-@ThreadSafe
 public class ColumnsWithinParensFormatter implements Serializable {
 
     private static final long serialVersionUID = 1951L;

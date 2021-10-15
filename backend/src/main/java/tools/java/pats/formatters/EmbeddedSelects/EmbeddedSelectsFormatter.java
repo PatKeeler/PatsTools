@@ -1,6 +1,5 @@
 package tools.java.pats.formatters.EmbeddedSelects;
 
-import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.models.SqlFormatter;
 import tools.java.pats.nodes.Node;
 import tools.java.pats.utils.StringIndexes;
@@ -18,7 +17,6 @@ import static java.lang.String.format;
  * Time: 8:15 PM
  * To change this template use File | Settings | File Templates.
  */
-@ThreadSafe
 public class EmbeddedSelectsFormatter extends Node implements Serializable {
 
     private static final long serialVersionUID = 1951L;

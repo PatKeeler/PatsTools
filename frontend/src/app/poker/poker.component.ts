@@ -5,17 +5,17 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
 export interface PlayerData {
-  name:    string;
-  buyIn:   string;
-  bounty:  string;
-  fee:     string;
+  name: string;
+  buyIn: string;
+  bounty: string;
+  fee: string;
   lastMan: string;
-  addOn:   string;
+  addOn: string;
 }
 
 export interface WinnerData {
   position: number;
-  amount:   string;
+  amount: string;
 }
 
 @Component({
@@ -41,28 +41,28 @@ export class PokerComponent implements OnInit {
   playersHide: boolean;
   winnersHide: boolean;
 
-  playerName:    string;
-  buyInAmount:   string;
-  bountyAmount:  string;
-  feeAmount:     string;
+  playerName: string;
+  buyInAmount: string;
+  bountyAmount: string;
+  feeAmount: string;
   lastManAmount: string;
-  addOnAmount:   string;
+  addOnAmount: string;
 
   totalPlayers: number;
-  buyInTotal:   string;
-  bountyTotal:  string;
-  feeTotal:     string;
+  buyInTotal: string;
+  bountyTotal: string;
+  feeTotal: string;
   lastManTotal: string;
-  addOnTotal:   string;
+  addOnTotal: string;
 
   chopPlayers: number;
-  chopAmount:  string;
+  chopAmount: string;
   lastManPlayers: number;
   lastManChopAmount: string;
 
   percentages: string;
   position: number;
-  amount:   string;
+  amount: string;
 
   displayedColumns: string[] = ['select', 'name', 'buyIn', 'bounty', 'fee', 'lastMan', 'addOn'];
   dataSource: MatTableDataSource<PlayerData>;
@@ -130,15 +130,15 @@ export class PokerComponent implements OnInit {
   /**
    * Set focus on the desired input field.
    */
-  setFocus() {
-    setTimeout(() => { this.playerText.nativeElement.focus() },500);
+  setFocus(): void {
+    setTimeout(() => { this.playerText.nativeElement.focus(); }, 500);
   }
 
   /**
    * Set focus on the desired input field.
    */
-  setWinnerFocus() {
-    setTimeout(() => { this.winnerText.nativeElement.focus() },500);
+  setWinnerFocus(): void {
+    setTimeout(() => { this.winnerText.nativeElement.focus(); }, 500);
   }
 
   savePlayer(): void {
@@ -201,7 +201,7 @@ export class PokerComponent implements OnInit {
   addAddOn(): void {
     this.selection.selected.forEach(item => {
       if (parseFloat(item.addOn) >= parseFloat(this.addOnAmount)) {
-        alert('Add On Rejected - ' + item.name + ' has already done an Add On.')
+        alert('Add On Rejected - ' + item.name + ' has already done an Add On.');
       }
       else {
         item.addOn = parseFloat(this.addOnAmount).toFixed(2);
@@ -216,7 +216,7 @@ export class PokerComponent implements OnInit {
   minusRebuy(): void {
     this.selection.selected.forEach(item => {
       if (item.buyIn <= this.buyInAmount) {
-        alert('Minus Rebuy Rejected - ' + item.name + ' has not done a ReBuy!')
+        alert('Minus Rebuy Rejected - ' + item.name + ' has not done a ReBuy!');
       }
       else {
         item.buyIn = (parseFloat(item.buyIn) - parseFloat(this.buyInAmount)).toFixed(2);
@@ -231,7 +231,7 @@ export class PokerComponent implements OnInit {
   minusAddOn(): void {
     this.selection.selected.forEach(item => {
       if (parseFloat(item.addOn) < parseFloat(this.addOnAmount)) {
-        alert('Minus AddOn Rejected - ' + item.name + ' has not done an AddOn!')
+        alert('Minus AddOn Rejected - ' + item.name + ' has not done an AddOn!');
       }
       else {
         item.addOn = (parseFloat(item.addOn) - parseFloat(this.addOnAmount)).toFixed(2);
@@ -259,38 +259,38 @@ export class PokerComponent implements OnInit {
     }
   }
 
-  //Compute chop amount
+  // Compute chop amount
   chopBtn(): void {
-    let players = this.chopPlayers;
-    let buyInAmount = this.buyInTotal;
-    let addOnAmount = this.addOnTotal;
-    let total = parseFloat(buyInAmount) + parseFloat(addOnAmount);
-    let each  = total / players;
+    const players = this.chopPlayers;
+    const buyInAmount = this.buyInTotal;
+    const addOnAmount = this.addOnTotal;
+    const total = parseFloat(buyInAmount) + parseFloat(addOnAmount);
+    const each  = total / players;
     this.chopAmount = each.toFixed(2);
   }
 
 
-  //Compute BuyIn AddOn and LastMan amount
+  // Compute BuyIn AddOn and LastMan amount
   chopAllBtn(): void {
-    let players = this.chopPlayers;
-    let buyInAmount = this.buyInTotal;
-    let addOnAmount = this.addOnTotal;
-    let lastManAmount = this.lastManTotal;
-    let total = parseFloat(buyInAmount) +
+    const players = this.chopPlayers;
+    const buyInAmount = this.buyInTotal;
+    const addOnAmount = this.addOnTotal;
+    const lastManAmount = this.lastManTotal;
+    const total = parseFloat(buyInAmount) +
       parseFloat(addOnAmount) +
       parseFloat(lastManAmount);
-    let each  = total / players;
+    const each  = total / players;
     this.chopAmount = each.toFixed(2);
   }
 
 
-  //Compute last man chop amount
+  // Compute last man chop amount
   chopLastManBtn(): void {
-    let players = this.lastManPlayers;
+    const players = this.lastManPlayers;
     if (players > 0) {
-      let lastManAmount = this.lastManTotal;
-      let total = parseFloat(lastManAmount);
-      let each  = total / players;
+      const lastManAmount = this.lastManTotal;
+      const total = parseFloat(lastManAmount);
+      const each  = total / players;
       this.lastManChopAmount = each.toFixed(2);
     }
     else {
@@ -299,46 +299,46 @@ export class PokerComponent implements OnInit {
   }
 
 
-  //Compute winner amounts
-  computeWinnerBtn () {
+  // Compute winner amounts
+  computeWinnerBtn(): void {
     this.winnerData = [];
-    let buyInTotal = this.buyInTotal;
-    let addOnTotal = this.addOnTotal;
-    let total = Number(buyInTotal) + Number(addOnTotal);
-    let each  = Number(total / 100);
+    const buyInTotal = this.buyInTotal;
+    const addOnTotal = this.addOnTotal;
+    const total = Number(buyInTotal) + Number(addOnTotal);
+    const each  = Number(total / 100);
 
     this.showWinnerTable(each);
   }
 
   // Compute Winners + LastMan amounts
-  computeWinnerLastManBtn() {
+  computeWinnerLastManBtn(): void {
     this.winnerData = [];
-    let buyInTotal = this.buyInTotal;
-    let addOnTotal = this.addOnTotal;
-    let lastManTotal = this.lastManTotal;
-    let total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
-    let each  = Number(total / 100);
+    const buyInTotal = this.buyInTotal;
+    const addOnTotal = this.addOnTotal;
+    const lastManTotal = this.lastManTotal;
+    const total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
+    const each  = Number(total / 100);
 
     this.showWinnerTable(each);
   }
 
   // Show winner table
-  showWinnerTable(each) {
-    let str = this.percentages.replace(/\D+/, ' ').trim();
-    if (str == null || str == '' || str.split(/\D+/).length == 0) {
+  showWinnerTable(each): void {
+    const str1 = this.percentages.replace(/\D+/, ' ').trim();
+    if (str1 === null || str1 === '' || str1.split(/\D+/).length === 0) {
         alert('You must add percentages for each winner, i.e. for 3 winners 50 33 17.');
         this.winnersHide = true;
         this.percentages = '';
         this.setWinnerFocus();
       }
     else {
-      let str = this.percentages.replace(/\D+/, ' ').trim();
-      let percentArray: string[] = str.split(/\D+/);
-      let count: number = percentArray.length;
+      const str2 = this.percentages.replace(/\D+/, ' ').trim();
+      const percentArray: string[] = str2.split(/\D+/);
+      const count: number = percentArray.length;
       for (let i = 0; i < count; i++) {
         this.winnerData.push(
           {position: i + 1, amount: (Number(percentArray[i]) * each).toFixed(2)}
-        )
+        );
       }
       this.winnersHide = false;
     }
@@ -347,22 +347,22 @@ export class PokerComponent implements OnInit {
   /**
    * This is user information for the Poker app.
    */
-  getPokerAbout() {
+  getPokerAbout(): boolean {
 
-    alert("This Poker app was written to help keep up with the numbers for poker tournaments. "
-      + "It is generic and will be useful for most tournaments, hopefully yours."
-      + "\n\n\tFollow these steps to get started:"
-      + "\n\t1. The cursor will be focused on the name textbox, type in the first player\'s name."
-      + "\n\t2. Tab to each amount box and enter the amount for that column, or leave at 0.00."
-      + "\n\t3. Tab one more time to the \"Save Player\" button and hit enter, the first player is saved."
-      + "\n\t4. Now for each entrant type in the players name, change amounts if needed, and hit enter. "
-      + "The amounts you entered last will be the defaults for the next player. "
-      + "\n\n\tThe app will keep totals of rebuys and addons as you play by using the buttons for rebuys and addons."
-      + "\n\tPlay around with the Chop and Winner sections to view the different results "
-      + "depending on the default amounts, totals and number of chops or winners. "
-      + "\n\tFor winners, add rows and enter the percentage for each winning position. "
-      + "The percentages should be entered without decimals, i.e. 50, 33, 17 or 40, 30, 20, 10, etc, totaling 100."
-      + "\n\nHave Fun!");
+    alert('This Poker app was written to help keep up with the numbers for poker tournaments. '
+      + 'It is generic and will be useful for most tournaments, hopefully yours.'
+      + '\n\n\tFollow these steps to get started:'
+      + '\n\t1. The cursor will be focused on the name textbox, type in the first player\'s name.'
+      + '\n\t2. Tab to each amount box and enter the amount for that column, or leave at 0.00.'
+      + '\n\t3. Tab one more time to the \'Save Player\' button and hit enter, the first player is saved.'
+      + '\n\t4. Now for each entrant type in the players name, change amounts if needed, and hit enter. '
+      + 'The amounts you entered last will be the defaults for the next player. '
+      + '\n\n\tThe app will keep totals of rebuys and addons as you play by using the buttons for rebuys and addons.'
+      + '\n\tPlay around with the Chop and Winner sections to view the different results '
+      + 'depending on the default amounts, totals and number of chops or winners. '
+      + '\n\tFor winners, add rows and enter the percentage for each winning position. '
+      + 'The percentages should be entered without decimals, i.e. 50, 33, 17 or 40, 30, 20, 10, etc, totaling 100.'
+      + '\n\nHave Fun!');
 
     return true;
   }

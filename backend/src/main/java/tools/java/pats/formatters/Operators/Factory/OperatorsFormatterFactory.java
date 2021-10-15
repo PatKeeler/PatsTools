@@ -1,6 +1,5 @@
 package tools.java.pats.formatters.Operators.Factory;
 
-import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
 import tools.java.pats.nodes.Node;
@@ -18,7 +17,6 @@ import java.security.InvalidParameterException;
  * Time: 9:25 PM
  * To change this template use File | Settings | File Templates.
  */
-@ThreadSafe
 public class OperatorsFormatterFactory implements Serializable, ProjectStaticConstants {
 
     private static final long serialVersionUID = 1951L;

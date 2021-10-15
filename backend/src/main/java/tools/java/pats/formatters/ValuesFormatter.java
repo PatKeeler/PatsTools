@@ -1,6 +1,5 @@
 package tools.java.pats.formatters;
 
-import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
 import tools.java.pats.utils.sql.RejoinColumnsWithinParens;
 
@@ -17,7 +16,6 @@ import java.util.List;
  * Time: 9:52 AM
  * To change this template use File | Settings | File Templates.
  */
-@ThreadSafe
 public class ValuesFormatter implements Serializable, ProjectStaticConstants {
 
     private static final long serialVersionUID = 1951L;

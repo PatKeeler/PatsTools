@@ -1,8 +1,6 @@
 package tools.java.pats.utils.xml;
 
-import net.jcip.annotations.ThreadSafe;
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
@@ -25,7 +23,6 @@ import java.util.regex.Pattern;
  * @author Pat Keeler - U0027507
  * 
  */
-@ThreadSafe
 public class XmlCleaner implements Serializable {
 
     private static final long serialVersionUID = 1951L;

@@ -1,7 +1,5 @@
 package tools.java.pats.formatters;
 
-import net.jcip.annotations.ThreadSafe;
-
 import java.io.Serializable;
 
 import static java.lang.String.format;
@@ -14,9 +12,6 @@ import static java.lang.String.format;
  * Time: 8:36 PM
  * To change this template use File | Settings | File Templates.
  */
-
-@ThreadSafe
-
 public class IfLinesFormatter implements Serializable {
 
     private static final long serialVersionUID = 1951L;

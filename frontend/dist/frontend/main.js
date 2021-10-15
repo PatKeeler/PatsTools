@@ -256,9 +256,9 @@ const _c1 = ["divideInput"];
 class MathComponent {
     constructor(platformId) {
         this.platformId = platformId;
-        this.invalidNumber = "You must enter valid numbers for your answer, please try again!";
-        this.notStarted = "You must select a number and a math function and then click " +
-            "on the \"Start\" button to start the tutor.";
+        this.invalidNumber = 'You must enter valid numbers for your answer, please try again!';
+        this.notStarted = 'You must select a number and a math function and then click ' +
+            'on the \'Start\' button to start the tutor.';
         this.responseText = '';
         this.rightCount = 0;
         this.wrongCount = 0;
@@ -290,68 +290,68 @@ class MathComponent {
      * Validate radio buttons and start.
      */
     startTutor() {
-        if (this.tempNumber == null) {
+        if (this.tempNumber === null) {
             alert(this.notStarted);
             return false;
         }
         this.selectedNumber = this.tempNumber;
-        if (this.tempFunction == null) {
+        if (this.tempFunction === null) {
             alert(this.notStarted);
             return false;
         }
         this.selectedMathFunction = this.tempFunction;
-        //Holder for divide or other "answer" display
+        // Holder for divide or other 'answer' display
         // answer = other - default for add, subtract and multiply.
         switch (this.selectedMathFunction) {
-            //Add
+            // Add
             case '1': {
-                this.operator = "+";
-                this.answer = "other";
+                this.operator = '+';
+                this.answer = 'other';
                 this.otherHide = false;
                 this.divideHide = true;
                 this.randomNumber = this.getRandomInteger(12);
                 break;
             }
-            //Subtract
+            // Subtract
             case '2': {
-                this.operator = "-";
-                this.answer = "other";
+                this.operator = '-';
+                this.answer = 'other';
                 this.otherHide = false;
                 this.divideHide = true;
                 this.randomNumber = this.getRandomInteger(this.selectedNumber);
                 break;
             }
-            //Multiply
+            // Multiply
             case '3': {
-                this.operator = "x";
-                this.answer = "other";
+                this.operator = 'x';
+                this.answer = 'other';
                 this.otherHide = false;
                 this.divideHide = true;
                 this.randomNumber = this.getRandomInteger(12);
                 break;
             }
-            //Divide
+            // Divide
             case '4': {
-                this.operator = "/";
+                this.operator = '/';
                 this.otherHide = true;
                 this.divideHide = false;
                 this.randomNumber = this.getRandomInteger(this.selectedNumber);
-                this.answer = "divide";
+                this.answer = 'divide';
                 break;
             }
             default: {
-                alert("Number Doh!");
+                alert('Number Doh!');
                 break;
             }
         }
         // blank responseText and background color to white.
         this.responseText = '';
-        //set scores to zero if counts are zero
-        if (Number(this.rightCount) == 0 && Number(this.wrongCount) == 0) {
+        // set scores to zero if counts are zero
+        if (Number(this.rightCount) === 0 && Number(this.wrongCount) === 0) {
             this.numberRight = 0;
             this.numberWrong = 0;
             this.percentage = 0;
-            // $("[name=percentage]").css("background", "#FFFFFF");
+            // $('[name=percentage]').css('background', '#FFFFFF');
         }
         this.answerDisplay(this.answer);
         this.hintHide = true;
@@ -364,13 +364,13 @@ class MathComponent {
      */
     checkAnswer() {
         let guess = -1;
-        //Make sure the tutor has been started correctly first.
-        if (this.selectedNumber == null || this.selectedMathFunction == null) {
+        // Make sure the tutor has been started correctly first.
+        if (this.selectedNumber === null || this.selectedMathFunction === null) {
             alert(this.notStarted);
             return false;
         }
-        //Make sure there is an answer to check.
-        if (this.selectedMathFunction != 4) {
+        // Make sure there is an answer to check.
+        if (this.selectedMathFunction !== 4) {
             if (!this.verifyNumber(this.otherAnswer)) {
                 return false;
             }
@@ -381,55 +381,55 @@ class MathComponent {
                 return false;
             }
         }
-        //Make sure remainder is blank or a number
+        // Make sure remainder is blank or a number
         if (!this.remainder) {
             if (!this.verifyNumber(this.remainder)) {
                 alert(this.invalidNumber);
                 return false;
             }
         }
-        //Compute answer based on math function
-        //Addition
-        if (this.selectedMathFunction == 1) {
+        // Compute answer based on math function
+        // Addition
+        if (this.selectedMathFunction === 1) {
             guess = Number(this.selectedNumber) + Number(this.randomNumber);
-            if (guess == this.otherAnswer) {
+            if (guess === this.otherAnswer) {
                 this.correctAnswer();
-                //Reset random number
+                // Reset random number
                 this.randomNumber = this.getRandomInteger(12);
             }
             else {
                 this.wrongAnswer();
             }
         }
-        //Subtraction
-        else if (this.selectedMathFunction == 2) {
+        // Subtraction
+        else if (this.selectedMathFunction === 2) {
             guess = Number(this.selectedNumber) - Number(this.randomNumber);
-            if (guess == this.otherAnswer) {
+            if (guess === this.otherAnswer) {
                 this.correctAnswer();
-                //Reset random number
+                // Reset random number
                 this.randomNumber = this.getRandomInteger(this.selectedNumber);
             }
             else {
                 this.wrongAnswer();
             }
         }
-        //Multiplication
-        else if (this.selectedMathFunction == 3) {
+        // Multiplication
+        else if (this.selectedMathFunction === 3) {
             guess = Number(this.selectedNumber) * Number(this.randomNumber);
-            if (guess == this.otherAnswer) {
+            if (guess === this.otherAnswer) {
                 this.correctAnswer();
-                //Reset random number
+                // Reset random number
                 this.randomNumber = this.getRandomInteger(12);
             }
             else {
                 this.wrongAnswer();
             }
         }
-        //Division
-        else if (this.selectedMathFunction == 4) {
+        // Division
+        else if (this.selectedMathFunction === 4) {
             let remainder;
             let mod;
-            if (this.remainder == null) {
+            if (this.remainder === null) {
                 remainder = Number(0);
             }
             else {
@@ -438,9 +438,9 @@ class MathComponent {
             guess = Number(this.selectedNumber) / Number(this.randomNumber);
             guess = Math.floor(guess);
             mod = Number(this.selectedNumber) % Number(this.randomNumber);
-            if (guess == this.divideAnswer && mod == this.remainder) {
+            if (guess === this.divideAnswer && mod === this.remainder) {
                 this.correctAnswer();
-                //For division get a number that gives mod zero
+                // For division get a number that gives mod zero
                 this.randomNumber = this.getRandomInteger(Number(this.selectedNumber));
             }
             else {
@@ -456,23 +456,21 @@ class MathComponent {
     }
     /**
      * Determine the correct answer display
-     *
-     * @param display
      */
     answerDisplay(display) {
-        //Display for all but divide
-        if (display == "other") {
-            //blank answer, set focus
+        // Display for all but divide
+        if (display === 'other') {
+            // blank answer, set focus
             this.otherAnswer = '';
-            //Show other and hide divide
+            // Show other and hide divide
             this.otherHide = false;
             this.divideHide = true;
             // this.setOtherFocus();
             this.setFocus(this.answerIn);
         }
-        //Display divide answer boxes
-        else if (display == "divide") {
-            //blank answer, set focus
+        // Display divide answer boxes
+        else if (display === 'divide') {
+            // blank answer, set focus
             this.divideAnswer = '';
             this.remainder = 0;
             this.otherHide = true;
@@ -480,43 +478,43 @@ class MathComponent {
             // this.setDivideFocus();
             this.setFocus(this.divideIn);
         }
-        //Doh!
+        // Doh!
         else {
-            alert("invalid answer display: " + display);
+            alert('invalid answer display: ' + display);
         }
     }
     /**
      * Reset the score
      */
     resetScore() {
-        //set score to blanks.
+        // set score to blanks.
         this.numberWrong = 0;
         this.numberRight = 0;
         this.percentage = 0;
-        //set counts to zero
+        // set counts to zero
         this.wrongCount = 0;
         this.rightCount = 0;
-        if (this.selectedMathFunction == 4) {
+        if (this.selectedMathFunction === 4) {
             this.setFocus(this.divideIn);
         }
         else {
             this.setFocus(this.answerIn);
         }
-        //Reset background color to white
-        // this.percentage.css("background", "#FFFFFF");
+        // Reset background color to white
+        // this.percentage.css('background', '#FFFFFF');
     }
     setResponseBackground() {
-        let bgColor = {
-            white: this.responseText == '',
-            green: this.responseText == "Correct",
-            yellow: this.responseText == "Try again",
-            red: this.responseText == "Wrong"
+        const bgColor = {
+            white: this.responseText === '',
+            green: this.responseText === 'Correct',
+            yellow: this.responseText === 'Try again',
+            red: this.responseText === 'Wrong'
         };
         return bgColor;
     }
     setPercentBackground() {
-        let myColor = {
-            white: this.percentage == 0,
+        const myColor = {
+            white: this.percentage === 0,
             red: this.percentage < 70 && this.percentage > 1,
             orange: this.percentage >= 70 && this.percentage < 80,
             yellow: this.percentage >= 80 && this.percentage < 90,
@@ -528,39 +526,39 @@ class MathComponent {
      * Correct answer.
      */
     correctAnswer() {
-        //Signal correct
-        this.responseText = "Correct";
-        // this.responseText.css("background", "#40FF00");
-        if (this.selectedMathFunction != 4) {
-            //Set otherAnswer to blank and focus
+        // Signal correct
+        this.responseText = 'Correct';
+        // this.responseText.css('background', '#40FF00');
+        if (this.selectedMathFunction !== 4) {
+            // Set otherAnswer to blank and focus
             this.otherAnswer = '';
             this.setFocus(this.answerIn);
         }
         else {
-            //Set divideAnswer to blank and focus
+            // Set divideAnswer to blank and focus
             this.divideAnswer = '';
             this.setFocus(this.divideIn);
             this.remainder = 0;
         }
-        //Increment number correct
+        // Increment number correct
         this.rightCount += 1;
         this.numberRight = this.rightCount;
-        //Compute new percentage
+        // Compute new percentage
         this.computePercentage();
-        //reset
+        // reset
         this.repetition = 1;
-        //hide hint button
+        // hide hint button
         this.hintHide = true;
     }
     /**
      * Wrong answer.
      */
     wrongAnswer() {
-        if (this.repetition == 2) {
-            //Signal wrong answer
-            this.responseText = "Wrong";
-            // this.responseText]").css("background", "#FF0000");
-            if (this.selectedMathFunction != 4) {
+        if (this.repetition === 2) {
+            // Signal wrong answer
+            this.responseText = 'Wrong';
+            // this.responseText]').css('background', '#FF0000');
+            if (this.selectedMathFunction !== 4) {
                 this.otherAnswer = '';
                 this.setFocus(this.answerIn);
             }
@@ -572,61 +570,61 @@ class MathComponent {
             this.wrongCount += 1;
             this.numberWrong = this.wrongCount;
             this.repetition = 1;
-            //hide hint button
+            // hide hint button
             this.hintHide = true;
         }
         else {
-            //bump by one
+            // bump by one
             this.repetition += 1;
-            //Signal wrong answer
+            // Signal wrong answer
             this.responseText = 'Try again';
-            // this.responseText]").css("background", "#FFFF00");
-            //hide hint button
+            // this.responseText]').css('background', '#FFFF00');
+            // hide hint button
             this.hintHide = false;
         }
-        //Compute new percentage
+        // Compute new percentage
         this.computePercentage();
     }
     /**
      * Compute percentage
      */
     computePercentage() {
-        let percent;
-        let total;
-        if (this.rightCount == 0) {
+        let percent = 0.0;
+        let total = 0.0;
+        if (this.rightCount === 0) {
             percent = 0;
         }
         else {
             total = Number(this.rightCount) + Number(this.wrongCount);
-            //Get percent
+            // Get percent
             percent = Number(this.rightCount) / total;
-            //Move decimal 2 positions to make percent
+            // Move decimal 2 positions to make percent
             percent = percent * 100;
-            //Get whole number
+            // Get whole number
             percent = Math.round(percent);
         }
-        //show percentage
+        // show percentage
         this.percentage = percent;
-        //Set color for score
+        // Set color for score
         if (percent >= 90) {
-            //Green
-            // this.percentage]").css("background", "#40FF00");
+            // Green
+            // this.percentage]').css('background', '#40FF00');
         }
         else if (percent >= 80) {
-            //Yellow
-            // this.percentage]").css("background", "#FFFF00");
+            // Yellow
+            // this.percentage]').css('background', '#FFFF00');
         }
         else if (percent >= 70) {
-            //Orange
-            // this.percentage]").css("background", "#FF6600");
+            // Orange
+            // this.percentage]').css('background', '#FF6600');
         }
         else if (percent >= 1) {
-            //Red
-            // this.percentage]").css("background", "#FF0000");
+            // Red
+            // this.percentage]').css('background', '#FF0000');
         }
         else {
-            //White
-            // this.percentage]").css("background", "#FFFFFF");
+            // White
+            // this.percentage]').css('background', '#FFFFFF');
         }
     }
     /**
@@ -639,8 +637,6 @@ class MathComponent {
     }
     /**
      * Verify that number passed in is a valid integer.
-     *
-     * @param a
      */
     verifyNumber(num) {
         if (num >= 0 && num <= 999) {
@@ -652,119 +648,118 @@ class MathComponent {
      * Hint - shows the possible correct answers from minimum to maximum.
      */
     getHint() {
-        if (this.selectedNumber == null || this.selectedMathFunction == null) {
+        if (this.selectedNumber === null || this.selectedMathFunction === null) {
             alert(this.notStarted);
             return false;
         }
-        //Addition
-        if (this.selectedMathFunction == 1) {
+        // Addition
+        if (this.selectedMathFunction === 1) {
             this.getAdditionHints();
-            //Set focus on answer
+            // Set focus on answer
             this.setFocus(this.answerIn);
         }
-        //Subtraction
-        else if (this.selectedMathFunction == 2) {
+        // Subtraction
+        else if (this.selectedMathFunction === 2) {
             this.getSubtractionHints();
-            //Set focus on answer
+            // Set focus on answer
             this.setFocus(this.answerIn);
         }
-        //Multiplication
-        else if (this.selectedMathFunction == 3) {
+        // Multiplication
+        else if (this.selectedMathFunction === 3) {
             this.getMultiplicationHints();
-            //Set focus on answer
+            // Set focus on answer
             this.setFocus(this.answerIn);
         }
-        //Division
-        else if (this.selectedMathFunction == 4) {
+        // Division
+        else if (this.selectedMathFunction === 4) {
             this.getDivisionHints();
-            //Set focus on answer
+            // Set focus on answer
             this.setFocus(this.divideIn);
         }
-        //Set focus on answer
+        // Set focus on answer
         this.setFocus(this.answerIn);
     }
     /**
      * Get addition possibilities.
      */
     getAdditionHints() {
-        var display = "";
-        var newLine = "\n";
-        for (var i = 0; i < 12; i++) {
-            display += newLine + this.selectedNumber + " + " + Number(i + 1) + " = " +
+        let display = '';
+        const newLine = '\n';
+        for (let i = 0; i < 12; i++) {
+            display += newLine + this.selectedNumber + ' + ' + Number(i + 1) + ' = ' +
                 (Number(this.selectedNumber) + Number(i + 1));
         }
-        alert("Hint: " + display);
+        alert('Hint: ' + display);
     }
     /**
      * Get division possibilities.
      */
     getDivisionHints() {
-        var display = "";
-        var newLine = "\n";
-        for (var i = 0; i < this.selectedNumber; i++) {
-            var mod = Number(this.selectedNumber) % Number(i + 1);
-            var number = Number(this.selectedNumber) / Number(i + 1);
-            number = Math.floor(number);
-            display += newLine + this.selectedNumber + " / " + Number(i + 1) + " = " +
-                number + ", remainder: " + mod;
+        let display = '';
+        const newLine = '\n';
+        for (let i = 0; i < this.selectedNumber; i++) {
+            const mod = Number(this.selectedNumber) % Number(i + 1);
+            let divNum = Number(this.selectedNumber) / Number(i + 1);
+            divNum = Math.floor(divNum);
+            display += newLine + this.selectedNumber + ' / ' + Number(i + 1) + ' = ' +
+                divNum + ', remainder: ' + mod;
         }
-        alert("Hint: " + display);
+        alert('Hint: ' + display);
     }
     /**
      * Get multiplication possibilities.
      */
     getMultiplicationHints() {
-        var display = "";
-        var newLine = "\n";
-        for (var i = 0; i < 12; i++) {
-            display += newLine + this.selectedNumber + " x " + Number(i + 1) + " = " +
+        let display = '';
+        const newLine = '\n';
+        for (let i = 0; i < 12; i++) {
+            display += newLine + this.selectedNumber + ' x ' + Number(i + 1) + ' = ' +
                 (Number(this.selectedNumber) * Number(i + 1));
         }
-        alert("Hint: " + display);
+        alert('Hint: ' + display);
     }
     /**
      * Get subtraction possibilities.
      */
     getSubtractionHints() {
-        var display = "";
-        var newLine = "\n";
-        for (var i = 0; i < this.selectedNumber; i++) {
-            display += newLine + this.selectedNumber + " - " + Number(i + 1) + " = " +
+        let display = '';
+        const newLine = '\n';
+        for (let i = 0; i < this.selectedNumber; i++) {
+            display += newLine + this.selectedNumber + ' - ' + Number(i + 1) + ' = ' +
                 (Number(this.selectedNumber) - Number(i + 1));
         }
-        alert("Hint: " + display);
+        alert('Hint: ' + display);
     }
     /**
      * This is the about information for the Math Tutor.
      */
     getMathAbout() {
-        alert("This Elementary Math Tutor helps teach the basic math skills through the use of repetition. "
-            + "The tutor uses random \nnumber generation to repetitively challenge the user for answers "
-            + "to the selected number and a randomly generated number."
-            + "\n\nFollow these steps to get started:"
-            + "\n\n\t 1. Select the radio button by the number you want to practice."
-            + "\n\t 2. Select the radio button by the math function you want to practice."
-            + "\n\t 3. Press the \"Start\" button to begin the training."
-            + "\n\t 4. Enter the answer for the generated problem."
-            + "\n\nThe tutor will count each time you get the answer correct. You will get 2 chances "
-            + "to enter the correct number, if you \nget them both wrong it will count as a wrong answer. "
-            + "If you want to change the answer you have entered, use the \nbackspace button on your keyboard "
-            + "to erase the answer."
-            + "\n\nYou can check your answer by pressing the \"Check Answer\" button or by pressing the \"Enter\" key."
-            + "\n\nThe problems are randomly generated so sometimes you might get the same problem 2 or 3 times "
-            + "in a row."
-            + "\n\nYou can change the number and/or math function at any time by selecting the new values and "
-            + "pressing the \"Start\" button again. "
-            + "\n\nWhen you select \"Divide\" the remainder is set to \"0\" "
-            + " so you only need to change it if the remainder is not zero. "
-            + "\n\nThis tool only keeps score for the current session. It shows the number correct, the number "
-            + "wrong and the percentage correct."
-            + "\n\nNeed help with the answer?  Press the \"Hint\" button for help anytime you can see it. "
-            + "The \"Hint\" button will help you \nlearn the right answers.  But, when you use hints, study them so "
-            + "you don't have to look at hints so often."
-            + "\n\nIf you have suggestions for enhancements or encounter errors, send an email "
-            + "to keelerpl@gmail.com and I'll look into it. ");
-        return true;
+        alert('This Elementary Math Tutor helps teach the basic math skills through the use of repetition. '
+            + 'The tutor uses random \nnumber generation to repetitively challenge the user for answers '
+            + 'to the selected number and a randomly generated number.'
+            + '\n\nFollow these steps to get started:'
+            + '\n\n\t 1. Select the radio button by the number you want to practice.'
+            + '\n\t 2. Select the radio button by the math function you want to practice.'
+            + '\n\t 3. Press the \'Start\' button to begin the training.'
+            + '\n\t 4. Enter the answer for the generated problem.'
+            + '\n\nThe tutor will count each time you get the answer correct. You will get 2 chances '
+            + 'to enter the correct number, if you \nget them both wrong it will count as a wrong answer. '
+            + 'If you want to change the answer you have entered, use the \nbackspace button on your keyboard '
+            + 'to erase the answer.'
+            + '\n\nYou can check your answer by pressing the \'Check Answer\' button or by pressing the \'Enter\' key.'
+            + '\n\nThe problems are randomly generated so sometimes you might get the same problem 2 or 3 times '
+            + 'in a row.'
+            + '\n\nYou can change the number and/or math function at any time by selecting the new values and '
+            + 'pressing the \'Start\' button again. '
+            + '\n\nWhen you select \'Divide\' the remainder is set to \'0\' '
+            + ' so you only need to change it if the remainder is not zero. '
+            + '\n\nThis tool only keeps score for the current session. It shows the number correct, the number '
+            + 'wrong and the percentage correct.'
+            + '\n\nNeed help with the answer?  Press the \'Hint\' button for help anytime you can see it. '
+            + 'The \'Hint\' button will help you \nlearn the right answers.  But, when you use hints, study them so '
+            + 'you do not have to look at hints so often.'
+            + '\n\nIf you have suggestions for enhancements or encounter errors, send an email '
+            + 'to keelerpl@gmail.com and I will look into it. ');
     }
 }
 MathComponent.ɵfac = function MathComponent_Factory(t) { return new (t || MathComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.PLATFORM_ID)); };
@@ -1186,15 +1181,15 @@ class PasswordsComponent {
          */
         this.passwordImage = [
             // 16 chars - Hex
-            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-            "A", "B", "C", "D", "E", "F",
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            'A', 'B', 'C', 'D', 'E', 'F',
             // 62 chars - all but special characters
-            "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
-            "T", "U", "V", "W", "X", "Y", "Z",
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-            "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+            'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+            'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
             // 74 chars - all.
-            "!", "@", "#", "$", "%", "^", "*", "(", ")", "_", "+", "="
+            '!', '@', '#', '$', '%', '^', '*', '(', ')', '_', '+', '='
         ];
         this.pwdLength = 16;
         this.excludeChars = '';
@@ -1205,10 +1200,10 @@ class PasswordsComponent {
     ngOnInit() {
     }
     getPasswords() {
-        let pwdLen = Number(this.pwdLength);
+        const pwdLen = Number(this.pwdLength);
         let range = 0;
-        let pwds = ['', '', '', ''];
-        //Loop and generate a password for each depth level.
+        const pwds = ['', '', '', ''];
+        // Loop and generate a password for each depth level.
         for (let n = 0; n < 3; n++) {
             switch (n) {
                 case 0:
@@ -1220,9 +1215,9 @@ class PasswordsComponent {
                 default:
                     range = 73;
             }
-            let buffer = "";
+            let buffer = '';
             for (let i = 0; buffer.length < pwdLen; i++) {
-                let karacter = this.passwordImage[this.getRandomInteger(range)];
+                const karacter = this.passwordImage[this.getRandomInteger(range)];
                 if (this.excludeChars.includes(karacter)) {
                     continue;
                 }
@@ -1236,7 +1231,7 @@ class PasswordsComponent {
      * Insure password length is numeric.
      */
     numericOnly(event) {
-        let pattern = /^([0-9])$/;
+        const pattern = /^([0-9])$/;
         return pattern.test(event.key);
     }
     /**
@@ -1257,25 +1252,25 @@ class PasswordsComponent {
    * This is the user information for Password Generator.
    */
     getPasswordAbout() {
-        alert("This Password Generator creates 3 levels of password strength "
-            + "\n   which are defined in the table under the \"Generate\" button. "
-            + "\n"
-            + "\n  First - enter the password length you want. "
-            + "\n     The default is 16, you can change it to any length less "
-            + "\n     than 100. "
-            + "\n"
-            + "\n  Next - Add in any characters you do not want in the passwords. "
-            + "\n     This space is used if some of the special characters are not "
-            + "\n     allowed in passwords for the system you are logging into."
-            + "\n"
-            + "\n  Next - Select the \"Generate\" button to generate the passwords, "
-            + "\n     you can select this button as many times as you want until "
-            + "\n     you get a password you like. "
-            + "\n"
-            + "\n  Finally - Select the password you want and paste it into your "
-            + "\n     systems new password settings. "
-            + "\n"
-            + "\n  Have fun! ");
+        alert('This Password Generator creates 3 levels of password strength '
+            + '\n   which are defined in the table under the \'Generate\' button. '
+            + '\n'
+            + '\n  First - enter the password length you want. '
+            + '\n     The default is 16, you can change it to any length less '
+            + '\n     than 100. '
+            + '\n'
+            + '\n  Next - Add in any characters you do not want in the passwords. '
+            + '\n     This space is used if some of the special characters are not '
+            + '\n     allowed in passwords for the system you are logging into.'
+            + '\n'
+            + '\n  Next - Select the \'Generate\' button to generate the passwords, '
+            + '\n     you can select this button as many times as you want until '
+            + '\n     you get a password you like. '
+            + '\n'
+            + '\n  Finally - Select the password you want and paste it into your '
+            + '\n     systems new password settings. '
+            + '\n'
+            + '\n  Have fun! ');
         return true;
     }
 }
@@ -1815,72 +1810,72 @@ class PokerComponent {
             this.computeTotals();
         }
     }
-    //Compute chop amount
+    // Compute chop amount
     chopBtn() {
-        let players = this.chopPlayers;
-        let buyInAmount = this.buyInTotal;
-        let addOnAmount = this.addOnTotal;
-        let total = parseFloat(buyInAmount) + parseFloat(addOnAmount);
-        let each = total / players;
+        const players = this.chopPlayers;
+        const buyInAmount = this.buyInTotal;
+        const addOnAmount = this.addOnTotal;
+        const total = parseFloat(buyInAmount) + parseFloat(addOnAmount);
+        const each = total / players;
         this.chopAmount = each.toFixed(2);
     }
-    //Compute BuyIn AddOn and LastMan amount
+    // Compute BuyIn AddOn and LastMan amount
     chopAllBtn() {
-        let players = this.chopPlayers;
-        let buyInAmount = this.buyInTotal;
-        let addOnAmount = this.addOnTotal;
-        let lastManAmount = this.lastManTotal;
-        let total = parseFloat(buyInAmount) +
+        const players = this.chopPlayers;
+        const buyInAmount = this.buyInTotal;
+        const addOnAmount = this.addOnTotal;
+        const lastManAmount = this.lastManTotal;
+        const total = parseFloat(buyInAmount) +
             parseFloat(addOnAmount) +
             parseFloat(lastManAmount);
-        let each = total / players;
+        const each = total / players;
         this.chopAmount = each.toFixed(2);
     }
-    //Compute last man chop amount
+    // Compute last man chop amount
     chopLastManBtn() {
-        let players = this.lastManPlayers;
+        const players = this.lastManPlayers;
         if (players > 0) {
-            let lastManAmount = this.lastManTotal;
-            let total = parseFloat(lastManAmount);
-            let each = total / players;
+            const lastManAmount = this.lastManTotal;
+            const total = parseFloat(lastManAmount);
+            const each = total / players;
             this.lastManChopAmount = each.toFixed(2);
         }
         else {
             this.lastManChopAmount = (0.00.toFixed(2));
         }
     }
-    //Compute winner amounts
+    // Compute winner amounts
     computeWinnerBtn() {
         this.winnerData = [];
-        let buyInTotal = this.buyInTotal;
-        let addOnTotal = this.addOnTotal;
-        let total = Number(buyInTotal) + Number(addOnTotal);
-        let each = Number(total / 100);
+        const buyInTotal = this.buyInTotal;
+        const addOnTotal = this.addOnTotal;
+        const total = Number(buyInTotal) + Number(addOnTotal);
+        const each = Number(total / 100);
         this.showWinnerTable(each);
     }
     // Compute Winners + LastMan amounts
     computeWinnerLastManBtn() {
         this.winnerData = [];
-        let buyInTotal = this.buyInTotal;
-        let addOnTotal = this.addOnTotal;
-        let lastManTotal = this.lastManTotal;
-        let total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
-        let each = Number(total / 100);
+        const buyInTotal = this.buyInTotal;
+        const addOnTotal = this.addOnTotal;
+        const lastManTotal = this.lastManTotal;
+        const total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
+        const each = Number(total / 100);
         this.showWinnerTable(each);
     }
     // Show winner table
     showWinnerTable(each) {
-        let str = this.percentages.replace(/\D+/, ' ').trim();
-        if (str == null || str == '' || str.split(/\D+/).length == 0) {
+        const str1 = this.percentages.replace(/\D+/, ' ').trim();
+        if (str1 === null || str1 === '' || str1.split(/\D+/).length === 0) {
             alert('You must add percentages for each winner, i.e. for 3 winners 50 33 17.');
             this.winnersHide = true;
             this.percentages = '';
             this.setWinnerFocus();
         }
         else {
-            let str = this.percentages.replace(/\D+/, ' ').trim();
-            let percentArray = str.split(/\D+/);
-            let count = percentArray.length;
+            const str2 = this.percentages.replace(/\D+/, ' ').trim();
+            const percentArray = str2.split(/\D+/);
+            const count = percentArray.length;
             for (let i = 0; i < count; i++) {
                 this.winnerData.push({ position: i + 1, amount: (Number(percentArray[i]) * each).toFixed(2) });
             }
@@ -1891,20 +1886,20 @@ class PokerComponent {
      * This is user information for the Poker app.
      */
     getPokerAbout() {
-        alert("This Poker app was written to help keep up with the numbers for poker tournaments. "
-            + "It is generic and will be useful for most tournaments, hopefully yours."
-            + "\n\n\tFollow these steps to get started:"
-            + "\n\t1. The cursor will be focused on the name textbox, type in the first player\'s name."
-            + "\n\t2. Tab to each amount box and enter the amount for that column, or leave at 0.00."
-            + "\n\t3. Tab one more time to the \"Save Player\" button and hit enter, the first player is saved."
-            + "\n\t4. Now for each entrant type in the players name, change amounts if needed, and hit enter. "
-            + "The amounts you entered last will be the defaults for the next player. "
-            + "\n\n\tThe app will keep totals of rebuys and addons as you play by using the buttons for rebuys and addons."
-            + "\n\tPlay around with the Chop and Winner sections to view the different results "
-            + "depending on the default amounts, totals and number of chops or winners. "
-            + "\n\tFor winners, add rows and enter the percentage for each winning position. "
-            + "The percentages should be entered without decimals, i.e. 50, 33, 17 or 40, 30, 20, 10, etc, totaling 100."
-            + "\n\nHave Fun!");
+        alert('This Poker app was written to help keep up with the numbers for poker tournaments. '
+            + 'It is generic and will be useful for most tournaments, hopefully yours.'
+            + '\n\n\tFollow these steps to get started:'
+            + '\n\t1. The cursor will be focused on the name textbox, type in the first player\'s name.'
+            + '\n\t2. Tab to each amount box and enter the amount for that column, or leave at 0.00.'
+            + '\n\t3. Tab one more time to the \'Save Player\' button and hit enter, the first player is saved.'
+            + '\n\t4. Now for each entrant type in the players name, change amounts if needed, and hit enter. '
+            + 'The amounts you entered last will be the defaults for the next player. '
+            + '\n\n\tThe app will keep totals of rebuys and addons as you play by using the buttons for rebuys and addons.'
+            + '\n\tPlay around with the Chop and Winner sections to view the different results '
+            + 'depending on the default amounts, totals and number of chops or winners. '
+            + '\n\tFor winners, add rows and enter the percentage for each winning position. '
+            + 'The percentages should be entered without decimals, i.e. 50, 33, 17 or 40, 30, 20, 10, etc, totaling 100.'
+            + '\n\nHave Fun!');
         return true;
     }
 }
@@ -2391,7 +2386,7 @@ class SqlComponent {
         this.styleRadio = 'block';
     }
     ngOnInit() {
-        this.http.get("/message/").pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_0__.first)(), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_1__.tap)(result => console.log("Message from server: ", result)), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.map)(result => this.message = result.message)).subscribe();
+        this.http.get('/message/').pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_0__.first)(), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_1__.tap)(result => console.log('Message from server: ', result)), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.map)(result => this.message = result.message)).subscribe();
     }
     // public getHeaders(): HttpHeaders {
     //   const headers = new HttpHeaders({
@@ -2426,8 +2421,8 @@ class SqlComponent {
         this.removeQuotesReformat.nativeElement.checked = false;
     }
     getFormattedSql() {
-        let testString = "select this as dis, that as dat where you != me";
-        let parameters = {
+        const testString = 'select this as dis, that as dat where you != me';
+        const parameters = {
             inputSQL: testString,
             indent: true,
             indentAmount: '2',
@@ -2446,29 +2441,28 @@ class SqlComponent {
      * This is the about information for the SQL formatter.
      */
     getSqlAbout() {
-        alert("This SQL formatter will format most generic sql commands but may not include all the "
-            + "most common commands at this point."
-            + "\n\nThis formatter is not a validator, it will format generic sql statements that are "
-            + "properly structured."
-            + "\n\nThis formatter will format a single line command: \n\t select this as "
-            + "that from something where you = me\nor a multi line command: \n\t select this as that"
-            + "\n\t from something \n\t where you = me"
-            + "\n\nThe \"Indent options\" are self evident: \n\t indent or not. \n\t indent amount. "
-            + "\n\nThe Java String \"Quote\" options can be used when you need to paste the results into a Java "
-            + "program as a String:"
-            + "\n\t The first option will format the input sql and add quotes for use as a Java String. "
-            + "\n\t The second option will quote any data you paste into the input box, without "
-            + "formatting. "
-            + "\n\nThe Java String \"Remove Quote\" options can be used when you need to cut a string from a "
-            + "java program and \nremove the quotes for use elsewhere, as follows: "
-            + "\n\t The first option will remove quotes and reformat the input sql. "
-            + "\n\t The second option will remove quotes only (any input), without formatting. "
-            + "\n\n**NOTE - For the remove quotes to work please note things like:"
-            + "\n\t For java Strings on multiple lines the \" and + should be on the same line."
-            + "\n\t All java Strings end with a semi-colon, so the last line should end with \" and ;."
-            + "\n\nIf you have suggestions for enhancements or encounter errors send an email "
-            + "to keelerpl@gmail.com and I'll look into it. ");
-        // return true;
+        alert('This SQL formatter will format most generic sql commands but may not include all the '
+            + 'most common commands at this point.'
+            + '\n\nThis formatter is not a validator, it will format generic sql statements that are '
+            + 'properly structured.'
+            + '\n\nThis formatter will format a single line command: \n\t select this as '
+            + 'that from something where you = me\nor a multi line command: \n\t select this as that'
+            + '\n\t from something \n\t where you = me'
+            + '\n\nThe \'Indent options\' are self evident: \n\t indent or not. \n\t indent amount. '
+            + '\n\nThe Java String \'Quote\' options can be used when you need to paste the results into a Java '
+            + 'program as a String:'
+            + '\n\t The first option will format the input sql and add quotes for use as a Java String. '
+            + '\n\t The second option will quote any data you paste into the input box, without '
+            + 'formatting. '
+            + '\n\nThe Java String \'Remove Quote\' options can be used when you need to cut a string from a '
+            + 'java program and \nremove the quotes for use elsewhere, as follows: '
+            + '\n\t The first option will remove quotes and reformat the input sql. '
+            + '\n\t The second option will remove quotes only (any input), without formatting. '
+            + '\n\n**NOTE - For the remove quotes to work please note things like:'
+            + '\n\t For java Strings on multiple lines the \' and + should be on the same line.'
+            + '\n\t All java Strings end with a semi-colon, so the last line should end with \' and ;.'
+            + '\n\nIf you have suggestions for enhancements or encounter errors send an email '
+            + 'to keelerpl@gmail.com and I\'ll look into it. ');
     }
 }
 SqlComponent.ɵfac = function SqlComponent_Factory(t) { return new (t || SqlComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpClient)); };
@@ -2697,14 +2691,14 @@ class XmlComponent {
      * This is the about information for the XML formatter.
      */
     getXmlAbout() {
-        alert("This XML formatter was created to remove invalid character errors during SoapUI "
-            + "processing that normally \noccur when you cut a SOAP message from a log and try "
-            + "to run it in SOAP UI (or any SOAP tool).\n\nThis formatter takes in an XML string, "
-            + "removes all white space and special characters and re-formats the XML."
-            + "\nThe output should run in SoapUI, error free."
-            + "\n\nThe \"Indent options\" are self evident: \n    indent or not. \n    indent amount. "
-            + "\n\nIf you have suggestions for enhancements or encounter errors send an email "
-            + "to keelerpl@gmail.com and I'll \nlook into it.");
+        alert('This XML formatter was created to remove invalid character errors during SoapUI '
+            + 'processing that normally \noccur when you cut a SOAP message from a log and try '
+            + 'to run it in SOAP UI (or any SOAP tool).\n\nThis formatter takes in an XML string, '
+            + 'removes all white space and special characters and re-formats the XML.'
+            + '\nThe output should run in SoapUI, error free.'
+            + '\n\nThe \'Indent options\' are self evident: \n    indent or not. \n    indent amount. '
+            + '\n\nIf you have suggestions for enhancements or encounter errors send an email '
+            + 'to keelerpl@gmail.com and I\'ll \nlook into it.');
     }
 }
 XmlComponent.ɵfac = function XmlComponent_Factory(t) { return new (t || XmlComponent)(); };
