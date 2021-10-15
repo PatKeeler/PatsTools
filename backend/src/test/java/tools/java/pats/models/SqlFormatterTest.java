@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
+import sun.rmi.runtime.Log;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -41,6 +42,11 @@ public class SqlFormatterTest {
         SqlFormatter formatter = new SqlFormatter();
 
         String formattedSql = formatter.formatSql(inputSql, "", "2", "block");
+        logger.info("expectedSql:");
+        logger.info(expectedSql);
+        logger.info("formattedSql:");
+        logger.info(formattedSql);
+
 
         assertEquals("Sql is not formatted correctly!", expectedSql, formattedSql);
 
