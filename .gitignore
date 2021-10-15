@@ -2,15 +2,21 @@
 
 # Backend
 .idea/
-Formatters.iml
+backend/backend.iml
+frontend/frontend.iml
+pats-tools.iml
+
 logs/
 target/
 .classpath
 .project
 .settings/
 
+# frontend
+frontend/target
 
-# Frontend
+# backend
+backend/target
 
 # compiled output
 /src/main/frontend/dist
