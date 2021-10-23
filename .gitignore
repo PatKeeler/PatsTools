@@ -13,6 +13,7 @@ target/
 .settings/
 
 # frontend
+frontend/dist
 frontend/target
 
 # backend
