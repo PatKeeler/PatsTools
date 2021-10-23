@@ -1,30 +1,21 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# Backend
-.idea/
-backend/backend.iml
-frontend/frontend.iml
-pats-tools.iml
-
 logs/
 target/
 .classpath
+.idea/
 .project
 .settings/
+pats-tools.iml
 
-# frontend
-frontend/dist
-frontend/target
-
-# backend
+# Backend
+backend/backend.iml
 backend/target
 
-# compiled output
-/src/main/frontend/dist
-/src/main/frontend/tmp
-/src/main/frontend/out-tsc
-# Only exists if Bazel was run
-/src/main/frontend/bazel-out
+# frontend
+frontend/frontend.iml
+frontend/dist
+frontend/target
 
 # dependencies
 # /src/main/frontend/node_modules
