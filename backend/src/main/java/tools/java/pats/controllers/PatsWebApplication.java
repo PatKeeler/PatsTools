@@ -1,4 +1,14 @@
 package tools.java.pats.controllers;
 
-public class PatsWebApplication {
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+
+@SpringBootApplication
+public class PatsWebApplication extends SpringBootServletInitializer {
+
+    public static void main(String[] args) {
+        SpringApplication.run(PatsWebApplication.class);
+    }
 }
