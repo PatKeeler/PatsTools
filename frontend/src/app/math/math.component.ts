@@ -52,17 +52,17 @@ export class MathComponent implements OnInit {
 
 
   /**
-   * Get the selected number.
+   * Get the selected number to learn.
    */
-  numberRadioHandler(event): void {
+  numberRadioHandler(event): any {
     this.tempNumber = event.target.value;
   }
 
 
   /**
-   * Get the selected operation.
+   * Get the selected math function.
    */
-  functionRadioHandler(event): void {
+  functionRadioHandler(event): any {
     this.tempFunction = event.target.value;
   }
 
@@ -164,7 +164,7 @@ export class MathComponent implements OnInit {
     }
 
     // Make sure there is an answer to check.
-    if (this.selectedMathFunction !== 4) {
+    if (this.selectedMathFunction !== '4') {
       if (! this.verifyNumber(this.otherAnswer)) {
         return false;
       }
@@ -185,10 +185,10 @@ export class MathComponent implements OnInit {
 
     // Compute answer based on math function
     // Addition
-    if (this.selectedMathFunction === 1) {
+    if (this.selectedMathFunction === '1') {
       guess = Number(this.selectedNumber) + Number(this.randomNumber);
 
-      if (guess === this.otherAnswer) {
+      if (Number(guess) === Number(this.otherAnswer)) {
         this.correctAnswer();
 
         // Reset random number
@@ -198,10 +198,10 @@ export class MathComponent implements OnInit {
       }
     }
     // Subtraction
-    else if (this.selectedMathFunction === 2) {
+    else if (this.selectedMathFunction === '2') {
       guess = Number(this.selectedNumber) - Number(this.randomNumber);
 
-      if (guess === this.otherAnswer) {
+      if (Number(guess) === Number(this.otherAnswer)) {
         this.correctAnswer();
 
         // Reset random number
@@ -211,10 +211,10 @@ export class MathComponent implements OnInit {
       }
     }
     // Multiplication
-    else if (this.selectedMathFunction === 3) {
+    else if (this.selectedMathFunction === '3') {
       guess = Number(this.selectedNumber) * Number(this.randomNumber);
 
-      if (guess === this.otherAnswer) {
+      if (Number(guess) === Number(this.otherAnswer)) {
         this.correctAnswer();
 
         // Reset random number
@@ -224,7 +224,7 @@ export class MathComponent implements OnInit {
       }
     }
     // Division
-    else if (this.selectedMathFunction === 4) {
+    else if (this.selectedMathFunction === '4') {
 
       let remainder;
       let mod;
@@ -241,7 +241,8 @@ export class MathComponent implements OnInit {
 
       mod = Number(this.selectedNumber) % Number(this.randomNumber);
 
-      if (guess === this.divideAnswer && mod === this.remainder) {
+      if (Number(guess) === Number(this.divideAnswer) &&
+        Number(mod) === Number(this.remainder)) {
         this.correctAnswer();
         // For division get a number that gives mod zero
         this.randomNumber = this.getRandomInteger(Number(this.selectedNumber));
@@ -309,7 +310,7 @@ export class MathComponent implements OnInit {
     this.wrongCount = 0;
     this.rightCount = 0;
 
-    if (this.selectedMathFunction === 4) {
+    if (this.selectedMathFunction === '4') {
       this.setFocus(this.divideIn);
     }
     else {
@@ -351,7 +352,7 @@ export class MathComponent implements OnInit {
     this.responseText = 'Correct';
     // this.responseText.css('background', '#40FF00');
 
-    if (this.selectedMathFunction !== 4) {
+    if (this.selectedMathFunction !== '4') {
       // Set otherAnswer to blank and focus
       this.otherAnswer = '';
       this.setFocus(this.answerIn);
@@ -388,7 +389,7 @@ export class MathComponent implements OnInit {
       this.responseText = 'Wrong';
       // this.responseText]').css('background', '#FF0000');
 
-      if (this.selectedMathFunction !== 4) {
+      if (this.selectedMathFunction !== '4') {
         this.otherAnswer = '';
         this.setFocus(this.answerIn);
       }
@@ -509,25 +510,25 @@ export class MathComponent implements OnInit {
     }
 
     // Addition
-    if (this.selectedMathFunction === 1) {
+    if (this.selectedMathFunction === '1') {
       this.getAdditionHints();
       // Set focus on answer
       this.setFocus(this.answerIn);
     }
     // Subtraction
-    else if (this.selectedMathFunction === 2) {
+    else if (this.selectedMathFunction === '2') {
       this.getSubtractionHints();
       // Set focus on answer
       this.setFocus(this.answerIn);
     }
     // Multiplication
-    else if (this.selectedMathFunction === 3) {
+    else if (this.selectedMathFunction === '3') {
       this.getMultiplicationHints();
       // Set focus on answer
       this.setFocus(this.answerIn);
     }
     // Division
-    else if (this.selectedMathFunction === 4) {
+    else if (this.selectedMathFunction === '4') {
       this.getDivisionHints();
       // Set focus on answer
       this.setFocus(this.divideIn);
