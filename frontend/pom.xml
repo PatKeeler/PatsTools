@@ -70,7 +70,7 @@
               <goal>npm</goal>
             </goals>
             <configuration>
-              <arguments>run build --configuration=production --base-href="/PatsWebTools/"</arguments>
+              <arguments>run build --configuration=production --base-href="/PatsTools/"</arguments>
             </configuration>
           </execution>
         </executions>
