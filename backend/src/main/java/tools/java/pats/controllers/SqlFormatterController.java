@@ -1,6 +1,7 @@
 package tools.java.pats.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import tools.java.pats.models.SqlFormatter;
@@ -19,6 +20,8 @@ import java.io.Serializable;
  * Servlet implementation class SqlReformatter.
  */
 @Controller
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(value = "/api")
 public class SqlFormatterController extends HttpServlet implements Serializable {
 
 	private static final long serialVersionUID = 1951L;
@@ -42,7 +45,7 @@ public class SqlFormatterController extends HttpServlet implements Serializable 
 	 * @throws IOException
 	 *             If an I/O error occurs.
 	 */
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value = "/formatSql")
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -75,7 +78,7 @@ public class SqlFormatterController extends HttpServlet implements Serializable 
 		}
 		
 		//Default results value if error.
-		String results = "Input Sql string is blank!";
+		String results = "Input Sql string is blank! ";
 
 		//Get Input Sql.
 		String inputSQL = request.getParameter("inputSQL");
