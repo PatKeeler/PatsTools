@@ -11,6 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { PasswordsComponent } from './passwords/passwords.component';
 import { PokerComponent } from './poker/poker.component';
 import { MathComponent } from './math/math.component';
+import { SqlComponent } from './sql/sql.component';
+import { XmlComponent } from './xml/xml.component';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
@@ -18,8 +20,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { PlatformModule} from '@angular/cdk/platform';
-import { SqlComponent } from './sql/sql.component';
-import { XmlComponent } from './xml/xml.component';
 
 
 @NgModule({

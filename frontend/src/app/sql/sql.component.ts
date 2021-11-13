@@ -1,24 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { first, map, tap} from 'rxjs/operators';
-
-
-interface Parameters {
-  inputSQL: string;
-  indent: boolean;
-  indentAmount: string;
-  selectedStyle: string;
-  addQuotesAndReformat: boolean;
-  addQuotesOnly: boolean;
-  removeQuotesAndReformat: boolean;
-  removeQuotesOnly: boolean;
-}
+import { HttpParams } from '@angular/common/http';
+import { FormatService} from '../format.service';
 
 @Component({
   selector: 'app-sql',
   templateUrl: './sql.component.html',
   styleUrls: ['./sql.component.scss']
 })
+
+
 export class SqlComponent implements OnInit {
 
   // ViewChild references html element
@@ -29,23 +19,19 @@ export class SqlComponent implements OnInit {
   @ViewChild('removeQuotesReformat') removeQuotesReformat: ElementRef;
   @ViewChild('removeQuotesOnly') removeQuotesOnly: ElementRef;
 
-  title = 'PatsWebtools';
-  message: string;
   inputSQL: string;
   outputSQL: string;
-  indentAmount = '2';
-  styleRadio = 'block';
-  response: object;
+  indentAmount: string;
+  styleRadio: string;
 
-
-  constructor(private http: HttpClient) { }
+  constructor(private formatService: FormatService) { }
 
   ngOnInit(): void {
-    this.http.get('/message/').pipe(
-      first(),
-      tap(result => console.log('Message from server: ', result)),
-      map(result => this.message = (result as any).message)
-    ).subscribe();
+    // this.http.get('/api/formatSql').pipe(
+    //   first(),
+    //   tap(result => console.log('Message from server: ', result)),
+    //   map(result => this.message = (result as any).message)
+    // ).subscribe();
   }
 
   // public getHeaders(): HttpHeaders {
@@ -89,20 +75,18 @@ export class SqlComponent implements OnInit {
 
   getFormattedSql(): void {
 
-    const testString = 'select this as dis, that as dat where you != me';
+    const sqlString = 'select this as dis, that as dat where you != me';
+    const sqlParameters = new HttpParams()
+      .set('inputSQL', sqlString)
+      .set('indent', true)
+      .set('indentAmount', '2')
+      .set('selectedStyle', 'block')
+      .set('addQuotesAndReformat', true)
+      .set('addQuotesOnly', false)
+      .set('removeQuotesAndReformat', false)
+      .set('removeQuotesOnly', false);
 
-    const parameters: Parameters = {
-    inputSQL: testString,
-    indent: true,
-    indentAmount: '2',
-    selectedStyle: 'block',
-    addQuotesAndReformat: true,
-    addQuotesOnly: false,
-    removeQuotesAndReformat: false,
-    removeQuotesOnly: false
-  };
-
-    this.http.post<string>('http://localhost/angular/message', {parameters}).subscribe (data => {
+    this.formatService.getSql(sqlParameters).subscribe (data => {
       this.outputSQL = data.toString();
       console.log('response: ' + this.outputSQL);
     });
