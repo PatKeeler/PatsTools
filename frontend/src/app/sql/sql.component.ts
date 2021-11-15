@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { FormatService} from '../format.service';
+import {first, map, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-sql',
@@ -86,10 +87,19 @@ export class SqlComponent implements OnInit {
       .set('removeQuotesAndReformat', false)
       .set('removeQuotesOnly', false);
 
-    this.formatService.getSql(sqlParameters).subscribe (data => {
-      this.outputSQL = data.toString();
-      console.log('response: ' + this.outputSQL);
-    });
+    this.formatService.getSql(sqlParameters).subscribe(
+      response => {
+        console.log(response);
+        this.outputSQL = response;
+      },
+      error => {
+        console.log(error);
+      });
+
+    // this.formatService.getSql(sqlParameters).subscribe (data => {
+    //   this.outputSQL = data.toString();
+    //   console.log('response: ' + this.outputSQL);
+    // });
   }
 
   /*
