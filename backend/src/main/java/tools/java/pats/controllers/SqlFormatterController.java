@@ -1,9 +1,7 @@
 package tools.java.pats.controllers;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.*;
 import tools.java.pats.models.SqlFormatter;
 import tools.java.pats.utils.AddQuotesForJavaString;
 import tools.java.pats.utils.RemoveQuotesFromJavaString;
@@ -19,52 +17,13 @@ import java.io.Serializable;
 /**
  * Servlet implementation class SqlReformatter.
  */
-@Controller
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api")
 public class SqlFormatterController extends HttpServlet implements Serializable {
 
 	private static final long serialVersionUID = 1951L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SqlFormatterController() {
-		super();
-	}
-
-	/**
-	 * GET request, executes the POST request.
-	 * 
-	 * @param request
-	 *            The current request object.
-	 * @param response
-	 *            The generated response object.
-	 * @throws ServletException
-	 *             If an exception occurs which cannot be handled.
-	 * @throws IOException
-	 *             If an I/O error occurs.
-	 */
-	@RequestMapping(value = "/formatSql")
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-
-		doPost(request, response);
-	}
-
-	/**
-	 * POST request. Format and return the input SQL string.
-	 * 
-	 * @param request
-	 *            The current request object.
-	 * @param response
-	 *            The generated response object.
-	 * @throws ServletException
-	 *             If an exception occurs which cannot be handled.
-	 * @throws IOException
-	 *             If an I/O error occurs.
-	 */
-	@RequestMapping(value = "/ReformatSql", method = RequestMethod.POST)
+	@PostMapping("/ReformatSql")
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
