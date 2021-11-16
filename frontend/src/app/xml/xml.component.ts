@@ -29,10 +29,13 @@ export class XmlComponent implements OnInit {
       .set('indent', true)
       .set('indentAmount', '2');
 
-    this.formatService.getXml(xmlParameters)
-      .subscribe ((data) => {
-        this.outputXML = data;
-        console.log('response: ' + this.outputXML);
+    this.formatService.getXml(xmlParameters).subscribe(
+      response => {
+        console.log(response);
+        this.outputXML = response;
+      },
+      error => {
+        console.log(error);
       });
   }
 
