@@ -1,5 +1,6 @@
 package tools.java.pats.controllers;
 
+import tools.java.pats.classparams.SqlParms;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
@@ -9,9 +10,9 @@ public class SqlFormatterController implements Serializable {
 
 	private static final long serialVersionUID = 1951L;
 
-	public Map<String, String> getSql() {
+	public Map<String, String> getSql(SqlParms sqlParms) {
 
-		return Collections.singletonMap("result", "SQL greetings from Pat and Spring Boot!");
+		return Collections.singletonMap("result", "SQL block style: " + sqlParms.getSelectedStyle());
 
 //		//Initial indent value for recursion of SqlFormatter.
 //		String tab = "";

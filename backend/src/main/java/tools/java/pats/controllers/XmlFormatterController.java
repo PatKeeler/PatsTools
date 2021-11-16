@@ -1,5 +1,6 @@
 package tools.java.pats.controllers;
 
+import tools.java.pats.classparams.XmlParms;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
@@ -9,9 +10,9 @@ public class XmlFormatterController implements Serializable {
 
 	private static final long serialVersionUID = 1951L;
 
-	public Map<String, String> getXml() {
+	public Map<String, String> getXml(XmlParms xmlParms) {
 
-		return Collections.singletonMap("result", "XML greetings from Pat and Spring Boot!");
+		return Collections.singletonMap("result", "XML indent amount: " + xmlParms.getIndentAmount());
 
 //		//Input xml string.
 //		String inputXML = request.getParameter("inputXML");

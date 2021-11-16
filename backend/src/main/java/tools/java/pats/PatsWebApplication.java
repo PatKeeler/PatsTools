@@ -7,6 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tools.java.pats.classparams.SqlParms;
+import tools.java.pats.classparams.XmlParms;
 import tools.java.pats.controllers.SqlFormatterController;
 import tools.java.pats.controllers.XmlFormatterController;
 
@@ -25,17 +27,17 @@ public class PatsWebApplication extends SpringBootServletInitializer {
 
 
     @RequestMapping(value = "/formatSql")
-    public Map<String, String> formatSql() {
+    public Map<String, String> formatSql(SqlParms sqlParms) {
         SqlFormatterController sqlFormatterController =
                 new SqlFormatterController();
-        return sqlFormatterController.getSql();
+        return sqlFormatterController.getSql(sqlParms);
     }
 
 
     @RequestMapping(value = "/formatXml")
-    public Map<String, String> formatXml() {
+    public Map<String, String> formatXml(XmlParms xmlParms) {
         XmlFormatterController xmlFormatterController =
                 new XmlFormatterController();
-        return xmlFormatterController.getXml();
+        return xmlFormatterController.getXml(xmlParms);
     }
 }
