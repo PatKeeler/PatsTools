@@ -19,13 +19,11 @@ export class FormatService {
 
   getSql(parameters: HttpParams): Observable<any> {
     const API_URL = `${this.apiUrl}/formatSql`;
-    // console.log('SQL_URL: ' + API_URL);
     return this.http.post(API_URL, parameters);
   }
 
   getXml(parameters: HttpParams): Observable<any> {
     const API_URL = `${this.apiUrl}/formatXml`;
-    // console.log('XML_URL: ' + API_URL);
     return this.http.post(API_URL, parameters);
   }
 }
