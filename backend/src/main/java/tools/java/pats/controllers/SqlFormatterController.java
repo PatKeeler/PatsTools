@@ -1,6 +1,10 @@
 package tools.java.pats.controllers;
 
 import tools.java.pats.classparams.SqlParms;
+import tools.java.pats.models.SqlFormatter;
+import tools.java.pats.utils.AddQuotesForJavaString;
+import tools.java.pats.utils.RemoveQuotesFromJavaString;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
@@ -8,122 +12,97 @@ import java.util.Map;
 
 public class SqlFormatterController implements Serializable {
 
-	private static final long serialVersionUID = 1951L;
+    private static final long serialVersionUID = 1951L;
 
-	public Map<String, String> getSql(SqlParms sqlParms) {
+    public Map<String, String> getSql(SqlParms sqlParms) {
 
-		return Collections.singletonMap("result", "SQL block style: " + sqlParms.getSelectedStyle());
+        //Initial indent value for recursion of SqlFormatter.
+        String tab = "";
+        String results = "";
 
-//		//Initial indent value for recursion of SqlFormatter.
-//		String tab = "";
-//
-//		//Indent value requested by user.
-//		String userIndentAmount = request.getParameter("indentAmount");
-//		if (userIndentAmount == null) {
-//			userIndentAmount = "0";
-//		}
-//
-//		//Default results value if error.
-//		String results = "Input Sql string is blank! ";
-//
-//		//Get Input Sql.
-//		String inputSQL = request.getParameter("inputSQL");
-//
-//		//If inputSql is blank return error message.
-//		if (null == inputSQL ||
-//			inputSQL.isEmpty()) {
-//			response.getWriter().write(results);
-//		}
-//
-//        //Get the selected style, block or expanded
-//        String selectedStyle = request.getParameter("selectedStyle");
-//
-//		//See if "Reformat and Quotes" request?
-//		String addQuotesAndReformat = request.getParameter("addQuotesAndReformat");
-//
-//		//See if "Quotes Only" request?
-//		String addQuotesOnly = request.getParameter("addQuotesOnly");
-//
-//		//See if "remove quotes and reformat"
-//		String removeQuotesAndReformat = request.getParameter("removeQuotesAndReformat");
-//
-//		//See if "remove quotes only"
-//		String removeQuotesOnly = request.getParameter("removeQuotesOnly");
-//
-//		SqlFormatter formatter = new SqlFormatter();
-//
-//		//if add quotes only.
-//		if (null != addQuotesOnly && addQuotesOnly.equals("true")) {
-//			try {
-//				AddQuotesForJavaString getQuotes = new AddQuotesForJavaString();
-//				results = getQuotes.addQuotes(inputSQL);
-//			}
-//			catch(Exception e) {
-//				results = "Exception during Add Quotes Only processing: " +
-//				        e.getLocalizedMessage();
-//                e.printStackTrace();
-//			}
-//            finally {
-//				//Return results: Formatted Sql or an error message.
-//    			response.getWriter().write(results);
-//            }
-//		}
-//		//if remove quotes only.
-//		else if (null != removeQuotesOnly && removeQuotesOnly.equals("true")) {
-//			try {
-//                RemoveQuotesFromJavaString removeQuotes = new RemoveQuotesFromJavaString();
-//				results = removeQuotes.removeQuotes(inputSQL);
-//			}
-//			catch(Exception e) {
-//				results = "Exception during Remove Quotes Only processing: " +
-//				        e.getLocalizedMessage();
-//                e.printStackTrace();
-//			}
-//            finally {
-//				//Return results: Quoted input or an error message.
-//    			response.getWriter().write(results);
-//            }
-//		}
-//		//if remove quotes and format.
-//		else if (null != removeQuotesAndReformat && removeQuotesAndReformat.equals("true")) {
-//			try {
-//                RemoveQuotesFromJavaString removeQuotes = new RemoveQuotesFromJavaString();
-//				results = removeQuotes.removeQuotes(inputSQL);
-//                results = formatter.formatSql(results, tab, userIndentAmount, selectedStyle);
-//			}
-//			catch(Exception e) {
-//				results = "Exception during Remove Quotes And Format processing: " +
-//				        e.getLocalizedMessage();
-//                e.printStackTrace();
-//			}
-//            finally {
-//				//Return results: Formatted Sql or an error message.
-//    			response.getWriter().write(results);
-//            }
-//		}
-//		else
-//        {
-//			try {
-//				//Format the input.
-//				results = formatter.formatSql(inputSQL, tab, userIndentAmount, selectedStyle);
-//
-//				//Add quotes to formatted results if requested.
-//				if (null != addQuotesAndReformat && addQuotesAndReformat.equals("true")) {
-//
-//					AddQuotesForJavaString getQuotes = new AddQuotesForJavaString();
-//					results = getQuotes.addQuotes(results);
-//				}
-//			}
-//			catch (Exception e) {
-//				results = "Exception during format processing: " +
-//                        e.getLocalizedMessage();
-//                e.printStackTrace();
-//			}
-//
-//            finally {
-//				//Return results: Formatted Sql or an error message.
-//    			response.getWriter().write(results);
-//            }
-//		}
-	}
+        //Indent value requested by user.
+        String userIndentAmount = sqlParms.getIndentAmount();
+        if (userIndentAmount == null) {
+            userIndentAmount = "0";
+        }
+
+        //Get Input Sql.
+        String inputSQL = sqlParms.getInputSQL();
+
+        //If inputSql is blank return error message.
+        if (null == inputSQL ||
+                inputSQL.isEmpty()) {
+            results = "Input Sql string is blank! ";
+        } else {
+            //Get the selected style, block or expanded
+            String selectedStyle = sqlParms.getSelectedStyle();
+
+            //See if "Reformat and Quotes" request?
+            String addQuotesAndReformat = sqlParms.getAddQuotesAndReformat();
+
+            //See if "Quotes Only" request?
+            String addQuotesOnly = sqlParms.getAddQuotesOnly();
+
+            //See if "remove quotes and reformat"
+            String removeQuotesAndReformat = sqlParms.getRemoveQuotesAndReformat();
+
+            //See if "remove quotes only"
+            String removeQuotesOnly = sqlParms.getRemoveQuotesOnly();
+
+            SqlFormatter formatter = new SqlFormatter();
+
+            //if add quotes only.
+            if (null != addQuotesOnly && addQuotesOnly.equals("true")) {
+                try {
+                    AddQuotesForJavaString getQuotes = new AddQuotesForJavaString();
+                    results = getQuotes.addQuotes(inputSQL);
+                } catch (Exception e) {
+                    results = "Exception during Add Quotes Only processing: " +
+                            e.getLocalizedMessage();
+                    e.printStackTrace();
+                }
+            }
+            //if remove quotes only.
+            else if (null != removeQuotesOnly && removeQuotesOnly.equals("true")) {
+                try {
+                    RemoveQuotesFromJavaString removeQuotes = new RemoveQuotesFromJavaString();
+                    results = removeQuotes.removeQuotes(inputSQL);
+                } catch (Exception e) {
+                    results = "Exception during Remove Quotes Only processing: " +
+                            e.getLocalizedMessage();
+                    e.printStackTrace();
+                }
+            }
+            //if remove quotes and format.
+            else if (null != removeQuotesAndReformat && removeQuotesAndReformat.equals("true")) {
+                try {
+                    RemoveQuotesFromJavaString removeQuotes = new RemoveQuotesFromJavaString();
+                    results = removeQuotes.removeQuotes(inputSQL);
+                    results = formatter.formatSql(results, tab, userIndentAmount, selectedStyle);
+                } catch (Exception e) {
+                    results = "Exception during Remove Quotes And Format processing: " +
+                            e.getLocalizedMessage();
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    //Format the input.
+                    results = formatter.formatSql(inputSQL, tab, userIndentAmount, selectedStyle);
+
+                    //Add quotes to formatted results if requested.
+                    if (null != addQuotesAndReformat && addQuotesAndReformat.equals("true")) {
+
+                        AddQuotesForJavaString getQuotes = new AddQuotesForJavaString();
+                        results = getQuotes.addQuotes(results);
+                    }
+                } catch (Exception e) {
+                    results = "Exception during format processing: " +
+                            e.getLocalizedMessage();
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return Collections.singletonMap("result", results);
+    }
 }

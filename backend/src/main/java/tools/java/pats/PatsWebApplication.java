@@ -1,5 +1,7 @@
 package tools.java.pats;
 
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -12,7 +14,10 @@ import tools.java.pats.classparams.XmlParms;
 import tools.java.pats.controllers.SqlFormatterController;
 import tools.java.pats.controllers.XmlFormatterController;
 
+import java.util.Arrays;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @SpringBootApplication
@@ -21,7 +26,9 @@ import java.util.Map;
 @RequestMapping(value = "/api")
 public class PatsWebApplication extends SpringBootServletInitializer {
 
-    public static void main(String[] args) {
+    private static final Logger logger = LoggerFactory.getLogger(PatsWebApplication.class);
+
+    public static void main(ApplicationArguments args) throws Exception {
         SpringApplication.run(PatsWebApplication.class);
     }
 
