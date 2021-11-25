@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
+import {HttpHeaders, HttpParams} from '@angular/common/http';
 import { FormatService} from '../format.service';
 import {first, map, tap} from 'rxjs/operators';
 
@@ -21,31 +21,27 @@ export class SqlComponent implements OnInit {
   @ViewChild('removeQuotesOnly') removeQuotesOnly: ElementRef;
 
   inputSQL: string;
-  outputSQL: string;
-  indentAmount: string;
   styleRadio: string;
+  selectedStyle: string;
+  indent: boolean;
+  indentAmount: string;
+  addQuotesAndReformat: boolean;
+  removeQuotesAndReformat: boolean;
+  outputSQL: string;
+
 
   constructor(private formatService: FormatService) { }
 
   ngOnInit(): void {
-    // this.http.get('/api/formatSql').pipe(
-    //   first(),
-    //   tap(result => console.log('Message from server: ', result)),
-    //   map(result => this.message = (result as any).message)
-    // ).subscribe();
+    // console.log('SQL app started');
   }
-
-  // public getHeaders(): HttpHeaders {
-  //   const headers = new HttpHeaders({
-  //     'Content-Type':  'application/json',
-  //     'Access-Control-Allow-Origin': `http://localhost/ReformatSql`
-  //   });
-  //   return headers;
-  // }
 
   checkIndentAmountEnabled(): void {
     if (this.indentCheckBox.nativeElement.checked) {
-      // Add code here
+      console.log('SQL indent is checked');
+    }
+    else {
+      console.log('SQL indent is not checked');
     }
   }
 
@@ -76,21 +72,25 @@ export class SqlComponent implements OnInit {
 
   getFormattedSql(): void {
 
-    const sqlString = 'select this as dis, that as dat where you != me';
-    const sqlParameters = new HttpParams()
-      .set('inputSQL', sqlString)
-      .set('indent', true)
-      .set('indentAmount', '2')
-      .set('selectedStyle', 'block')
-      .set('addQuotesAndReformat', true)
-      .set('addQuotesOnly', false)
-      .set('removeQuotesAndReformat', false)
-      .set('removeQuotesOnly', false);
+    this.checkIndentAmountEnabled();
 
-    this.formatService.getSql(sqlParameters).subscribe(
+    const params: HttpParams = new HttpParams({
+      fromObject: {
+        inputSQL: this.inputSQL,
+        indent: true,
+        indentAmount: '2',
+        selectedStyle: 'block',
+        addQuotesAndReformat: false,
+        addQuotesOnly: false,
+        removeQuotesAndReformat: false,
+        removeQuotesOnly: false
+      }
+    });
+
+    this.formatService.getSql(params).subscribe(
       response => {
-        console.log(response);
-        this.outputSQL = response;
+        // console.log(response.result);
+        this.outputSQL = response.result;
       },
       error => {
         console.log(error);

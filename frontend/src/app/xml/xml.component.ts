@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { FormatService} from '../format.service';
 
@@ -11,28 +11,49 @@ import { FormatService} from '../format.service';
 
 export class XmlComponent implements OnInit {
 
+  // ViewChild references html element
+  // ElementRef references ts property
+  @ViewChild('indentCheckBox') indentCheckBox: ElementRef;
+
+  inputXML: string;
   outputXML: string;
+  indentAmount = 3;
+  tempIndentAmount = 0;
+  isDisabled: boolean;
 
   constructor(private formatService: FormatService) { }
 
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  checkIndentAmountEnabled(): void {
+    if (this.indentCheckBox.nativeElement.checked) {
+      console.log('XML indent is checked');
+      this.isDisabled = false;
+      this.indentAmount = this.tempIndentAmount;
+    }
+    else {
+      console.log('XML indent is not checked');
+      this.tempIndentAmount = this.indentAmount;
+      this.indentAmount = 0;
+      this.isDisabled = true;
+    }
   }
 
   getFormattedXml(): void {
 
-    const xmlString = '<note><to>Pat</to><from>JoAnn</from><heading>Reminder</heading>' +
-      '<body>Don\'t forget me this weekend!</body></note>';
+    const params: HttpParams = new HttpParams({
+      fromObject: {
+        inputSQL: this.inputXML,
+        indent: true,
+        indentAmount: this.indentAmount
+      }
+    });
 
-    const xmlParameters = new HttpParams()
-      .set('inputXML', xmlString)
-      .set('indent', true)
-      .set('indentAmount', '2');
-
-    this.formatService.getXml(xmlParameters).subscribe(
+    this.formatService.getXml(params).subscribe(
       response => {
-        console.log(response);
-        this.outputXML = response;
+        // console.log(response.result);
+        this.outputXML = response.result;
       },
       error => {
         console.log(error);
