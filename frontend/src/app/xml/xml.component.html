@@ -26,10 +26,10 @@
     <table border="0" width="100%" cellpadding="10">
       <tr>
         <td width="25%">
-          <label for="inputXML"><font color="red">**</font> Beginning prolog will be removed.</label>
+          <span style="color: red">**</span> Beginning prolog will be removed.
         </td>
         <td width="75%">
-          <textarea name="inputXML" id="inputXML" rows="7" cols="75" wrap="off"></textarea>
+          <textarea [(ngModel)]="inputXML" rows="7" cols="75" wrap="off"></textarea>
         </td>
       </tr>
     </table>
@@ -40,19 +40,18 @@
     <table border="0" width="100%" cellpadding="10">
       <tr>
         <td width="25%" align="right">
-          <label for="indentCheckBox">Indent options:</label>
+          Indent options:
         </td>
         <td width="25%">
           <input type="checkbox"
-                 name="indentCheckBox"
-                 id="indentCheckBox"
-                 onclick="checkIndentAmountEnabled()"
+            #indentCheckBox (change)="checkIndentAmountEnabled()"
                  checked > Indent elements.
         </td>
         <td width="50%">Indent amount:
-          <input type="text" name="indentAmount"
-                 id="indentAmount" maxlength="1" size="1" value="3"
-                 onchange="verifyIndent(this)" />
+          <input type="text" [disabled]=isDisabled
+            [(ngModel)]="indentAmount"
+                 maxlength="1"
+                 size="1"/>
         </td>
       </tr>
     </table>

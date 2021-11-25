@@ -19,6 +19,9 @@ public class XmlFormatterController implements Serializable {
 
 	public Map<String, String> getXml(XmlParms xmlParms) {
 
+		//Default message if input is empty.
+		String results = "";
+
 		//Input xml string.
 		String inputXML = xmlParms.getInputSQL();
 
@@ -28,12 +31,12 @@ public class XmlFormatterController implements Serializable {
 			userIndentAmount = "0";
 		}
 
-		//Default message if input is empty.
-		String results = "Input Xml string is blank!";
-
 		XmlFormatter formatter = new XmlFormatter();
 
-		if (! inputXML.isEmpty()) {
+		if (null == inputXML || inputXML.isEmpty()) {
+			results = "InputXML string is blank";
+		}
+		else {
 			try {
 				results = formatter.doInvoke(inputXML, userIndentAmount);
 			}
@@ -43,17 +46,16 @@ public class XmlFormatterController implements Serializable {
 			}
 			catch (ParserConfigurationException e) {
 				results = "ParserConfigurationException: " + e.getLocalizedMessage();
-			} catch (SAXException e) {
+			}
+			catch (SAXException e) {
 				results = "SAXException: " + e.getLocalizedMessage();
-			} catch (TransformerFactoryConfigurationError e) {
+			}
+			catch (TransformerFactoryConfigurationError e) {
 				results = "TransformerFactoryConfigurationError: " + e.getLocalizedMessage();
-			} catch (TransformerException e) {
+			}
+			catch (TransformerException e) {
 				results = "TransformerException: " + e.getLocalizedMessage();
 			}
-//			finally {
-//				//print out the error message
-//				response.getWriter().write(results);
-//			}
 		}
 		return Collections.singletonMap("result", results);
 	}

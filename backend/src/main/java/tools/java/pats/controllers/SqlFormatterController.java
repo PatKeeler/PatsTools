@@ -56,7 +56,8 @@ public class SqlFormatterController implements Serializable {
                 try {
                     AddQuotesForJavaString getQuotes = new AddQuotesForJavaString();
                     results = getQuotes.addQuotes(inputSQL);
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     results = "Exception during Add Quotes Only processing: " +
                             e.getLocalizedMessage();
                     e.printStackTrace();
@@ -67,7 +68,8 @@ public class SqlFormatterController implements Serializable {
                 try {
                     RemoveQuotesFromJavaString removeQuotes = new RemoveQuotesFromJavaString();
                     results = removeQuotes.removeQuotes(inputSQL);
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     results = "Exception during Remove Quotes Only processing: " +
                             e.getLocalizedMessage();
                     e.printStackTrace();
@@ -79,7 +81,8 @@ public class SqlFormatterController implements Serializable {
                     RemoveQuotesFromJavaString removeQuotes = new RemoveQuotesFromJavaString();
                     results = removeQuotes.removeQuotes(inputSQL);
                     results = formatter.formatSql(results, tab, userIndentAmount, selectedStyle);
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     results = "Exception during Remove Quotes And Format processing: " +
                             e.getLocalizedMessage();
                     e.printStackTrace();
@@ -95,7 +98,8 @@ public class SqlFormatterController implements Serializable {
                         AddQuotesForJavaString getQuotes = new AddQuotesForJavaString();
                         results = getQuotes.addQuotes(results);
                     }
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     results = "Exception during format processing: " +
                             e.getLocalizedMessage();
                     e.printStackTrace();
