@@ -26,10 +26,17 @@ export interface WinnerData {
 
 export class PokerComponent implements OnInit {
 
-  playerData: PlayerData[] = [
-    // {name: 'Pat', buyIn: 10.00, bounty: 0.00, fee: 0.00, lastMan: 0.00, addOn: 5.00},
-  ];
+  playerData: PlayerData[] = [ ];
   winnerData: WinnerData[] = [];
+
+  winners3 = '50 30 20';
+  winners4 = '40 30 20 10';
+  winners5 = '40 23 16 12 9';
+  winners6 = '36 22 16 11 9 6';
+  winners7 = '33 20 15 11 8 7 6';
+  winners8 = '31 20 13 10 8 7 6 5';
+  winners9 = '29 18 13 10 8 7 6 5 4';
+  winners10 = '27 16 13 10 9 7 6 5 4 3';
 
   // ViewChild references html element
   // ElementRef references ts property
@@ -139,6 +146,10 @@ export class PokerComponent implements OnInit {
    */
   setWinnerFocus(): void {
     setTimeout(() => { this.winnerText.nativeElement.focus(); }, 500);
+  }
+
+  setPercents(percents): void {
+    this.percentages = percents;
   }
 
   savePlayer(): void {

@@ -178,18 +178,38 @@
     <div align="left" width="50%">
       <h1>Winners:</h1>
     </div>
-    <table border="0" width="100%" cellpadding="5">
-      <thead>
-        <tr>
-          <th align="left" width="60%">Enter percentages, seperated by spaces, commas, dashes, whatever.</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input #winnerTextEl type="text" [(ngModel)]="percentages"></td>
-        </tr>
-      </tbody>
+    <div align="left" width="60%">
+      <th>Enter each winner percentages, seperated by spaces, commas, dashes, whatever.</th>
+    </div>
+    <br/>
+    <table>
+      <tr>
+        <td>
+          <div>
+            <input #winnerTextEl type="text" size="25" maxwidth="30" [(ngModel)]="percentages">
+          </div>
+        </td>
+        <td>&nbsp;</td>
+        <td>
+          <div class="f-17" align="top" width="50%">
+            <div class="percentage-tip">
+              <p>You can auto fill suggested percentages by selecting the number of winners below.<br>
+                &nbsp; &nbsp; You can manually change the percentages to get desired results.<br>
+                <button class="button button3" (click)="setPercents(this.winners3)">3</button>
+                <button class="button button4" (click)="setPercents(this.winners4)">4</button>
+                <button class="button button5" (click)="setPercents(this.winners5)">5</button>
+                <button class="button button6" (click)="setPercents(this.winners6)">6</button>
+                <button class="button button7" (click)="setPercents(this.winners7)">7</button>
+                <button class="button button8" (click)="setPercents(this.winners8)">8</button>
+                <button class="button button9" (click)="setPercents(this.winners9)">9</button>
+                <button class="button button10" (click)="setPercents(this.winners10)">10</button>
+              </p>
+            </div>
+          </div>
+        </td>
+      </tr>
     </table>
+    <br/>
     <br/>
     Compute:
     <button type="button" class="ml-3" (click)="computeWinnerBtn()">BuyIn & AddOn</button>
