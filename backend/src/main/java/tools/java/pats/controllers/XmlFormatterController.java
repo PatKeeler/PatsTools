@@ -23,7 +23,7 @@ public class XmlFormatterController implements Serializable {
 		String results = "";
 
 		//Input xml string.
-		String inputXML = xmlParms.getInputSQL();
+		String inputXML = xmlParms.getInputXML();
 
 		//Indent value requested by user.
 		String userIndentAmount = xmlParms.getIndentAmount();

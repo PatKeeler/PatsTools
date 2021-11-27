@@ -2,16 +2,16 @@ package tools.java.pats.classparams;
 
 public class XmlParms {
 
-    private String inputSQL;
+    private String inputXML;
     private String indent;
     private String indentAmount;
 
 
-    public String getInputSQL() {
-        return inputSQL;
+    public String getInputXML() {
+        return inputXML;
     }
     public void setInputSQL(String inputSQL) {
-        this.inputSQL = inputSQL;
+        this.inputXML = inputXML;
     }
 
     public String getIndent() {
