@@ -14,7 +14,7 @@ export class SqlComponent implements OnInit {
 
   // ViewChild references html element
   // ElementRef references ts property
-  @ViewChild('indentCheckBox') indentCheckBox: ElementRef;
+  @ViewChild('sqlIndentCheckBox') sqlIndentCheckBox: ElementRef;
   @ViewChild('addQuotesReformat') addQuotesReformat: ElementRef;
   @ViewChild('addQuotesOnly') addQuotesOnly: ElementRef;
   @ViewChild('removeQuotesReformat') removeQuotesReformat: ElementRef;
@@ -24,7 +24,9 @@ export class SqlComponent implements OnInit {
   styleRadio: string;
   selectedStyle: string;
   indent: boolean;
-  indentAmount: string;
+  indentAmount = 3;
+  tempIndentAmount = 0;
+  isDisabled: boolean;
   addQuotesAndReformat: boolean;
   removeQuotesAndReformat: boolean;
   outputSQL: string;
@@ -36,12 +38,17 @@ export class SqlComponent implements OnInit {
     // console.log('SQL app started');
   }
 
-  checkIndentAmountEnabled(): void {
-    if (this.indentCheckBox.nativeElement.checked) {
-      console.log('SQL indent is checked');
+  checkSqlIndentAmountEnabled(): void {
+    if (this.sqlIndentCheckBox.nativeElement.checked) {
+      console.log('XML indent is checked');
+      this.isDisabled = false;
+      this.indentAmount = this.tempIndentAmount;
     }
     else {
-      console.log('SQL indent is not checked');
+      console.log('XML indent is not checked');
+      this.tempIndentAmount = this.indentAmount;
+      this.indentAmount = 0;
+      this.isDisabled = true;
     }
   }
 
@@ -71,8 +78,6 @@ export class SqlComponent implements OnInit {
 
 
   getFormattedSql(): void {
-
-    this.checkIndentAmountEnabled();
 
     const params: HttpParams = new HttpParams({
       fromObject: {

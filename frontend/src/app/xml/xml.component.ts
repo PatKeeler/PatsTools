@@ -13,7 +13,7 @@ export class XmlComponent implements OnInit {
 
   // ViewChild references html element
   // ElementRef references ts property
-  @ViewChild('indentCheckBox') indentCheckBox: ElementRef;
+  @ViewChild('xmlIndentCheckBox') xmlIndentCheckBox: ElementRef;
 
   inputXML: string;
   outputXML: string;
@@ -26,8 +26,8 @@ export class XmlComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  checkIndentAmountEnabled(): void {
-    if (this.indentCheckBox.nativeElement.checked) {
+  checkXmlIndentAmountEnabled(): void {
+    if (this.xmlIndentCheckBox.nativeElement.checked) {
       console.log('XML indent is checked');
       this.isDisabled = false;
       this.indentAmount = this.tempIndentAmount;
