@@ -83,7 +83,7 @@ export class SqlComponent implements OnInit {
       fromObject: {
         inputSQL: this.inputSQL,
         indent: true,
-        indentAmount: '2',
+        indentAmount: this.indentAmount,
         selectedStyle: 'block',
         addQuotesAndReformat: false,
         addQuotesOnly: false,
