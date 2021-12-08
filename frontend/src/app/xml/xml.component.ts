@@ -28,12 +28,10 @@ export class XmlComponent implements OnInit {
 
   checkXmlIndentEnabled(): void {
     if (this.xmlIndentCheckBox.nativeElement.checked) {
-      console.log('Xml indent is checked');
       this.isXmlDisabled = false;
       this.indentXmlAmount = this.tempIndentXmlAmount;
     }
     else {
-      console.log('Xml indent is not checked');
       this.tempIndentXmlAmount = this.indentXmlAmount;
       this.indentXmlAmount = 0;
       this.isXmlDisabled = true;
@@ -52,7 +50,6 @@ export class XmlComponent implements OnInit {
 
     this.formatService.getXml(params).subscribe(
       response => {
-        // console.log(response.result);
         this.outputXml = response.result;
       },
       error => {

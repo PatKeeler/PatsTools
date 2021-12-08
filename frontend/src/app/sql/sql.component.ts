@@ -37,7 +37,6 @@ export class SqlComponent implements OnInit {
   constructor(private formatService: FormatService) { }
 
   ngOnInit(): void {
-    // console.log('SQL app started');
   }
 
   styleRadioHandler(event): void {
@@ -135,17 +134,11 @@ export class SqlComponent implements OnInit {
 
     this.formatService.getSql(params).subscribe(
       response => {
-        // console.log(response.result);
         this.outputSQL = response.result;
       },
       error => {
         console.log(error);
       });
-
-    // this.formatService.getSql(sqlParameters).subscribe (data => {
-    //   this.outputSQL = data.toString();
-    //   console.log('response: ' + this.outputSQL);
-    // });
   }
 
   /*
