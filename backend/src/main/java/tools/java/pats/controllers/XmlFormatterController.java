@@ -1,12 +1,13 @@
 package tools.java.pats.controllers;
 
-import org.xml.sax.SAXException;
 import tools.java.pats.classparams.XmlParms;
 import tools.java.pats.models.XmlFormatter;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
+import org.xml.sax.SAXException;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
@@ -23,10 +24,10 @@ public class XmlFormatterController implements Serializable {
 		String results = "";
 
 		//Input xml string.
-		String inputXML = xmlParms.getInputXML();
+		String inputXML = xmlParms.getInputXml();
 
 		//Indent value requested by user.
-		String userIndentAmount = xmlParms.getIndentAmount();
+		String userIndentAmount = xmlParms.getIndentXmlAmount();
 		if (userIndentAmount == null) {
 			userIndentAmount = "0";
 		}
