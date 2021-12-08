@@ -31,5 +31,9 @@
         <appender-ref ref="ROLLING_FILE" />
         <appender-ref ref="STDOUT" />
     </logger>
+    <logger name="XmlFormatter" level="debug">
+        <appender-ref ref="ROLLING_FILE" />
+        <appender-ref ref="STDOUT" />
+    </logger>
 
 </configuration>
