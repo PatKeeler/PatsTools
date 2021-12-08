@@ -15,28 +15,28 @@ export class XmlComponent implements OnInit {
   // ElementRef references ts property
   @ViewChild('xmlIndentCheckBox') xmlIndentCheckBox: ElementRef;
 
-  inputXML: string;
-  outputXML: string;
-  indentAmount = 3;
-  tempIndentAmount = 0;
-  isDisabled: boolean;
+  inputXml: string;
+  indentXmlAmount = 3;
+  tempIndentXmlAmount = 0;
+  isXmlDisabled: boolean;
+  outputXml: string;
 
   constructor(private formatService: FormatService) { }
 
 
   ngOnInit(): void { }
 
-  checkXmlIndentAmountEnabled(): void {
+  checkXmlIndentEnabled(): void {
     if (this.xmlIndentCheckBox.nativeElement.checked) {
-      console.log('XML indent is checked');
-      this.isDisabled = false;
-      this.indentAmount = this.tempIndentAmount;
+      console.log('Xml indent is checked');
+      this.isXmlDisabled = false;
+      this.indentXmlAmount = this.tempIndentXmlAmount;
     }
     else {
-      console.log('XML indent is not checked');
-      this.tempIndentAmount = this.indentAmount;
-      this.indentAmount = 0;
-      this.isDisabled = true;
+      console.log('Xml indent is not checked');
+      this.tempIndentXmlAmount = this.indentXmlAmount;
+      this.indentXmlAmount = 0;
+      this.isXmlDisabled = true;
     }
   }
 
@@ -44,16 +44,16 @@ export class XmlComponent implements OnInit {
 
     const params: HttpParams = new HttpParams({
       fromObject: {
-        inputSQL: this.inputXML,
-        indent: true,
-        indentAmount: this.indentAmount
+        inputXml: this.inputXml,
+        indentXml: true,
+        indentXmlAmount: this.indentXmlAmount
       }
     });
 
     this.formatService.getXml(params).subscribe(
       response => {
         // console.log(response.result);
-        this.outputXML = response.result;
+        this.outputXml = response.result;
       },
       error => {
         console.log(error);

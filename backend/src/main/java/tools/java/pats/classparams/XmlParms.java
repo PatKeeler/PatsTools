@@ -2,29 +2,29 @@ package tools.java.pats.classparams;
 
 public class XmlParms {
 
-    private String inputXML;
-    private String indent;
-    private String indentAmount;
+    private String inputXml;
+    private String indentXml;
+    private String indentXmlAmount;
 
 
-    public String getInputXML() {
-        return inputXML;
+    public String getInputXml() {
+        return inputXml;
     }
-    public void setInputXML(String inputXML) {
-        this.inputXML = inputXML;
-    }
-
-    public String getIndent() {
-        return indent;
-    }
-    public void setIndent(String indent) {
-        this.indent = indent;
+    public void setInputXml(String inputXml) {
+        this.inputXml = inputXml;
     }
 
-    public String getIndentAmount() {
-        return indentAmount;
+    public String getIndentXml() {
+        return indentXml;
     }
-    public void setIndentAmount(String indentAmount) {
-        this.indentAmount = indentAmount;
+    public void setIndentXml(String indentXml) {
+        this.indentXml = indentXml;
+    }
+
+    public String getIndentXmlAmount() {
+        return indentXmlAmount;
+    }
+    public void setIndentXmlAmount(String indentXmlAmount) {
+        this.indentXmlAmount = indentXmlAmount;
     }
 }
