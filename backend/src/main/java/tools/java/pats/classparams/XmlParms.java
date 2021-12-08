@@ -10,7 +10,7 @@ public class XmlParms {
     public String getInputXML() {
         return inputXML;
     }
-    public void setInputSQL(String inputSQL) {
+    public void setInputXML(String inputXML) {
         this.inputXML = inputXML;
     }
 
