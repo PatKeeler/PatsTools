@@ -43,12 +43,14 @@
           Select format style:
         </td>
         <td width="25%">
-          <input type="radio" [(ngModel)]="styleRadio"
-                 value="block" value="true">Block style
+          <input type="radio" name="styleRadio" checked
+                 (change)="styleRadioHandler($event)"
+                 value="block">Block style
           <br>
         </td>
         <td width="50%">
-          <input type="radio" [(ngModel)]="styleRadio"
+          <input type="radio" name="styleRadio"
+                 (change)="styleRadioHandler($event)"
                  value="expanded">Expanded style
           <br>
         </td>
@@ -84,7 +86,7 @@
                  #addQuotesOnly
                  name="addQuotesOnlyCheckBox"
                  id="addQuotesOnlyCheckBox"
-                 (click)="setAddQuotesOnly()" >
+                 (change)="setAddQuotesOnly()" >
           Add quotes only (any input).
         </td>
       </tr>
@@ -93,13 +95,13 @@
         <td>
           <input type="checkbox"
                  #removeQuotesReformat
-                 (click)="setRemoveQuotesReformat()" >
+                 (change)="setRemoveQuotesReformat()" >
           Remove quotes and Re-format.
         </td>
         <td>
           <input type="checkbox"
                  #removeQuotesOnly
-                 (click)="setRemoveQuotesOnly()" >
+                 (change)="setRemoveQuotesOnly()" >
           Remove quotes only (any input).
         </td>
       </tr>

@@ -29,6 +29,8 @@ export class SqlComponent implements OnInit {
   isDisabled: boolean;
   addQuotesAndReformat: boolean;
   removeQuotesAndReformat: boolean;
+  addQuotesNoReformat: boolean;
+  removeQuotesNoReformat: boolean;
   outputSQL: string;
 
 
@@ -38,14 +40,16 @@ export class SqlComponent implements OnInit {
     // console.log('SQL app started');
   }
 
+  styleRadioHandler(event): void {
+    this.selectedStyle = event.target.value;
+  }
+
   checkSqlIndentAmountEnabled(): void {
     if (this.sqlIndentCheckBox.nativeElement.checked) {
-      console.log('XML indent is checked');
       this.isDisabled = false;
       this.indentAmount = this.tempIndentAmount;
     }
     else {
-      console.log('XML indent is not checked');
       this.tempIndentAmount = this.indentAmount;
       this.indentAmount = 0;
       this.isDisabled = true;
@@ -53,27 +57,64 @@ export class SqlComponent implements OnInit {
   }
 
   setAddQuotesReformat(): void {
+    if (this.addQuotesReformat.nativeElement.checked) {
+      this.addQuotesAndReformat = true;
+    }
+    else {
+      this.addQuotesAndReformat = false;
+    }
     this.addQuotesOnly.nativeElement.checked = false;
     this.removeQuotesReformat.nativeElement.checked = false;
     this.removeQuotesOnly.nativeElement.checked = false;
+    this.addQuotesNoReformat = false;
+    this.removeQuotesAndReformat = false;
+    this.removeQuotesNoReformat = false;
   }
 
   setAddQuotesOnly(): void {
+    if (this.addQuotesOnly.nativeElement.checked) {
+      this.addQuotesNoReformat = true;
+    }
+    else {
+      this.addQuotesNoReformat = false;
+
+    }
     this.addQuotesReformat.nativeElement.checked = false;
     this.removeQuotesReformat.nativeElement.checked = false;
     this.removeQuotesOnly.nativeElement.checked = false;
+    this.addQuotesAndReformat = false;
+    this.removeQuotesNoReformat = false;
+    this.removeQuotesAndReformat = false;
   }
 
   setRemoveQuotesReformat(): void {
+    if (this.removeQuotesReformat.nativeElement.checked) {
+      this.removeQuotesAndReformat = true;
+    }
+    else {
+      this.removeQuotesAndReformat = false;
+    }
     this.addQuotesOnly.nativeElement.checked = false;
     this.addQuotesReformat.nativeElement.checked = false;
     this.removeQuotesOnly.nativeElement.checked = false;
+    this.removeQuotesNoReformat = false;
+    this.addQuotesNoReformat = false;
+    this.addQuotesNoReformat = false;
   }
 
   setRemoveQuotesOnly(): void {
+    if (this.removeQuotesOnly.nativeElement.checked) {
+      this.removeQuotesNoReformat = true;
+    }
+    else {
+      this.removeQuotesNoReformat = false;
+    }
     this.addQuotesOnly.nativeElement.checked = false;
     this.addQuotesReformat.nativeElement.checked = false;
     this.removeQuotesReformat.nativeElement.checked = false;
+    this.addQuotesNoReformat = false;
+    this.addQuotesNoReformat = false;
+    this.removeQuotesAndReformat = false;
   }
 
 
@@ -84,11 +125,11 @@ export class SqlComponent implements OnInit {
         inputSQL: this.inputSQL,
         indent: true,
         indentAmount: this.indentAmount,
-        selectedStyle: 'block',
-        addQuotesAndReformat: false,
-        addQuotesOnly: false,
-        removeQuotesAndReformat: false,
-        removeQuotesOnly: false
+        selectedStyle: this.selectedStyle,
+        addQuotesAndReformat: this.addQuotesAndReformat,
+        addQuotesOnly: this.addQuotesNoReformat,
+        removeQuotesAndReformat: this.removeQuotesAndReformat,
+        removeQuotesOnly: this.removeQuotesNoReformat
       }
     });
 
