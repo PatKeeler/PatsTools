@@ -2,16 +2,14 @@ package tools.java.pats.models;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.java.pats.nodes.Query;
 import tools.java.pats.utils.StringCleaner;
 import tools.java.pats.utils.sql.SqlKeywordsToUpperCase;
 import tools.java.pats.utils.sql.SqlNodeParser;
-import tools.java.pats.nodes.Query;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.List;
-
-import static java.lang.String.format;
 
 /**
  * SQL statement formatter.
@@ -70,8 +68,8 @@ public class SqlFormatter implements Serializable {
 
         // Log the one line sql string.
 		logger.info("");
-        logger.info(tab + "Sql:");
-        logger.info("  " + tab + sql);
+        logger.info("Sql:");
+        logger.info("   " + sql);
 
         //Log each node - printed in each node
 		logger.info(tab + "Nodes:");

@@ -2,9 +2,11 @@ package tools.java.pats.models;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
 import tools.java.pats.utils.xml.XmlCleaner;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -13,6 +15,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.StringReader;
@@ -62,7 +65,9 @@ public class XmlFormatter implements Serializable {
 		String cleanedXml = cleaner.doInvoke(xml);
 
         // Log the one line xml string.
-        logger.info("Xml = " + cleanedXml);
+		logger.info("");
+        logger.info("Xml:");
+        logger.info("   " + cleanedXml);
 
 		//Format the xml.
 		StreamResult result = getFormattedXml(cleanedXml, userIndentAmount);
