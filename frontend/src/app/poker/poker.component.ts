@@ -17,6 +17,9 @@ export interface WinnerData {
   position: number;
   amount: string;
 }
+export interface RoundedWinnerData {
+  amount: string;
+}
 
 @Component({
   selector: 'app-poker',
@@ -28,15 +31,16 @@ export class PokerComponent implements OnInit {
 
   playerData: PlayerData[] = [ ];
   winnerData: WinnerData[] = [];
+  roundedWinnerData: RoundedWinnerData[] = [];
 
-  winners3 = '50 30 20';
-  winners4 = '40 30 20 10';
-  winners5 = '40 23 16 12 9';
-  winners6 = '36 22 16 11 9 6';
-  winners7 = '33 20 15 11 8 7 6';
-  winners8 = '31 20 13 10 8 7 6 5';
-  winners9 = '29 18 13 10 8 7 6 5 4';
-  winners10 = '27 16 13 10 9 7 6 5 4 3';
+  winners3 = '50.0 30.0 20.0';
+  winners4 = '42.5 27.0 17.5 13.0';
+  winners5 = '37.0 25.0 15.0 12.0 11.0';
+  winners6 = '35.0 22.0 15.0 11.0 9.0 8.0';
+  winners7 = '33.0 20.0 13.5 11.0 9.0 7.5 6.0';
+  winners8 = '32.0 18.0 12.5 10.5 8.3 7.3 6.2 5.2';
+  winners9 = '30.0 17.5 12.2 10.2 8.1 7.1 6.1 5.1 3.7';
+  winners10 = '29.0 17.0 12.0 10.0 8.0 6.9 5.9 4.9 3.5 2.8';
 
   // ViewChild references html element
   // ElementRef references ts property
@@ -333,18 +337,31 @@ export class PokerComponent implements OnInit {
     this.showWinnerTable(each);
   }
 
+  // Compute Winners + LastMan amounts
+  roundDownBtn(): void {
+    alert('Currently under construction');
+    // this.roundedWinnerData = [];
+    // const buyInTotal = this.buyInTotal;
+    // const addOnTotal = this.addOnTotal;
+    // const lastManTotal = this.lastManTotal;
+    // const total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
+    // const each  = Number(total / 100);
+    //
+    // this.showWinnerTable(each);
+  }
+
   // Show winner table
   showWinnerTable(each): void {
-    const str1 = this.percentages.replace(/\D+/, ' ').trim();
-    if (str1 === null || str1 === '' || str1.split(/\D+/).length === 0) {
-        alert('You must add percentages for each winner, i.e. for 3 winners 50 33 17.');
+    const str1 = this.percentages.replace(/[^0-9.]/g, ' ');
+    if (str1 === null || str1 === '' || str1.split(/[^0-9.]/g).length === 0) {
+        alert('You must add percentages for each winner, i.e. for 3 winners 50 30 20.');
         this.winnersHide = true;
         this.percentages = '';
         this.setWinnerFocus();
       }
     else {
-      const str2 = this.percentages.replace(/\D+/, ' ').trim();
-      const percentArray: string[] = str2.split(/\D+/);
+      const str2 = this.percentages.replace(/[^0-9.]/g, ' ');
+      const percentArray: string[] = str2.split(/[^0-9.]/g);
       const count: number = percentArray.length;
       for (let i = 0; i < count; i++) {
         this.winnerData.push(
