@@ -358,7 +358,6 @@ export class PokerComponent implements OnInit {
         this.setWinnerFocus();
       }
     else {
-      console.log(str1);
       const percentArray: string[] = str1.split(/[^0-9.]/g);
       const count: number = percentArray.length;
       for (let i = 0; i < count; i++) {
