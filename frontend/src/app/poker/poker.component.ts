@@ -269,9 +269,7 @@ export class PokerComponent implements OnInit {
     if (this.playerData.length < 1) {
       this.playersHide = true;
     }
-    else {
-      this.computeTotals();
-    }
+    this.computeTotals();
   }
 
   // Compute chop amount
@@ -352,7 +350,7 @@ export class PokerComponent implements OnInit {
 
   // Show winner table
   showWinnerTable(each): void {
-    const str1 = this.percentages.replace(/[^0-9.]/g, ' ');
+    const str1 = this.percentages.replace(/[^0-9.]/g, ' ').trim();
     if (str1 === null || str1 === '' || str1.split(/[^0-9.]/g).length === 0) {
         alert('You must add percentages for each winner, i.e. for 3 winners 50 30 20.');
         this.winnersHide = true;
@@ -360,8 +358,8 @@ export class PokerComponent implements OnInit {
         this.setWinnerFocus();
       }
     else {
-      const str2 = this.percentages.replace(/[^0-9.]/g, ' ');
-      const percentArray: string[] = str2.split(/[^0-9.]/g);
+      console.log(str1);
+      const percentArray: string[] = str1.split(/[^0-9.]/g);
       const count: number = percentArray.length;
       for (let i = 0; i < count; i++) {
         this.winnerData.push(
