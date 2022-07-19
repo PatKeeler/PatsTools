@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 export class FormatService {
 
-  apiUrl = 'http://localhost:8080/PatsTools/api';
+  apiUrl = '/PatsTools/api';
 
   headers = new HttpHeaders()
     .set('Content-Type', 'application/json');
