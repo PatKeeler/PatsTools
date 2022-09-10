@@ -16,6 +16,8 @@ backend/target
 frontend/frontend.iml
 frontend/dist
 frontend/target
+frontend/node_modules/.cli-ngcc/
+frontend/node_modules/__ngcc_entry_points__.json
 
 # dependencies
 # /src/main/frontend/node_modules
