@@ -10,7 +10,7 @@ import {first, map, tap} from 'rxjs/operators';
 })
 
 
-export class SqlComponent implements OnInit {
+export class SqlComponent {
 
   // ViewChild references html element
   // ElementRef references ts property
@@ -35,9 +35,6 @@ export class SqlComponent implements OnInit {
 
 
   constructor(private formatService: FormatService) { }
-
-  ngOnInit(): void {
-  }
 
   styleRadioHandler(event): void {
     this.selectedStyle = event.target.value;

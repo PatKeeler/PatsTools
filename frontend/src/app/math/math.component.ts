@@ -7,7 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrls: ['./math.component.scss']
 })
 
-export class MathComponent implements OnInit {
+export class MathComponent {
 
   // ViewChild references html id
   // ElementRef references ts property
@@ -45,9 +45,6 @@ export class MathComponent implements OnInit {
 
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
-  }
-
-  ngOnInit(): void {
   }
 
 

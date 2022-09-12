@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./passwords.component.scss']
 })
 
-export class PasswordsComponent implements OnInit {
+export class PasswordsComponent {
 
   /**
    * The range of characters to make up the passwords.
@@ -33,9 +33,6 @@ export class PasswordsComponent implements OnInit {
   hexAllSpecial = '';
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 
   getPasswords(): any {

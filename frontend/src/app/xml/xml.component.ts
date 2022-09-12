@@ -9,7 +9,7 @@ import { FormatService} from '../format.service';
   styleUrls: ['./xml.component.scss']
 })
 
-export class XmlComponent implements OnInit {
+export class XmlComponent {
 
   // ViewChild references html element
   // ElementRef references ts property
@@ -23,8 +23,6 @@ export class XmlComponent implements OnInit {
 
   constructor(private formatService: FormatService) { }
 
-
-  ngOnInit(): void { }
 
   checkXmlIndentEnabled(): void {
     if (this.xmlIndentCheckBox.nativeElement.checked) {
