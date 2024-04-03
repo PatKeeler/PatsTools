@@ -48,6 +48,7 @@ export class PokerComponent implements OnInit {
   @ViewChild('winnerTextEl') winnerText: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<PlayerData>;
+  @ViewChild('window') window;
 
   playersHide: boolean;
   winnersHide: boolean;
@@ -366,8 +367,10 @@ export class PokerComponent implements OnInit {
         );
       }
       this.winnersHide = false;
+      setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
     }
   }
+
 
   /**
    * This is user information for the Poker app.
