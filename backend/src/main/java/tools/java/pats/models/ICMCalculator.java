@@ -1,5 +1,6 @@
 package tools.java.pats.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,9 @@ import java.util.List;
 This class takes in chip counts and tournament chop amounts
 and determines payouts based on chip count.
  */
-public class ICMCalculator {
+public class ICMCalculator implements Serializable {
+
+    private static final long serialVersionUID = 1951L;
 
     private static int N;
     private static int xcnt;
@@ -20,7 +23,12 @@ public class ICMCalculator {
     private static double[] instanceOdds2;
     private static double[][] finalResults;
 
-    public static void main(String[] args) {
+    private static List<String> results = new ArrayList<>();
+
+    public static String[] main(String[] args) {
+
+        String[] playerResults = new String[5];
+        
         // Argument parsing (simplified)
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("--chips")) {
@@ -63,9 +71,17 @@ public class ICMCalculator {
             }
         }
 
+        //String[] needed for testing
         for (int i = 0; i < N; i++) {
             System.out.printf("Player %2d: %3d chips ---> %6.2f%n", i + 1, chips.get(i), finalPrizes[i]);
+            playerResults[i] = String.format("Player %2d: %3d chips ---> %6.2f%n",
+                    i + 1, chips.get(i), finalPrizes[i]);
+            System.out.printf(String.format("Player %2d: %3d chips ---> %6.2f%n",
+                    i + 1, chips.get(i), finalPrizes[i]));
         }
+
+        //Return required for testing
+        return playerResults;
     }
 
     private static void xyz(List<Integer> players) {
