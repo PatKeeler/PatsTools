@@ -1,4 +1,4 @@
-<div style="background: #f4f4f4">
+<div style="background: #f4f4f4" xmlns:float="http://www.w3.org/1999/xhtml">
   <table bgcolor="#98edb4" border="0" width="100%" cellpadding="10">
     <tr>
       <td>
@@ -189,46 +189,43 @@
     </table>
     <br/>
     <br/>
-    <div align="left" width="50%">
+    <div float:left width="50%">
       <h1>Winners:</h1>
     </div>
-    <div align="left" width="60%">
+    <div class="float-left-child">
       <th>Enter each winner percentage seperated by spaces.</th>
     </div>
-    <br/>
-    <table>
-      <tr>
-        <td>
-          <div>
-            <input #winnerTextEl type="text" size="25" maxwidth="30" [(ngModel)]="percentages">
-          </div>
-        </td>
-        <td>&nbsp;</td>
-        <td>
-          <div class="f-17" align="top" width="50%">
-            <div class="percentage-tip">
-              <p>You can auto fill suggested percentages by selecting the number of winners below.<br>
-                &nbsp; &nbsp; Or, you can manually change or enter the percentages to get desired results.<br>
-                <button class="button button3" (click)="setPercents(this.winners3)">3</button>
-                <button class="button button4" (click)="setPercents(this.winners4)">4</button>
-                <button class="button button5" (click)="setPercents(this.winners5)">5</button>
-                <button class="button button6" (click)="setPercents(this.winners6)">6</button>
-                <button class="button button7" (click)="setPercents(this.winners7)">7</button>
-                <button class="button button8" (click)="setPercents(this.winners8)">8</button>
-                <button class="button button9" (click)="setPercents(this.winners9)">9</button>
-                <button class="button button10" (click)="setPercents(this.winners10)">10</button>
-              </p>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </table>
+    <div class="f-17 float-left-child">
+      <div class="percentage-tip">
+        <p>You can auto fill suggested percentages by selecting the number of winners below.<br>
+          &nbsp; &nbsp; Or, you can manually change or enter the percentages to get desired results.<br>
+          <button class="button button3" (click)="setPercents(this.winners3)">3</button>
+          <button class="button button4" (click)="setPercents(this.winners4)">4</button>
+          <button class="button button5" (click)="setPercents(this.winners5)">5</button>
+          <button class="button button6" (click)="setPercents(this.winners6)">6</button>
+          <button class="button button7" (click)="setPercents(this.winners7)">7</button>
+          <button class="button button8" (click)="setPercents(this.winners8)">8</button>
+          <button class="button button9" (click)="setPercents(this.winners9)">9</button>
+          <button class="button button10" (click)="setPercents(this.winners10)">10</button>
+        </p>
+      </div>
+    </div>
     <br/>
     <br/>
-    Compute:
+    <div align="left">
+      <input #winnerTextEl type="text" size="35" [(ngModel)]="percentages">
+    </div>
+    <br/>
+    <br/>
+    Positional Payout:
     <button type="button" class="ml-3" (click)="computeWinnerBtn()">BuyIn & AddOn</button>
     <button type="button" class="ml-3" (click)="computeWinnerLastManBtn()">+ Last Man</button>
-    <button type="button" class="ml-3" (click)="roundDownBtn()">Round Down (Optional)</button>
+<!--    <button type="button" class="ml-3" (click)="roundDownBtn()">Round Down (Optional)</button>-->
+    <br/>
+    <br/>
+    ICM  Chop  Payout:
+    <button type="button" class="ml-3" (click)="icmChopBtn()">BuyIn & AddOn</button>
+    <button type="button" class="ml-3" (click)="icmChopLastManBtn()">+ Last Man</button>
   </div>
   <br>
   <div [hidden]="winnersHide">

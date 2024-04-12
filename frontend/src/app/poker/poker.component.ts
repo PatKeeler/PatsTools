@@ -336,8 +336,45 @@ export class PokerComponent implements OnInit {
     this.showWinnerTable(each);
   }
 
+
+  // Compute winner amounts
+  icmChopBtn(): void {
+    this.winnerData = [];
+    const buyInTotal = this.buyInTotal;
+    const addOnTotal = this.addOnTotal;
+    const total = Number(buyInTotal) + Number(addOnTotal);
+    const each  = Number(total / 100);
+
+    this.showWinnerTable(each);
+  }
+
+  // Compute Winners + LastMan amounts
+  icmChopLastManBtn(): void {
+    this.winnerData = [];
+    const buyInTotal = this.buyInTotal;
+    const addOnTotal = this.addOnTotal;
+    const lastManTotal = this.lastManTotal;
+    const total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
+    const each  = Number(total / 100);
+
+    this.showWinnerTable(each);
+  }
+
   // Compute Winners + LastMan amounts
   roundDownBtn(): void {
+    alert('Currently under construction');
+    // this.roundedWinnerData = [];
+    // const buyInTotal = this.buyInTotal;
+    // const addOnTotal = this.addOnTotal;
+    // const lastManTotal = this.lastManTotal;
+    // const total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
+    // const each  = Number(total / 100);
+    //
+    // this.showWinnerTable(each);
+  }
+
+  // Get player chip counts for ICM Chop
+  playerChipCounts(): void {
     alert('Currently under construction');
     // this.roundedWinnerData = [];
     // const buyInTotal = this.buyInTotal;
