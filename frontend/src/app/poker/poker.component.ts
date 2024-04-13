@@ -3,6 +3,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatTable } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import {FormatService} from '../format.service';
 
 export interface PlayerData {
   name: string;
@@ -72,6 +73,8 @@ export class PokerComponent implements OnInit {
   lastManPlayers: number;
   lastManChopAmount: string;
 
+  payoutRadio: string;
+  selectedPayout: string;
   percentages: string;
   position: number;
   amount: string;
@@ -82,9 +85,11 @@ export class PokerComponent implements OnInit {
 
   winnerColumns: string[] = ['position', 'amount'];
 
-  // private platformId: object;
 
-  constructor() {
+  constructor(private formatService: FormatService) { }
+
+  payoutRadioHandler(event): void {
+    this.selectedPayout = event.target.value;
   }
 
   ngOnInit(): void {

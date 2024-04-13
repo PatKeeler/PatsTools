@@ -216,16 +216,32 @@
       <input #winnerTextEl type="text" size="35" [(ngModel)]="percentages">
     </div>
     <br/>
+    <table border="0" width="100%" cellpadding="10">
+      <tr>
+        <td width="5%" align="left">
+          Select Payout Option:
+        </td>
+      </tr>
+      <tr>
+        <td width="15%" align="left">
+          <input type="radio" name="payoutRadio" checked
+                 (change)="payoutRadioHandler($event)"
+                 value="positionPayout">Positional Payout
+        </td>
+        <td width="75%" align="left">
+          <input type="radio" name="payoutRadio"
+                 (change)="payoutRadioHandler($event)"
+                 value="icmPayout">ICM Chop
+        </td>
+      </tr>
+    </table>
     <br/>
-    Positional Payout:
+    Payout:
     <button type="button" class="ml-3" (click)="computeWinnerBtn()">BuyIn & AddOn</button>
     <button type="button" class="ml-3" (click)="computeWinnerLastManBtn()">+ Last Man</button>
 <!--    <button type="button" class="ml-3" (click)="roundDownBtn()">Round Down (Optional)</button>-->
     <br/>
     <br/>
-    ICM  Chop  Payout:
-    <button type="button" class="ml-3" (click)="icmChopBtn()">BuyIn & AddOn</button>
-    <button type="button" class="ml-3" (click)="icmChopLastManBtn()">+ Last Man</button>
   </div>
   <br>
   <div [hidden]="winnersHide">
