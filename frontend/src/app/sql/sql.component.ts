@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {HttpHeaders, HttpParams} from '@angular/common/http';
-// import { FormatService} from '../format.service';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { JavaService} from '../java.service';
 import {first, map, tap} from 'rxjs/operators';
 

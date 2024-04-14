@@ -3,7 +3,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatTable } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import {FormatService} from '../format.service';
+import { JavaService } from '../java.service';
 
 export interface PlayerData {
   name: string;
@@ -86,7 +86,7 @@ export class PokerComponent implements OnInit {
   winnerColumns: string[] = ['position', 'amount'];
 
 
-  constructor(private formatService: FormatService) { }
+  constructor(private javaService: JavaService) { }
 
   payoutRadioHandler(event): void {
     this.selectedPayout = event.target.value;
