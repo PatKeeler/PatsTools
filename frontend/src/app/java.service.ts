@@ -28,8 +28,7 @@ export class JavaService {
   }
 
   getICM(parameters: HttpParams): Observable<any> {
-    const API_URL = `${this.apiUrl}/computeICM`;
+    const API_URL = `${this.apiUrl}/computeICMl`;
     return this.http.post(API_URL, parameters);
   }
-
 }
