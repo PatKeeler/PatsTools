@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {HttpHeaders, HttpParams} from '@angular/common/http';
-import { FormatService} from '../format.service';
+// import { FormatService} from '../format.service';
+import { JavaService} from '../java.service';
 import {first, map, tap} from 'rxjs/operators';
 
 @Component({
@@ -34,7 +35,7 @@ export class SqlComponent {
   outputSQL: string;
 
 
-  constructor(private formatService: FormatService) { }
+  constructor(private javaService: JavaService) { }
 
   styleRadioHandler(event): void {
     this.selectedStyle = event.target.value;
@@ -129,7 +130,7 @@ export class SqlComponent {
       }
     });
 
-    this.formatService.getSql(params).subscribe(
+    this.javaService.getSql(params).subscribe(
       response => {
         this.outputSQL = response.result;
       },

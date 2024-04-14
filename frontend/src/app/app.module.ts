@@ -13,7 +13,7 @@ import { PokerComponent } from './poker/poker.component';
 import { MathComponent } from './math/math.component';
 import { SqlComponent } from './sql/sql.component';
 import { XmlComponent } from './xml/xml.component';
-import { FormatService } from './format.service';
+import { JavaService } from './java.service';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
@@ -46,7 +46,7 @@ import { PlatformModule} from '@angular/cdk/platform';
     PlatformModule,
     MatFormFieldModule
   ],
-  providers: [FormatService],
+  providers: [JavaService],
   bootstrap: [AppComponent]
 })
 

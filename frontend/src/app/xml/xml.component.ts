@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { FormatService} from '../format.service';
+import { JavaService} from '../java.service';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class XmlComponent {
   isXmlDisabled: boolean;
   outputXml: string;
 
-  constructor(private formatService: FormatService) { }
+  constructor(private javaService: JavaService) { }
 
 
   checkXmlIndentEnabled(): void {
@@ -46,7 +46,7 @@ export class XmlComponent {
       }
     });
 
-    this.formatService.getXml(params).subscribe(
+    this.javaService.getXml(params).subscribe(
       response => {
         this.outputXml = response.result;
       },
