@@ -1,5 +1,8 @@
 package tools.java.pats.models;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,17 @@ public class ICMCalculator implements Serializable {
 
     private static final long serialVersionUID = 1951L;
 
+    private static final Logger logger = LoggerFactory.getLogger("ICMCalculator");
+
+
+    /**
+     * Default constructor
+     */
+    public ICMCalculator() {
+
+        super();
+    }
+
     private static int N;
     private static int xcnt;
     private static List<Integer> chips = new ArrayList<>();
@@ -23,9 +37,8 @@ public class ICMCalculator implements Serializable {
     private static double[] instanceOdds2;
     private static double[][] finalResults;
 
-    private static List<String> results = new ArrayList<>();
 
-    public static String[] main(String[] args) {
+    public String[] getICMChops(String[] args) {
 
         String[] playerResults = new String[5];
         
@@ -73,11 +86,9 @@ public class ICMCalculator implements Serializable {
 
         //String[] needed for testing
         for (int i = 0; i < N; i++) {
-            System.out.printf("Player %2d: %3d chips ---> %6.2f%n", i + 1, chips.get(i), finalPrizes[i]);
+//            System.out.printf("Player %2d: %3d chips ---> %6.2f%n", i + 1, chips.get(i), finalPrizes[i]);
             playerResults[i] = String.format("Player %2d: %3d chips ---> %6.2f%n",
                     i + 1, chips.get(i), finalPrizes[i]);
-            System.out.printf(String.format("Player %2d: %3d chips ---> %6.2f%n",
-                    i + 1, chips.get(i), finalPrizes[i]));
         }
 
         //Return required for testing

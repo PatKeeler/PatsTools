@@ -4,6 +4,10 @@ import { MatTable } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { JavaService } from '../java.service';
+import {convertElementSourceSpanToLoc} from '@angular-eslint/template-parser/dist/template-parser/src/convert-source-span-to-loc';
+import { HttpParams } from '@angular/common/http';
+import { HttpErrorResponse} from '@angular/common/http';
+
 
 export interface PlayerData {
   name: string;
@@ -84,12 +88,17 @@ export class PokerComponent implements OnInit {
   selection = new SelectionModel<PlayerData>(true, []);
 
   winnerColumns: string[] = ['position', 'amount'];
+  icmPayoutArray: string[] =  ['--chips', '220', '160', '70', '30', '10', '' +
+                            '--prizes', '181', '122', '73', '58', '53'];
+  icmPayoutResults: string[];
+  icmParms: string[];
 
 
   constructor(private javaService: JavaService) { }
 
   payoutRadioHandler(event): void {
     this.selectedPayout = event.target.value;
+    // alert("selectedPayout in payoutRadioHandler = " + this.selectedPayout);
   }
 
   ngOnInit(): void {
@@ -408,9 +417,54 @@ export class PokerComponent implements OnInit {
           {position: i + 1, amount: (Number(percentArray[i]) * each).toFixed(2)}
         );
       }
+
+      if (this.selectedPayout == "icmPayout") {
+        this.getIcmPayout();
+      }
+
       this.winnersHide = false;
       setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
     }
+  }
+
+
+  getIcmPayout(): void {
+
+    //For testing
+    const params: HttpParams = new HttpParams({
+      fromObject: {
+        params: this.icmPayoutArray
+      }});
+
+    alert("java service params: " + params);
+    this.javaService.getICM(params).subscribe(
+      response => {
+        this.icmPayoutResults = response.result;
+        alert("icmPayouts successful");
+      },
+      error => {
+        console.log(error);
+        // this.handleError(error);
+        alert("icmPayouts failed: " + error.results);
+      });
+    alert("payouts: " + this.icmPayoutResults.length);
+    for (let i = 0; i < this.icmPayoutResults.length; i++) {
+      alert("payout = " + this.icmPayoutResults[i].valueOf());
+    }
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    // return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
 

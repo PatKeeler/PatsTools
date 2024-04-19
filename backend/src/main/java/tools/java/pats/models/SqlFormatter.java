@@ -28,7 +28,6 @@ public class SqlFormatter implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger("SqlFormatter");
 
 
-
 	/**
      * Default constructor
      */

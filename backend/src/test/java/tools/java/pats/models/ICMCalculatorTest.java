@@ -1,26 +1,23 @@
 package tools.java.pats.models;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import static java.lang.String.format;
 import static org.testng.Assert.assertEquals;
 
-public class ICMCalculatorTest {
 
+public class ICMCalculatorTest {
 
     private static final Logger logger = LoggerFactory.getLogger("ICMCalculator");
 
-    String[] results = new String[20];
-
     @Test
-    public String[] testICMCalculator() throws IOException {
+    public void testICMCalculator() throws IOException {
+
+        String[] results = new String[20];
 
         String[] testData = new String[]{
                 "--chips",
@@ -44,15 +41,16 @@ public class ICMCalculatorTest {
         myList[4] = "Player  5:  10 chips --->  59.92\r\n";
 
         ICMCalculator calculator = new ICMCalculator();
-        results = calculator.main(testData);
+        results = calculator.getICMChops(testData);
 
         assertEquals(results, myList, "Error computing ICM Calculations!");
 
-        System.out.println(("        ICM Calculator Test Results: "));
-        for (String s : results) System.out.println((format("           %s", s)));
+        System.out.println("             ICM Calculator Test Results: ");
+        for (String s : results)
+            System.out.println(format("                %s", s.substring(0, s.length() -2)));
         System.out.println(" ");
 
-        return results;
+//        return results;
 
     }
 
