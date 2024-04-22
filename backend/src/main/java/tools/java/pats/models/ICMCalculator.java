@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.format;
+
 /*
 This class takes in chip counts and tournament chop amounts
 and determines payouts based on chip count.
@@ -87,9 +89,14 @@ public class ICMCalculator implements Serializable {
         //String[] needed for testing
         for (int i = 0; i < N; i++) {
 //            System.out.printf("Player %2d: %3d chips ---> %6.2f%n", i + 1, chips.get(i), finalPrizes[i]);
-            playerResults[i] = String.format("Player %2d: %3d chips ---> %6.2f%n",
+            playerResults[i] = format("Player %2d: %3d chips ---> %6.2f%n",
                     i + 1, chips.get(i), finalPrizes[i]);
         }
+
+//        logger.info("ICM Player results:");
+//        for (String s: playerResults) {
+//            logger.info(format("  %s", s.substring(0, s.length() -2)));
+//        }
 
         //Return required for testing
         return playerResults;

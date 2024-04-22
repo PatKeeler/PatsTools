@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
+import java.io.Console;
 import java.io.IOException;
 
 import static java.lang.String.format;
@@ -45,10 +46,15 @@ public class ICMCalculatorTest {
 
         assertEquals(results, myList, "Error computing ICM Calculations!");
 
-        System.out.println("             ICM Calculator Test Results: ");
+        logger.info("ICM Calculator Test Input: ");
+        for (String s : testData)
+            logger.info(format("  %s", s));
+        logger.info(" ");
+
+        logger.info("ICM Calculator Test Results: ");
         for (String s : results)
-            System.out.println(format("                %s", s.substring(0, s.length() -2)));
-        System.out.println(" ");
+            logger.info(format("  %s", s.substring(0, s.length() -2)));
+//        logger.info(" ");
 
 //        return results;
 
