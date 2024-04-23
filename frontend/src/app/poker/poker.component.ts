@@ -88,10 +88,9 @@ export class PokerComponent implements OnInit {
   selection = new SelectionModel<PlayerData>(true, []);
 
   winnerColumns: string[] = ['position', 'amount'];
-  icmPayoutArray: string[] =  ['--chips', '220', '160', '70', '30', '10', '' +
-                            '--prizes', '181', '122', '73', '58', '53'];
+  icmPayoutArray: string[] =  ['--chips', '220', '160', '120', '70', '30', '10',
+                              '--prizes', '181', '122', '95', '73', '58', '53'];
   icmPayoutResults: string[];
-  icmParms: string[];
 
 
   constructor(private javaService: JavaService) { }
