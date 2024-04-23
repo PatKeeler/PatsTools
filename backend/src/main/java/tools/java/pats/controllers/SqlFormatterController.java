@@ -16,8 +16,6 @@ public class SqlFormatterController implements Serializable {
 
     public Map<String, String> getSql(SqlParms sqlParms) {
 
-        System.out.println("In SqlFormatterController");
-
         //Initial indent value for recursion of SqlFormatter.
         String tab = "";
         String results = "";

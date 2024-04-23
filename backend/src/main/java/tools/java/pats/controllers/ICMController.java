@@ -18,8 +18,6 @@ public class ICMController implements Serializable {
     
     public String[] getICMPayouts(String[] inputParms) {
 
-        System.out.println("In ICMController");
-
         try {
             this.results = icmCalculator.getICMChops(inputParms);
         }
