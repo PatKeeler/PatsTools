@@ -7,6 +7,8 @@ import { JavaService } from '../java.service';
 import {convertElementSourceSpanToLoc} from '@angular-eslint/template-parser/dist/template-parser/src/convert-source-span-to-loc';
 import { HttpParams } from '@angular/common/http';
 import { HttpErrorResponse} from '@angular/common/http';
+import {errorObject} from 'rxjs/internal-compatibility';
+import {Observable} from 'rxjs';
 
 
 export interface PlayerData {
@@ -432,40 +434,34 @@ export class PokerComponent implements OnInit {
     //For testing
     const params: HttpParams = new HttpParams({
       fromObject: {
-        params: this.icmPayoutArray
+        inputParms: this.icmPayoutArray,
       }});
 
-    alert("java service params: " + params);
-    this.javaService.getICM(params).subscribe(
+    // alert("java service params: " + params);
+    this.javaService.getIcmPayouts(params).subscribe(
       response => {
         this.icmPayoutResults = response.result;
-        alert("icmPayouts successful");
+        alert("icmPayouts successful: " + response.result);
       },
       error => {
-        console.log(error);
-        // this.handleError(error);
-        alert("icmPayouts failed: " + error.results);
+        // console.log(error);
+        this.handleError(error);
+        // alert("icmPayouts failed: " + error.results);
       });
-    alert("payouts: " + this.icmPayoutResults.length);
+
     for (let i = 0; i < this.icmPayoutResults.length; i++) {
-      alert("payout = " + this.icmPayoutResults[i].valueOf());
+      alert("payout = " + this.icmPayoutResults[i]);
     }
   }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
-      console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
-    }
-    // Return an observable with a user-facing error message.
-    // return throwError(() => new Error('Something bad happened; please try again later.'));
+  private handleError(error: any) {
+    // In a real world app, we might use a remote logging infrastructure
+    // We'd also dig deeper into the error to get a better message
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    // console.error(errMsg); // log to console instead
+    alert("errorMsg: " + errMsg); // log to app
   }
-
 
   /**
    * This is user information for the Poker app.

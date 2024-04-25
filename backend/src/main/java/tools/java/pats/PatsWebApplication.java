@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tools.java.pats.classparams.IcmParms;
 import tools.java.pats.classparams.SqlParms;
 import tools.java.pats.classparams.XmlParms;
 import tools.java.pats.controllers.ICMController;
@@ -43,10 +44,10 @@ public class PatsWebApplication extends SpringBootServletInitializer {
     }
 
 
-    @RequestMapping(value = "/getICM")
-    public String[] computeICM(String[] icmParms) {
+    @RequestMapping(value = "/computeIcmPayouts")
+    public String[] getIcmPayouts(IcmParms icmParms) {
         ICMController icmController =
                 new ICMController();
-        return icmController.getICMPayouts(icmParms);
+        return icmController.getIcmPayouts(icmParms);
     }
 }
