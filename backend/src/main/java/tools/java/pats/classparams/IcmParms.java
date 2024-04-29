@@ -8,8 +8,8 @@ public class IcmParms {
     public String[] getInputParms() {
         return this.inputParms;
     }
-
     public void setInputParms(String[] inputParms) {
         this.inputParms = inputParms;
     }
+
 }

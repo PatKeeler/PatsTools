@@ -91,7 +91,7 @@ export class PokerComponent implements OnInit {
 
   winnerColumns: string[] = ['position', 'amount'];
   icmPayoutArray: string[] =  ['--chips', '220', '160', '120', '70', '30', '10',
-                              '--prizes', '181', '122', '95', '73', '58', '53'];
+                              '--prizes', '181', '130', '95', '73', '58', '53'];
   icmPayoutResults: string[];
 
 
@@ -421,6 +421,9 @@ export class PokerComponent implements OnInit {
 
       if (this.selectedPayout == "icmPayout") {
         this.getIcmPayout();
+        for (let i = 0; i < this.icmPayoutResults.length; i++) {
+          alert("payout = " + this.icmPayoutResults[i]);
+        }
       }
 
       this.winnersHide = false;
@@ -440,18 +443,14 @@ export class PokerComponent implements OnInit {
     // alert("java service params: " + params);
     this.javaService.getIcmPayouts(params).subscribe(
       response => {
-        this.icmPayoutResults = response.result;
-        alert("icmPayouts successful: " + response.result);
+        this.icmPayoutResults = response;
       },
       error => {
         // console.log(error);
         this.handleError(error);
-        // alert("icmPayouts failed: " + error.results);
+        alert("icmPayouts failed: " + error);
       });
 
-    for (let i = 0; i < this.icmPayoutResults.length; i++) {
-      alert("payout = " + this.icmPayoutResults[i]);
-    }
   }
 
   private handleError(error: any) {

@@ -3,6 +3,7 @@ package tools.java.pats.models;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
+import tools.java.pats.classparams.IcmParms;
 
 import java.io.Console;
 import java.io.IOException;
@@ -18,9 +19,11 @@ public class ICMCalculatorTest {
     @Test
     public void testICMCalculator() throws IOException {
 
+        IcmParms icmParms = new IcmParms();
         String[] results = new String[20];
 
-        String[] testData = new String[]{
+//        String[] testData = new String[]{
+        icmParms.setInputParms(new String[]{
                 "--chips",
                 "220",
                 "160",
@@ -32,7 +35,7 @@ public class ICMCalculatorTest {
                 "122",
                 "73",
                 "58",
-                "53"};
+                "53"});
 
         String[] myList = new String[5];
         myList[0] = "Player  1: 220 chips ---> 136.93\r\n";
@@ -42,12 +45,12 @@ public class ICMCalculatorTest {
         myList[4] = "Player  5:  10 chips --->  59.92\r\n";
 
         ICMCalculator calculator = new ICMCalculator();
-        results = calculator.getICMChops(testData);
+        results = calculator.getICMChops(icmParms);
 
         assertEquals(results, myList, "Error computing ICM Calculations!");
 
         logger.info("ICM Calculator Test Input: ");
-        for (String s : testData)
+        for (String s : icmParms.getInputParms())
             logger.info(format("  %s", s));
         logger.info(" ");
 

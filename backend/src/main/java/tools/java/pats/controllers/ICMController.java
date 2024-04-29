@@ -16,21 +16,17 @@ public class ICMController implements Serializable {
     private ICMCalculator icmCalculator = new ICMCalculator();
 
 
-    public String[] getIcmPayouts(IcmParms icmParms) {
+    public String[] getPayouts(IcmParms icmParms) {
 
-        String[] inputParms;
         String[] results = new String[10];
 
-        inputParms = icmParms.getInputParms();
-
         try {
-            results = icmCalculator.getICMChops(icmParms.getInputParms());
+            results = icmCalculator.getICMChops(icmParms);
         }
         catch (Exception e) {
             results[0] = e.getLocalizedMessage();
             e.printStackTrace();
         }
-
 
         //for testing
         for (String s : results)

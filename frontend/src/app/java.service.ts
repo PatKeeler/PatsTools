@@ -28,7 +28,7 @@ export class JavaService {
   }
 
   getIcmPayouts(parameters: HttpParams): Observable<any> {
-    const API_URL = `${this.apiUrl}/computeIcmPayouts`;
+    const API_URL = `${this.apiUrl}/getIcmPayouts`;
     return this.http.post(API_URL, parameters);
   }
 }

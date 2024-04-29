@@ -44,10 +44,10 @@ public class PatsWebApplication extends SpringBootServletInitializer {
     }
 
 
-    @RequestMapping(value = "/computeIcmPayouts")
+    @RequestMapping(value = "/getIcmPayouts")
     public String[] getIcmPayouts(IcmParms icmParms) {
         ICMController icmController =
                 new ICMController();
-        return icmController.getIcmPayouts(icmParms);
+        return icmController.getPayouts(icmParms);
     }
 }

@@ -2,6 +2,7 @@ package tools.java.pats.models;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.java.pats.classparams.IcmParms;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,33 +29,34 @@ public class ICMCalculator implements Serializable {
         super();
     }
 
-    private static int N;
-    private static int xcnt;
-    private static List<Integer> chips = new ArrayList<>();
-    private static List<Integer> prizes = new ArrayList<>();
-    private static int[] instanceOrder;
-    private static double[] instanceChips;
-    private static double[] instanceAccumChips;
-    private static double[] instanceOdds1;
-    private static double[] instanceOdds2;
-    private static double[][] finalResults;
+    private int N;
+    private int xcnt;
+    private List<Integer> chips = new ArrayList<>();
+    private List<Integer> prizes = new ArrayList<>();
+    private int[] instanceOrder;
+    private double[] instanceChips;
+    private double[] instanceAccumChips;
+    private double[] instanceOdds1;
+    private double[] instanceOdds2;
+    private double[][] finalResults;
 
 
-    public String[] getICMChops(String[] args) {
+    public String[] getICMChops(IcmParms icmParms) {
 
+        String[] inputParms = icmParms.getInputParms();
         // Argument parsing (simplified)
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("--chips")) {
+        for (int i = 0; i < inputParms.length; i++) {
+            if (inputParms[i].equals("--chips")) {
                 i++;
-                while (i < args.length && !args[i].startsWith("--")) {
-                    chips.add(Integer.parseInt(args[i]));
+                while (i < inputParms.length && !inputParms[i].startsWith("--")) {
+                    chips.add(Integer.parseInt(inputParms[i]));
                     i++;
                 }
                 i--; // adjust for loop increment
-            } else if (args[i].equals("--prizes")) {
+            } else if (inputParms[i].equals("--prizes")) {
                 i++;
-                while (i < args.length && !args[i].startsWith("--")) {
-                    prizes.add(Integer.parseInt(args[i]));
+                while (i < inputParms.length && !inputParms[i].startsWith("--")) {
+                    prizes.add(Integer.parseInt(inputParms[i]));
                     i++;
                 }
                 i--; // adjust for loop increment
@@ -95,7 +97,7 @@ public class ICMCalculator implements Serializable {
         return playerResults;
     }
 
-    private static void xyz(List<Integer> players) {
+    private void xyz(List<Integer> players) {
         int index = players.size() - 1;
         List<Integer> playersSubset;
 
