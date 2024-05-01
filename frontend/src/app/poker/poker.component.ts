@@ -25,6 +25,13 @@ export interface WinnerData {
   amount: string;
 }
 
+export interface IcmData {
+  icmPosition: number;
+  icmAmount: string;
+  icmChips: number;
+  icmPayout: string;
+}
+
 export interface RoundedWinnerData {
   amount: string;
 }
@@ -37,8 +44,9 @@ export interface RoundedWinnerData {
 
 export class PokerComponent implements OnInit {
 
-  playerData: PlayerData[] = [ ];
+  playerData: PlayerData[] = [];
   winnerData: WinnerData[] = [];
+  icmData:    IcmData[] = [];
   roundedWinnerData: RoundedWinnerData[] = [];
 
   winners3 = '50.0 30.0 20.0';
@@ -60,6 +68,7 @@ export class PokerComponent implements OnInit {
 
   playersHide: boolean;
   winnersHide: boolean;
+  icmHide: boolean;
 
   playerName: string;
   buyInAmount: string;
@@ -69,11 +78,11 @@ export class PokerComponent implements OnInit {
   addOnAmount: string;
 
   totalPlayers: number;
-  buyInTotal: string;
-  bountyTotal: string;
-  feeTotal: string;
-  lastManTotal: string;
-  addOnTotal: string;
+  buyInTotal: string = '1200';
+  bountyTotal: string = '0';
+  feeTotal: string = '0';
+  lastManTotal: string = '200';
+  addOnTotal: string = '0';
 
   chopPlayers: number;
   chopAmount: string;
@@ -94,6 +103,7 @@ export class PokerComponent implements OnInit {
   icmPayoutArray: string[] =  ['--chips', '220', '160', '120', '70', '30', '10',
                               '--prizes', '181', '130', '95', '73', '58', '53'];
   icmPayoutResults: string[];
+  icmColumns: string[] = ['position', 'amount', 'chips', 'payout'];
 
 
   constructor(private javaService: JavaService) { }
@@ -107,17 +117,21 @@ export class PokerComponent implements OnInit {
     this.loadData();
     this.dataSource.sort = this.sort;
     this.winnerData = [];
+    this.icmData = [];
     this.setFocus();
   }
 
 
   loadData(): void {
+    //Player data for both winner payouts and ICM chops
     this.dataSource = new MatTableDataSource(this.playerData);
     if (this.playerData.length === 0) {
       this.playersHide = true;
+      this.icmHide = true;
     }
     if (this.winnerData.length === 0) {
       this.winnersHide = true;
+      this.icmHide = true;
     }
   }
 
@@ -355,7 +369,7 @@ export class PokerComponent implements OnInit {
 
   // Compute winner amounts
   icmChopBtn(): void {
-    this.winnerData = [];
+    this.icmData = [];
     const buyInTotal = this.buyInTotal;
     const addOnTotal = this.addOnTotal;
     const total = Number(buyInTotal) + Number(addOnTotal);
@@ -366,7 +380,7 @@ export class PokerComponent implements OnInit {
 
   // Compute Winners + LastMan amounts
   icmChopLastManBtn(): void {
-    this.winnerData = [];
+    this.icmData = [];
     const buyInTotal = this.buyInTotal;
     const addOnTotal = this.addOnTotal;
     const lastManTotal = this.lastManTotal;
@@ -407,7 +421,8 @@ export class PokerComponent implements OnInit {
     const str1 = this.percentages.replace(/[^0-9.]/g, ' ').trim();
     if (str1 === null || str1 === '' || str1.split(/[^0-9.]/g).length === 0) {
         alert('You must add percentages for each winner, i.e. for 3 winners 50 30 20.');
-        this.winnersHide = true;
+        this.icmHide = true;
+        this.playersHide = true;
         this.percentages = '';
         this.setWinnerFocus();
       }
@@ -425,16 +440,20 @@ export class PokerComponent implements OnInit {
 
       if (this.selectedPayout == "icmPayout") {
         this.getIcmPayout();
+        this.winnersHide = true;
+        this.icmHide = false;
+      }
+      else {
+        this.winnersHide = false;
+        this.icmHide = true;
       }
 
-      this.winnersHide = false;
       setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
     }
   }
 
 
   getIcmPayout(): void {
-
     //For testing
     const params: HttpParams = new HttpParams({
       fromObject: {

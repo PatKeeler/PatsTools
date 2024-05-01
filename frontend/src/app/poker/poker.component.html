@@ -263,4 +263,34 @@
     </table>
     <br>
   </div>
+
+  <div [hidden]="icmHide">
+    <table mat-table matSort [dataSource]="winnerData" border="0" class="table-width-93 mt-10">
+
+      <ng-container matColumnDef="position">
+        <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> ICM Positions</th>
+        <td mat-cell class="f-15" *matCellDef="let element; let i = index"> {{element.position}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Winner Amounts</th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{element.amount | number:'1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="chips">
+        <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Chip Counts</th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{element.chips | number:'1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="payout">
+        <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> ICM Payouts</th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{element.payout | number:'1.2-2'}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="icmColumns"
+          style="background-color:lightgray;"></tr>
+      <tr mat-row *matRowDef="let row; columns: icmColumns;"></tr>
+    </table>
+    <br>
+  </div>
 </div>
