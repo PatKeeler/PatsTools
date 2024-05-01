@@ -129,7 +129,6 @@ export class SqlComponent {
       }
     });
 
-    alert("javaService params: " + params);
     this.javaService.getSql(params).subscribe(
       response => {
         this.outputSQL = response.result;

@@ -24,6 +24,7 @@ export interface WinnerData {
   position: number;
   amount: string;
 }
+
 export interface RoundedWinnerData {
   amount: string;
 }
@@ -415,15 +416,15 @@ export class PokerComponent implements OnInit {
       const count: number = percentArray.length;
       for (let i = 0; i < count; i++) {
         this.winnerData.push(
-          {position: i + 1, amount: (Number(percentArray[i]) * each).toFixed(2)}
+          {
+            position: i + 1,
+            amount: (Number(percentArray[i]) * each).toFixed(2)
+          }
         );
       }
 
       if (this.selectedPayout == "icmPayout") {
         this.getIcmPayout();
-        for (let i = 0; i < this.icmPayoutResults.length; i++) {
-          alert("payout = " + this.icmPayoutResults[i]);
-        }
       }
 
       this.winnersHide = false;
@@ -444,6 +445,7 @@ export class PokerComponent implements OnInit {
     this.javaService.getIcmPayouts(params).subscribe(
       response => {
         this.icmPayoutResults = response;
+        console.log('Payout results: ' + this.icmPayoutResults);
       },
       error => {
         // console.log(error);
