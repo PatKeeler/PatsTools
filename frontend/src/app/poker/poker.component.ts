@@ -62,6 +62,7 @@ export class PokerComponent implements OnInit {
   // ElementRef references ts property
   @ViewChild('playerTextEl') playerText: ElementRef;
   @ViewChild('winnerTextEl') winnerText: ElementRef;
+  @ViewChild('icmTextEl') icmText: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<PlayerData>;
   @ViewChild('window') window;
@@ -102,15 +103,20 @@ export class PokerComponent implements OnInit {
   winnerColumns: string[] = ['position', 'amount'];
   icmPayoutArray: string[] =  ['--chips', '220', '160', '120', '70', '30', '10',
                               '--prizes', '181', '130', '95', '73', '58', '53'];
+
   icmPayoutResults: string[];
-  icmColumns: string[] = ['position', 'amount', 'chips', 'payout'];
+  icmColumns: string[] = ['icmPosition', 'chips', 'payout'];
+  chipCounts: string;
 
 
   constructor(private javaService: JavaService) { }
 
   payoutRadioHandler(event): void {
     this.selectedPayout = event.target.value;
-    // alert("selectedPayout in payoutRadioHandler = " + this.selectedPayout);
+    if (this.selectedPayout = 'icmPayout') {
+      this.icmHide = false;
+      this.winnersHide = true;
+    }
   }
 
   ngOnInit(): void {
@@ -368,43 +374,9 @@ export class PokerComponent implements OnInit {
 
 
   // Compute winner amounts
-  icmChopBtn(): void {
-    this.icmData = [];
-    const buyInTotal = this.buyInTotal;
-    const addOnTotal = this.addOnTotal;
-    const total = Number(buyInTotal) + Number(addOnTotal);
-    const each  = Number(total / 100);
-
-    this.showWinnerTable(each);
-  }
-
-  // Compute Winners + LastMan amounts
-  icmChopLastManBtn(): void {
-    this.icmData = [];
-    const buyInTotal = this.buyInTotal;
-    const addOnTotal = this.addOnTotal;
-    const lastManTotal = this.lastManTotal;
-    const total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
-    const each  = Number(total / 100);
-
-    this.showWinnerTable(each);
-  }
 
   // Compute Winners + LastMan amounts
   roundDownBtn(): void {
-    alert('Currently under construction');
-    // this.roundedWinnerData = [];
-    // const buyInTotal = this.buyInTotal;
-    // const addOnTotal = this.addOnTotal;
-    // const lastManTotal = this.lastManTotal;
-    // const total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
-    // const each  = Number(total / 100);
-    //
-    // this.showWinnerTable(each);
-  }
-
-  // Get player chip counts for ICM Chop
-  playerChipCounts(): void {
     alert('Currently under construction');
     // this.roundedWinnerData = [];
     // const buyInTotal = this.buyInTotal;
@@ -439,6 +411,7 @@ export class PokerComponent implements OnInit {
       }
 
       if (this.selectedPayout == "icmPayout") {
+
         this.getIcmPayout();
         this.winnersHide = true;
         this.icmHide = false;
