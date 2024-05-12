@@ -27,7 +27,6 @@ export interface WinnerData {
 
 export interface IcmData {
   icmPosition: number;
-  icmAmount: string;
   icmChips: number;
   icmPayout: string;
 }
@@ -101,21 +100,26 @@ export class PokerComponent implements OnInit {
   selection = new SelectionModel<PlayerData>(true, []);
 
   winnerColumns: string[] = ['position', 'amount'];
-  icmPayoutArray: string[] =  ['--chips', '220', '160', '120', '70', '30', '10',
-                              '--prizes', '181', '130', '95', '73', '58', '53'];
 
   icmPayoutResults: string[];
-  icmColumns: string[] = ['icmPosition', 'chips', 'payout'];
+  icmColumns: string[] = ['icmPosition', 'icmChips', 'icmPayout'];
   chipCounts: string;
+  // icmPayoutArray: string[] =  ['--chips', '220', '160', '120', '70', '30', '10',
+  //   '--prizes', '181', '130', '95', '73', '58', '53'];
+  icmPayoutArray: string[];
 
 
   constructor(private javaService: JavaService) { }
 
   payoutRadioHandler(event): void {
     this.selectedPayout = event.target.value;
-    if (this.selectedPayout = 'icmPayout') {
+    if (this.selectedPayout === 'icmPayout') {
       this.icmHide = false;
       this.winnersHide = true;
+    }
+    else {
+      this.icmHide = true;
+      this.winnersHide = false;
     }
   }
 
@@ -187,6 +191,13 @@ export class PokerComponent implements OnInit {
    */
   setWinnerFocus(): void {
     setTimeout(() => { this.winnerText.nativeElement.focus(); }, 500);
+  }
+
+  /**
+   * Set focus on the desired input field.
+   */
+  setIcmFocus(): void {
+    setTimeout(() => { this.icmText.nativeElement.focus(); }, 500);
   }
 
   setPercents(percents): void {
@@ -410,8 +421,7 @@ export class PokerComponent implements OnInit {
         );
       }
 
-      if (this.selectedPayout == "icmPayout") {
-
+      if (this.selectedPayout === "icmPayout") {
         this.getIcmPayout();
         this.winnersHide = true;
         this.icmHide = false;
@@ -427,11 +437,43 @@ export class PokerComponent implements OnInit {
 
 
   getIcmPayout(): void {
-    //For testing
+
+    const str1 = this.chipCounts.replace(/[^0-9.]/g, ' ').trim();
+    if (str1 === null || str1 === '' || str1.split(/[^0-9.]/g).length === 0) {
+      alert('You must add chip counts for each player, in any order.');
+      this.icmHide = true;
+      this.playersHide = true;
+      this.chipCounts = '';
+      this.setIcmFocus();
+    } else {
+      const tempArray = str1.replace(/[^0-9.]/g, ' ').trim();
+      const chipsArray: string[] = tempArray.split(/[^0-9.]/g);
+
+      console.log("chipsArray: " + chipsArray);
+
+      this.icmPayoutArray = ['--chips'];
+      for(let i = 0; i < chipsArray.length; i++) {
+        this.icmPayoutArray.push(chipsArray[i]);
+      }
+
+      console.log("this.winnerData: " + this.winnerData);
+      console.log("this.winnerData.length " + this.winnerData.length);
+
+      this.icmPayoutArray.push('--prizes');
+
+      for (let i = 0; i < this.winnerData.length; i++) {
+        this.icmPayoutArray.push(this.winnerData[i][1]);
+      }
+      console.log("icmPayoutArray: " + this.icmPayoutArray);
+    }
+
+
+
     const params: HttpParams = new HttpParams({
       fromObject: {
         inputParms: this.icmPayoutArray,
-      }});
+      }
+    });
 
     // alert("java service params: " + params);
     this.javaService.getIcmPayouts(params).subscribe(
