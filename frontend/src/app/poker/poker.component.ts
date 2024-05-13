@@ -26,8 +26,6 @@ export interface WinnerData {
 }
 
 export interface IcmData {
-  icmPosition: number;
-  icmChips: number;
   icmPayout: string;
 }
 
@@ -102,10 +100,8 @@ export class PokerComponent implements OnInit {
   winnerColumns: string[] = ['position', 'amount'];
 
   icmPayoutResults: string[];
-  icmColumns: string[] = ['icmPosition', 'icmChips', 'icmPayout'];
+  icmColumns: string[] = ['icmPayout'];
   chipCounts: string;
-  // icmPayoutArray: string[] =  ['--chips', '220', '160', '120', '70', '30', '10',
-  //   '--prizes', '181', '130', '95', '73', '58', '53'];
   icmPayoutArray: string[];
 
 
@@ -368,7 +364,7 @@ export class PokerComponent implements OnInit {
     const total = Number(buyInTotal) + Number(addOnTotal);
     const each  = Number(total / 100);
 
-    this.showWinnerTable(each);
+    this.showWinnerTable(each, total);
   }
 
   // Compute Winners + LastMan amounts
@@ -380,7 +376,7 @@ export class PokerComponent implements OnInit {
     const total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
     const each  = Number(total / 100);
 
-    this.showWinnerTable(each);
+    this.showWinnerTable(each,total);
   }
 
 
@@ -400,7 +396,8 @@ export class PokerComponent implements OnInit {
   }
 
   // Show winner table
-  showWinnerTable(each): void {
+  showWinnerTable(each, total): void {
+    console.log('each: ' + each);
     const str1 = this.percentages.replace(/[^0-9.]/g, ' ').trim();
     if (str1 === null || str1 === '' || str1.split(/[^0-9.]/g).length === 0) {
         alert('You must add percentages for each winner, i.e. for 3 winners 50 30 20.');
@@ -422,7 +419,7 @@ export class PokerComponent implements OnInit {
       }
 
       if (this.selectedPayout === "icmPayout") {
-        this.getIcmPayout();
+        this.getIcmPayout(total);
         this.winnersHide = true;
         this.icmHide = false;
       }
@@ -436,7 +433,7 @@ export class PokerComponent implements OnInit {
   }
 
 
-  getIcmPayout(): void {
+  getIcmPayout(total): void {
 
     const str1 = this.chipCounts.replace(/[^0-9.]/g, ' ').trim();
     if (str1 === null || str1 === '' || str1.split(/[^0-9.]/g).length === 0) {
@@ -446,27 +443,27 @@ export class PokerComponent implements OnInit {
       this.chipCounts = '';
       this.setIcmFocus();
     } else {
-      const tempArray = str1.replace(/[^0-9.]/g, ' ').trim();
-      const chipsArray: string[] = tempArray.split(/[^0-9.]/g);
+      const tempStr = str1.replace(/[^0-9.,]/g, ' ').trim();
+      const chipsArray: string[] = tempStr.split(/[^0-9.]/g);
 
+      console.log("tempStr: " + tempStr);
       console.log("chipsArray: " + chipsArray);
 
       this.icmPayoutArray = ['--chips'];
       for(let i = 0; i < chipsArray.length; i++) {
         this.icmPayoutArray.push(chipsArray[i]);
       }
-
-      console.log("this.winnerData: " + this.winnerData);
-      console.log("this.winnerData.length " + this.winnerData.length);
-
       this.icmPayoutArray.push('--prizes');
-
-      for (let i = 0; i < this.winnerData.length; i++) {
-        this.icmPayoutArray.push(this.winnerData[i][1]);
+      let duh = Number(total).toString();
+      this.icmPayoutArray.push(duh);
+      for (let i = 1; i < chipsArray.length; i++) {
+        this.icmPayoutArray.push('0');
       }
+
+      console.log('duh: ' + duh);
+      console.log("this.winnerData.length " + this.winnerData.length);
       console.log("icmPayoutArray: " + this.icmPayoutArray);
     }
-
 
 
     const params: HttpParams = new HttpParams({
