@@ -26,6 +26,8 @@ export interface WinnerData {
 }
 
 export interface IcmData {
+  icmPosition: number;
+  icmChips: string;
   icmPayout: string;
 }
 
@@ -44,6 +46,8 @@ export class PokerComponent implements OnInit {
   playerData: PlayerData[] = [];
   winnerData: WinnerData[] = [];
   icmData:    IcmData[] = [];
+  winnerPayouts: string [] = [];
+  icmPayouts: string [] = [];
   roundedWinnerData: RoundedWinnerData[] = [];
 
   winners3 = '50.0 30.0 20.0';
@@ -100,9 +104,10 @@ export class PokerComponent implements OnInit {
   winnerColumns: string[] = ['position', 'amount'];
 
   icmPayoutResults: string[];
-  icmColumns: string[] = ['icmPayout'];
+  icmColumns: string[] = ['icmPosition', 'icmChips', 'icmPayout'];
   chipCounts: string;
   icmPayoutArray: string[];
+  // responseCount: number;
 
 
   constructor(private javaService: JavaService) { }
@@ -402,6 +407,7 @@ export class PokerComponent implements OnInit {
     if (str1 === null || str1 === '' || str1.split(/[^0-9.]/g).length === 0) {
         alert('You must add percentages for each winner, i.e. for 3 winners 50 30 20.');
         this.icmHide = true;
+        this.winnersHide = true;
         this.playersHide = true;
         this.percentages = '';
         this.setWinnerFocus();
@@ -418,17 +424,20 @@ export class PokerComponent implements OnInit {
         );
       }
 
+      //Save the payout amounts for the ICM calculations
+      for (let i = 0; i < this.winnerData.length; i++) {
+        this.winnerPayouts.push(this.winnerData[i].amount);
+      }
+
       if (this.selectedPayout === "icmPayout") {
         this.getIcmPayout(total);
-        this.winnersHide = true;
-        this.icmHide = false;
       }
       else {
         this.winnersHide = false;
         this.icmHide = true;
-      }
 
-      setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
+        setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
+      }
     }
   }
 
@@ -439,32 +448,26 @@ export class PokerComponent implements OnInit {
     if (str1 === null || str1 === '' || str1.split(/[^0-9.]/g).length === 0) {
       alert('You must add chip counts for each player, in any order.');
       this.icmHide = true;
+      this.winnersHide = true;
       this.playersHide = true;
       this.chipCounts = '';
       this.setIcmFocus();
-    } else {
+    }
+    else {
       const tempStr = str1.replace(/[^0-9.,]/g, ' ').trim();
       const chipsArray: string[] = tempStr.split(/[^0-9.]/g);
-
-      console.log("tempStr: " + tempStr);
-      console.log("chipsArray: " + chipsArray);
 
       this.icmPayoutArray = ['--chips'];
       for(let i = 0; i < chipsArray.length; i++) {
         this.icmPayoutArray.push(chipsArray[i]);
       }
       this.icmPayoutArray.push('--prizes');
-      let duh = Number(total).toString();
-      this.icmPayoutArray.push(duh);
-      for (let i = 1; i < chipsArray.length; i++) {
-        this.icmPayoutArray.push('0');
+      for (let i = 0; i < chipsArray.length; i++) {
+        const prize: string[] = this.winnerPayouts[i].split('.');
+        this.icmPayoutArray.push(prize[0])
       }
-
-      console.log('duh: ' + duh);
-      console.log("this.winnerData.length " + this.winnerData.length);
       console.log("icmPayoutArray: " + this.icmPayoutArray);
     }
-
 
     const params: HttpParams = new HttpParams({
       fromObject: {
@@ -483,6 +486,28 @@ export class PokerComponent implements OnInit {
         this.handleError(error);
         alert("icmPayouts failed: " + error);
       });
+
+    this.icmData = [];
+    console.log('responseCount: ' + this.icmPayoutResults.length);
+
+    const tempStr = str1.replace(/[^0-9.,]/g, ' ').trim();
+    let chipsArray: string[] = tempStr.split(/[^0-9.]/g);
+
+    for (let i = 0; i < this.icmPayoutResults.length; i++) {
+      let payouts: string[] = this.icmPayoutResults[i].split(' ---> ');
+      this.icmData.push(
+        {
+          icmPosition: i + 1,
+          icmChips: chipsArray[i],
+          icmPayout: payouts[1]
+        }
+      )
+    }
+
+    this.winnersHide = true;
+    this.icmHide = false;
+
+    setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
 
   }
 
