@@ -4,11 +4,7 @@ import { MatTable } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { JavaService } from '../java.service';
-import {convertElementSourceSpanToLoc} from '@angular-eslint/template-parser/dist/template-parser/src/convert-source-span-to-loc';
 import { HttpParams } from '@angular/common/http';
-import { HttpErrorResponse} from '@angular/common/http';
-import {errorObject} from 'rxjs/internal-compatibility';
-import {Observable} from 'rxjs';
 
 
 export interface PlayerData {
@@ -122,6 +118,7 @@ export class PokerComponent implements OnInit {
       this.icmHide = true;
       this.winnersHide = false;
     }
+    setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
   }
 
   ngOnInit(): void {
@@ -130,6 +127,7 @@ export class PokerComponent implements OnInit {
     this.winnerData = [];
     this.icmData = [];
     this.setFocus();
+    setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
   }
 
 
@@ -381,7 +379,7 @@ export class PokerComponent implements OnInit {
     const total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
     const each  = Number(total / 100);
 
-    this.showWinnerTable(each,total);
+    this.showWinnerTable(each, total);
   }
 
 
@@ -402,7 +400,7 @@ export class PokerComponent implements OnInit {
 
   // Show winner table
   showWinnerTable(each, total): void {
-    console.log('each: ' + each);
+
     const str1 = this.percentages.replace(/[^0-9.]/g, ' ').trim();
     if (str1 === null || str1 === '' || str1.split(/[^0-9.]/g).length === 0) {
         alert('You must add percentages for each winner, i.e. for 3 winners 50 30 20.');
@@ -425,12 +423,13 @@ export class PokerComponent implements OnInit {
       }
 
       //Save the payout amounts for the ICM calculations
+      this.winnerPayouts = [];
       for (let i = 0; i < this.winnerData.length; i++) {
         this.winnerPayouts.push(this.winnerData[i].amount);
       }
 
       if (this.selectedPayout === "icmPayout") {
-        this.getIcmPayout(total);
+        this.getIcmPayout(count, total);
       }
       else {
         this.winnersHide = false;
@@ -442,10 +441,13 @@ export class PokerComponent implements OnInit {
   }
 
 
-  getIcmPayout(total): void {
+  getIcmPayout(percentCount, total): void {
 
-    const str1 = this.chipCounts.replace(/[^0-9.]/g, ' ').trim();
-    if (str1 === null || str1 === '' || str1.split(/[^0-9.]/g).length === 0) {
+    const chipStr = this.chipCounts.replace(/[^0-9.]/g, ' ').trim();
+    const tempStr = chipStr.replace(/[, ]+/g, ' ').trim();
+    const chipsArray: string[] = tempStr.split(' ');
+    const chipCount: number = chipsArray.length;
+    if (chipStr === null || chipStr === '' || chipStr.split(/[^0-9.]/g).length === 0) {
       alert('You must add chip counts for each player, in any order.');
       this.icmHide = true;
       this.winnersHide = true;
@@ -454,8 +456,10 @@ export class PokerComponent implements OnInit {
       this.setIcmFocus();
     }
     else {
-      const tempStr = str1.replace(/[^0-9.,]/g, ' ').trim();
-      const chipsArray: string[] = tempStr.split(/[^0-9.]/g);
+      if (chipCount != percentCount) {
+        alert('The chip count does not match the percentages count!  Please correct and try again.')
+        this.setIcmFocus();
+      }
 
       this.icmPayoutArray = ['--chips'];
       for(let i = 0; i < chipsArray.length; i++) {
@@ -466,7 +470,7 @@ export class PokerComponent implements OnInit {
         const prize: string[] = this.winnerPayouts[i].split('.');
         this.icmPayoutArray.push(prize[0])
       }
-      console.log("icmPayoutArray: " + this.icmPayoutArray);
+      console.log("icmPayoutArray 477: " + this.icmPayoutArray);
     }
 
     const params: HttpParams = new HttpParams({
@@ -475,25 +479,22 @@ export class PokerComponent implements OnInit {
       }
     });
 
-    // alert("java service params: " + params);
     this.javaService.getIcmPayouts(params).subscribe(
       response => {
-        this.icmPayoutResults = response;
-        console.log('Payout results: ' + this.icmPayoutResults);
+        this.icmPayoutResults = response.valueOf();
       },
       error => {
-        // console.log(error);
         this.handleError(error);
         alert("icmPayouts failed: " + error);
       });
 
+    console.log('Payout results 496: ' + this.icmPayoutResults);
+
+    // const tempStr = chipStr.replace(/[^0-9.,]/g, ' ').trim();
+    // let chipsArray: string[] = tempStr.split(/[^0-9.]/g);
+
     this.icmData = [];
-    console.log('responseCount: ' + this.icmPayoutResults.length);
-
-    const tempStr = str1.replace(/[^0-9.,]/g, ' ').trim();
-    let chipsArray: string[] = tempStr.split(/[^0-9.]/g);
-
-    for (let i = 0; i < this.icmPayoutResults.length; i++) {
+    for (let i = 0; i < percentCount; i++) {
       let payouts: string[] = this.icmPayoutResults[i].split(' ---> ');
       this.icmData.push(
         {
@@ -510,6 +511,7 @@ export class PokerComponent implements OnInit {
     setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
 
   }
+
 
   private handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure

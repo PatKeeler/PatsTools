@@ -44,6 +44,10 @@ public class ICMCalculator implements Serializable {
     public String[] getICMChops(IcmParms icmParms) {
 
         String[] inputParms = icmParms.getInputParms();
+        logger.info("Input Parms Java line 47: ");
+        for (int i = 0; i < inputParms.length; i++) {
+            logger.info(inputParms[i]);
+        }
         // Argument parsing (simplified)
         for (int i = 0; i < inputParms.length; i++) {
             if (inputParms[i].equals("--chips")) {
@@ -94,6 +98,10 @@ public class ICMCalculator implements Serializable {
                     i + 1, chips.get(i), finalPrizes[i]);
         }
 
+        logger.info("Player Results Java line 101: ");
+        for (int i = 0; i < playerResults.length; i++) {
+            logger.info(playerResults[i]);
+        }
         return playerResults;
     }
 
