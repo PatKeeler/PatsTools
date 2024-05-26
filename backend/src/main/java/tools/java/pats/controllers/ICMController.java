@@ -1,6 +1,8 @@
 package tools.java.pats.controllers;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Map;
 
 import tools.java.pats.classparams.IcmParms;
 import tools.java.pats.models.ICMCalculator;
@@ -16,9 +18,10 @@ public class ICMController implements Serializable {
     private ICMCalculator icmCalculator = new ICMCalculator();
 
 
-    public String[] getPayouts(IcmParms icmParms) {
+    public Map<String, String[]> getPayouts(IcmParms icmParms) {
 
-        String[] results = new String[10];
+
+        String[] results = new String[icmParms.getCount()];
 
         try {
             results = icmCalculator.getICMChops(icmParms);
@@ -29,10 +32,10 @@ public class ICMController implements Serializable {
         }
 
         //for testing
-        for (String s : results)
-            System.out.println(s);
+//        for (String s : results)
+//            System.out.println("ICMController: " + s);
         
-        return results;
+        return Collections.singletonMap("result", results);
     }
 
 }

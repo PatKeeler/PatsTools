@@ -476,12 +476,13 @@ export class PokerComponent implements OnInit {
     const params: HttpParams = new HttpParams({
       fromObject: {
         inputParms: this.icmPayoutArray,
+        count: chipCount
       }
     });
 
     this.javaService.getIcmPayouts(params).subscribe(
       response => {
-        this.icmPayoutResults = response.valueOf();
+        this.icmPayoutResults = response.result;
       },
       error => {
         this.handleError(error);

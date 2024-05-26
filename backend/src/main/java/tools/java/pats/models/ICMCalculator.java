@@ -43,8 +43,13 @@ public class ICMCalculator implements Serializable {
 
     public String[] getICMChops(IcmParms icmParms) {
 
+        int count = icmParms.getCount();
+        logger.info("");
+        logger.info("input data count line 47: " + count);
+        logger.info("");
+
         String[] inputParms = icmParms.getInputParms();
-        logger.info("Input Parms Java line 47: ");
+
         for (int i = 0; i < inputParms.length; i++) {
             logger.info(inputParms[i]);
         }
