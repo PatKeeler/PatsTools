@@ -17,7 +17,6 @@ and determines payouts based on chip count.
 public class ICMCalculator implements Serializable {
 
     private static final long serialVersionUID = 1951L;
-
     private static final Logger logger = LoggerFactory.getLogger("ICMCalculator");
 
 
@@ -45,7 +44,7 @@ public class ICMCalculator implements Serializable {
 
         int count = icmParms.getCount();
         logger.info("");
-        logger.info("input data count line 47: " + count);
+        logger.info("New test run starts here");
         logger.info("");
 
         String[] inputParms = icmParms.getInputParms();
@@ -103,9 +102,9 @@ public class ICMCalculator implements Serializable {
                     i + 1, chips.get(i), finalPrizes[i]);
         }
 
-        logger.info("Player Results Java line 101: ");
+        logger.info("Player Results line 101: ");
         for (int i = 0; i < playerResults.length; i++) {
-            logger.info(playerResults[i]);
+            logger.info(playerResults[i].substring(0, playerResults[i].length() - 2));
         }
         return playerResults;
     }

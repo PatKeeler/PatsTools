@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tools.java.pats.classparams.IcmParms;
 import tools.java.pats.models.ICMCalculator;
 
@@ -15,11 +17,12 @@ for poker tournaments based on prize amounts and chip counts.
 public class ICMController implements Serializable {
 
     private static final long serialVersionUID = 1951L;
+    private static Logger logger = LoggerFactory.getLogger("ICMController");
+
     private ICMCalculator icmCalculator = new ICMCalculator();
 
 
     public Map<String, String[]> getPayouts(IcmParms icmParms) {
-
 
         String[] results = new String[icmParms.getCount()];
 
@@ -32,8 +35,9 @@ public class ICMController implements Serializable {
         }
 
         //for testing
-//        for (String s : results)
-//            System.out.println("ICMController: " + s);
+        logger.info(" ");
+        for (String s : results)
+            logger.info("results: " + s.substring(0, s.length() - 2));
         
         return Collections.singletonMap("result", results);
     }

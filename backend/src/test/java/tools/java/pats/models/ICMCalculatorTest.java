@@ -22,7 +22,6 @@ public class ICMCalculatorTest {
         IcmParms icmParms = new IcmParms();
         String[] results = new String[20];
 
-//        String[] testData = new String[]{
         icmParms.setInputParms(new String[]{
                 "--chips",
                 "220",
@@ -49,12 +48,12 @@ public class ICMCalculatorTest {
 
         assertEquals(results, myList, "Error computing ICM Calculations!");
 
-        logger.info("ICM Calculator Test Input: ");
+        logger.info("Test Input: ");
         for (String s : icmParms.getInputParms())
             logger.info(format("  %s", s));
         logger.info(" ");
 
-        logger.info("ICM Calculator Test Results: ");
+        logger.info("Test Results: ");
         for (String s : results)
             logger.info(format("  %s", s.substring(0, s.length() -2)));
 //        logger.info(" ");

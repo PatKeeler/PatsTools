@@ -1,5 +1,7 @@
 package tools.java.pats;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +17,7 @@ import tools.java.pats.controllers.SqlFormatterController;
 import tools.java.pats.controllers.XmlFormatterController;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @SpringBootApplication
@@ -22,6 +25,10 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api")
 public class PatsWebApplication extends SpringBootServletInitializer {
+
+    private static final long serialVersionUID = 1951L;
+    private static Logger logger = LoggerFactory.getLogger("PatsWebApplication");
+
 
     public static void main(ApplicationArguments args) throws Exception {
         SpringApplication.run(PatsWebApplication.class);
@@ -45,9 +52,19 @@ public class PatsWebApplication extends SpringBootServletInitializer {
 
 
     @RequestMapping(value = "/getIcmPayouts")
-    public Map<String, String[]> getIcmPayouts(IcmParms icmParms) {
+    public String[] getIcmPayouts(IcmParms icmParms) {
         ICMController icmController =
                 new ICMController();
-        return icmController.getPayouts(icmParms);
+        Map<String, String[]> myMap = icmController.getPayouts(icmParms);
+
+        logger.info("");
+        //for testing
+        String[] myArray = myMap.get("result");
+        logger.info("myArray: ");
+        for (String s: myArray) {
+            logger.info(s.substring(0, s.length() - 2));
+        }
+
+        return myMap.get("result");
     }
 }

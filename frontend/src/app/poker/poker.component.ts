@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { JavaService } from '../java.service';
 import { HttpParams } from '@angular/common/http';
+import {async} from 'rxjs/internal/scheduler/async';
 
 
 export interface PlayerData {
@@ -99,11 +100,10 @@ export class PokerComponent implements OnInit {
 
   winnerColumns: string[] = ['position', 'amount'];
 
-  icmPayoutResults: string[];
+  icmPayoutResults: string[] = [];
   icmColumns: string[] = ['icmPosition', 'icmChips', 'icmPayout'];
-  chipCounts: string;
+  chipCounts: string = '66 55 44 33 22 11';
   icmPayoutArray: string[];
-  // responseCount: number;
 
 
   constructor(private javaService: JavaService) { }
@@ -113,10 +113,12 @@ export class PokerComponent implements OnInit {
     if (this.selectedPayout === 'icmPayout') {
       this.icmHide = false;
       this.winnersHide = true;
+      this.setIcmFocus();
     }
     else {
       this.icmHide = true;
       this.winnersHide = false;
+      this.setWinnerFocus();
     }
     setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
   }
@@ -480,19 +482,10 @@ export class PokerComponent implements OnInit {
       }
     });
 
-    this.javaService.getIcmPayouts(params).subscribe(
-      response => {
-        this.icmPayoutResults = response.result;
-      },
-      error => {
-        this.handleError(error);
-        alert("icmPayouts failed: " + error);
-      });
+
+    this.getServicePayouts(params);
 
     console.log('Payout results 496: ' + this.icmPayoutResults);
-
-    // const tempStr = chipStr.replace(/[^0-9.,]/g, ' ').trim();
-    // let chipsArray: string[] = tempStr.split(/[^0-9.]/g);
 
     this.icmData = [];
     for (let i = 0; i < percentCount; i++) {
@@ -513,6 +506,18 @@ export class PokerComponent implements OnInit {
 
   }
 
+  getServicePayouts(params) {
+
+    this.javaService.getIcmPayouts(params).subscribe(
+      response => {
+        this.icmPayoutResults = response;
+      },
+      error => {
+        this.handleError(error);
+        alert("icmPayouts failed: " + error);
+
+      });
+  }
 
   private handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
