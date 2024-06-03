@@ -102,10 +102,11 @@ public class ICMCalculator implements Serializable {
                     i + 1, chips.get(i), finalPrizes[i]);
         }
 
-        logger.info("Player Results line 101: ");
-        for (int i = 0; i < playerResults.length; i++) {
-            logger.info(playerResults[i].substring(0, playerResults[i].length() - 2));
-        }
+//        logger.info("Player Results line 106: ");
+//        for (int i = 0; i < playerResults.length; i++) {
+//            logger.info(playerResults[i].substring(0, playerResults[i].length() - 2));
+//        }
+
         return playerResults;
     }
 

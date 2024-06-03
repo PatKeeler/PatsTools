@@ -17,7 +17,6 @@ import tools.java.pats.controllers.SqlFormatterController;
 import tools.java.pats.controllers.XmlFormatterController;
 
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 @SpringBootApplication
@@ -57,10 +56,10 @@ public class PatsWebApplication extends SpringBootServletInitializer {
                 new ICMController();
         Map<String, String[]> myMap = icmController.getPayouts(icmParms);
 
-        logger.info("");
         //for testing
+        logger.info("");
         String[] myArray = myMap.get("result");
-        logger.info("myArray: ");
+        logger.info("Results Array: ");
         for (String s: myArray) {
             logger.info(s.substring(0, s.length() - 2));
         }

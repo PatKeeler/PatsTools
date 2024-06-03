@@ -15,7 +15,7 @@ export class JavaService {
     .set('Content-Type', 'application/json');
 
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
   getSql(parameters: HttpParams): Observable<any> {
     const API_URL = `${this.apiUrl}/formatSql`;

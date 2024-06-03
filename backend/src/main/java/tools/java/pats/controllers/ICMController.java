@@ -35,9 +35,9 @@ public class ICMController implements Serializable {
         }
 
         //for testing
-        logger.info(" ");
-        for (String s : results)
-            logger.info("results: " + s.substring(0, s.length() - 2));
+//        logger.info(" ");
+//        for (String s : results)
+//            logger.info("results: " + s.substring(0, s.length() - 2));
         
         return Collections.singletonMap("result", results);
     }

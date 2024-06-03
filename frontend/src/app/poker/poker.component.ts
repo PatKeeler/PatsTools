@@ -106,7 +106,7 @@ export class PokerComponent implements OnInit {
   icmPayoutArray: string[];
 
 
-  constructor(private javaService: JavaService) { }
+  constructor(public javaService: JavaService) { }
 
   payoutRadioHandler(event): void {
     this.selectedPayout = event.target.value;
