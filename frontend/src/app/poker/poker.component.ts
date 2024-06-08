@@ -483,41 +483,51 @@ export class PokerComponent implements OnInit {
     });
 
 
-    this.getServicePayouts(params);
-
-    console.log('Payout results 496: ' + this.icmPayoutResults);
-
-    this.icmData = [];
-    for (let i = 0; i < percentCount; i++) {
-      let payouts: string[] = this.icmPayoutResults[i].split(' ---> ');
-      this.icmData.push(
-        {
-          icmPosition: i + 1,
-          icmChips: chipsArray[i],
-          icmPayout: payouts[1]
-        }
-      )
-    }
-
-    this.winnersHide = true;
-    this.icmHide = false;
-
-    setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
-
-  }
-
-  getServicePayouts(params) {
-
+    // this.getServicePayouts(params);
     this.javaService.getIcmPayouts(params).subscribe(
       response => {
         this.icmPayoutResults = response;
+        console.log('Payout results 496: ' + this.icmPayoutResults);
+        this.icmData = [];
+        for (let i = 0; i < percentCount; i++) {
+          let payouts: string[] = this.icmPayoutResults[i].split(' ---> ');
+          this.icmData.push(
+            {
+              icmPosition: i + 1,
+              icmChips: chipsArray[i],
+              icmPayout: payouts[1]
+            }
+          )
+        }
+
+        this.winnersHide = true;
+        this.icmHide = false;
+
+        setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
       },
       error => {
         this.handleError(error);
         alert("icmPayouts failed: " + error);
-
       });
   }
+
+  // getServicePayouts(params) {
+  //
+  //   this.javaService.getIcmPayouts(params).subscribe(
+  //     response => {
+  //       for (let i = 0; i < 10; i++) {
+  //         if (response === 'undefined') {
+  //           setTimeout('', 100);
+  //         }
+  //       }
+  //       this.icmPayoutResults = response;
+  //     },
+  //     error => {
+  //       this.handleError(error);
+  //       alert("icmPayouts failed: " + error);
+  //
+  //     });
+  // }
 
   private handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
