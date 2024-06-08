@@ -482,8 +482,6 @@ export class PokerComponent implements OnInit {
       }
     });
 
-
-    // this.getServicePayouts(params);
     this.javaService.getIcmPayouts(params).subscribe(
       response => {
         this.icmPayoutResults = response;
@@ -499,10 +497,8 @@ export class PokerComponent implements OnInit {
             }
           )
         }
-
         this.winnersHide = true;
         this.icmHide = false;
-
         setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
       },
       error => {
@@ -511,23 +507,6 @@ export class PokerComponent implements OnInit {
       });
   }
 
-  // getServicePayouts(params) {
-  //
-  //   this.javaService.getIcmPayouts(params).subscribe(
-  //     response => {
-  //       for (let i = 0; i < 10; i++) {
-  //         if (response === 'undefined') {
-  //           setTimeout('', 100);
-  //         }
-  //       }
-  //       this.icmPayoutResults = response;
-  //     },
-  //     error => {
-  //       this.handleError(error);
-  //       alert("icmPayouts failed: " + error);
-  //
-  //     });
-  // }
 
   private handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
