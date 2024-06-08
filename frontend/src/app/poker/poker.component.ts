@@ -47,6 +47,7 @@ export class PokerComponent implements OnInit {
   icmPayouts: string [] = [];
   roundedWinnerData: RoundedWinnerData[] = [];
 
+  winners2 = '70.0 30.0';
   winners3 = '50.0 30.0 20.0';
   winners4 = '42.5 27.0 17.5 13.0';
   winners5 = '37.0 25.0 15.0 12.0 11.0';
