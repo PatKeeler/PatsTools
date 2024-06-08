@@ -77,11 +77,11 @@ export class PokerComponent implements OnInit {
   addOnAmount: string;
 
   totalPlayers: number;
-  buyInTotal: string = '1200';
-  bountyTotal: string = '0';
-  feeTotal: string = '0';
-  lastManTotal: string = '200';
-  addOnTotal: string = '0';
+  buyInTotal: string = '';
+  bountyTotal: string = '';
+  feeTotal: string = '';
+  lastManTotal: string = '';
+  addOnTotal: string = '';
 
   chopPlayers: number;
   chopAmount: string;
@@ -102,7 +102,7 @@ export class PokerComponent implements OnInit {
 
   icmPayoutResults: string[] = [];
   icmColumns: string[] = ['icmPosition', 'icmChips', 'icmPayout'];
-  chipCounts: string = '66 55 44 33 22 11';
+  chipCounts: string = '';
   icmPayoutArray: string[];
 
 

@@ -49,9 +49,10 @@ public class ICMCalculator implements Serializable {
 
         String[] inputParms = icmParms.getInputParms();
 
-        for (int i = 0; i < inputParms.length; i++) {
-            logger.info(inputParms[i]);
-        }
+//        for (int i = 0; i < inputParms.length; i++) {
+//            logger.info(inputParms[i]);
+//        }
+
         // Argument parsing (simplified)
         for (int i = 0; i < inputParms.length; i++) {
             if (inputParms[i].equals("--chips")) {
