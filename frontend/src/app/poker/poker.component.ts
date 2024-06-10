@@ -404,15 +404,13 @@ export class PokerComponent implements OnInit {
       else if (bucket + Number(myArray[i]) >= (quotient + 1) * 5) {
         returnArray[i] = ((quotient + 1) * 5).toFixed(2);
         bucket -= ((quotient + 1) * 5) - Number(strVal);
-        bucket = Number(bucket.toFixed(2)) + .01;
+        bucket = Number(bucket.toFixed(2)) + .00009;
       } else {
         returnArray[i] = (quotient * 5).toFixed(2);
         bucket += Number(strVal) - quotient * 5;
-        bucket = Number(bucket.toFixed(2)) + .01;
+        bucket = Number(bucket.toFixed(2)) + .00009;
       }
-      console.log("bucket: " + bucket);
     }
-    console.log(" ");
     return returnArray;
   }
 
@@ -450,10 +448,8 @@ export class PokerComponent implements OnInit {
       }
 
       //Save the payout amounts for the ICM calculations
-      this.winnerPayouts = [];
-      for (let i = 0; i < this.winnerData.length; i++) {
-        this.winnerPayouts.push(this.winnerData[i].amount);
-      }
+      this.winnerPayouts = roundedArray;
+      // console.log("Percentage payouts: 452: " + this.winnerPayouts);
 
       if (this.selectedPayout === "icmPayout") {
         this.getIcmPayout(count, total);
@@ -497,7 +493,6 @@ export class PokerComponent implements OnInit {
         const prize: string[] = this.winnerPayouts[i].split('.');
         this.icmPayoutArray.push(prize[0])
       }
-      console.log("icmPayoutArray 477: " + this.icmPayoutArray);
     }
 
     const params: HttpParams = new HttpParams({
@@ -509,7 +504,7 @@ export class PokerComponent implements OnInit {
     this.javaService.getIcmPayouts(params).subscribe(
       response => {
         this.icmPayoutResults = response;
-        console.log('Payout results 496: ' + this.icmPayoutResults);
+        // console.log('ICM payouts 496: ' + this.icmPayoutResults);
         this.icmData = [];
 
 
