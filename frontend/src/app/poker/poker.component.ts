@@ -385,20 +385,35 @@ export class PokerComponent implements OnInit {
     this.showWinnerTable(each, total);
   }
 
+  getRoundedNumbers(myArray): string[] {
 
-  // Compute winner amounts
+    let bucket: number = 0;
+    let returnArray: string[] = [];
+    let quotient: number = 0;
+    let remainder: number = 0;
+    let strVal: string;
 
-  // Compute Winners + LastMan amounts
-  roundDownBtn(): void {
-    alert('Currently under construction');
-    // this.roundedWinnerData = [];
-    // const buyInTotal = this.buyInTotal;
-    // const addOnTotal = this.addOnTotal;
-    // const lastManTotal = this.lastManTotal;
-    // const total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
-    // const each  = Number(total / 100);
-    //
-    // this.showWinnerTable(each);
+    for (let i = 0; i < myArray.length; i++) {
+      strVal = myArray[i];
+      quotient = Math.floor(Number(myArray[i]) / 5);
+      remainder = Number((Number(myArray[i]) % 5).toFixed(2));
+
+      if (remainder === 0) {
+        returnArray[i] = strVal;
+      }
+      else if (bucket + Number(myArray[i]) >= (quotient + 1) * 5) {
+        returnArray[i] = ((quotient + 1) * 5).toFixed(2);
+        bucket -= ((quotient + 1) * 5) - Number(strVal);
+        bucket = Number(bucket.toFixed(2)) + .01;
+      } else {
+        returnArray[i] = (quotient * 5).toFixed(2);
+        bucket += Number(strVal) - quotient * 5;
+        bucket = Number(bucket.toFixed(2)) + .01;
+      }
+      console.log("bucket: " + bucket);
+    }
+    console.log(" ");
+    return returnArray;
   }
 
   // Show winner table
@@ -416,11 +431,20 @@ export class PokerComponent implements OnInit {
     else {
       const percentArray: string[] = str1.split(/[^0-9.]/g);
       const count: number = percentArray.length;
+
+      //First get percentage payouts
+      let tempArray: string[] = [];
+      for (let i = 0; i < count; i++) {
+        tempArray[i] = (Number(percentArray[i]) * each).toFixed(2);
+      }
+      let roundedArray: string[] = this.getRoundedNumbers(tempArray);
+
+      //Now load rounded numbers into winner data
       for (let i = 0; i < count; i++) {
         this.winnerData.push(
           {
             position: i + 1,
-            amount: (Number(percentArray[i]) * each).toFixed(2)
+            amount: roundedArray[i]
           }
         );
       }
@@ -482,19 +506,29 @@ export class PokerComponent implements OnInit {
         count: chipCount
       }
     });
-
     this.javaService.getIcmPayouts(params).subscribe(
       response => {
         this.icmPayoutResults = response;
         console.log('Payout results 496: ' + this.icmPayoutResults);
         this.icmData = [];
+
+
+        let tempPayouts: string[] = [];
+        for (let i = 0; i < this.icmPayoutResults.length; i ++) {
+          let tempPay = this.icmPayoutResults[i].split(' ---> ');
+          tempPayouts.push(tempPay[1]);
+        }
+
+        tempPayouts = this.getRoundedNumbers(tempPayouts);
+
+
         for (let i = 0; i < percentCount; i++) {
-          let payouts: string[] = this.icmPayoutResults[i].split(' ---> ');
+          // let payouts: string[] = this.icmPayoutResults[i].split(' ---> ');
           this.icmData.push(
             {
               icmPosition: i + 1,
               icmChips: chipsArray[i],
-              icmPayout: payouts[1]
+              icmPayout: tempPayouts[i]
             }
           )
         }
