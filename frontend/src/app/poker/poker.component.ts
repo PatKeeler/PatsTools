@@ -11,7 +11,6 @@ import {async} from 'rxjs/internal/scheduler/async';
 export interface PlayerData {
   name: string;
   buyIn: string;
-  bounty: string;
   fee: string;
   lastMan: string;
   lastWoman: string;
@@ -73,7 +72,6 @@ export class PokerComponent implements OnInit {
 
   playerName: string;
   buyInAmount: string;
-  bountyAmount: string;
   feeAmount: string;
   lastManAmount: string;
   lastWomanAmount: string;
@@ -81,7 +79,6 @@ export class PokerComponent implements OnInit {
 
   totalPlayers: number;
   buyInTotal: string = '';
-  bountyTotal: string = '';
   feeTotal: string = '';
   lastManTotal: string = '';
   lastWomanTotal: string = '';
@@ -99,7 +96,7 @@ export class PokerComponent implements OnInit {
   position: number;
   amount: string;
 
-  displayedColumns: string[] = ['select', 'name', 'buyIn', 'bounty', 'fee', 'lastMan', 'lastWoman', 'addOn'];
+  displayedColumns: string[] = ['select', 'name', 'buyIn', 'fee', 'lastMan', 'lastWoman', 'addOn'];
   dataSource: MatTableDataSource<PlayerData>;
   selection = new SelectionModel<PlayerData>(true, []);
 
@@ -153,13 +150,11 @@ export class PokerComponent implements OnInit {
 
   setAmountsToFixed(): void {
     const buyIn = parseFloat(this.buyInAmount);
-    const bounty = parseFloat(this.bountyAmount);
     const fee = parseFloat(this.feeAmount);
     const lastMan = parseFloat(this.lastManAmount);
     const lastWoman = parseFloat(this.lastWomanAmount);
     const addOn = parseFloat(this.addOnAmount);
     this.buyInAmount = (buyIn ? buyIn.toFixed(2) : '0.00');
-    this.bountyAmount = (bounty ? bounty.toFixed(2) : '0.00');
     this.feeAmount = (fee ? fee.toFixed(2) : '0.00');
     this.lastManAmount = (lastMan ? lastMan.toFixed(2) : '0.00');
     this.lastWomanAmount = (lastWoman ? lastWoman.toFixed(2) : '0.00');
@@ -216,8 +211,8 @@ export class PokerComponent implements OnInit {
     this.playersHide = false;
     this.setAmountsToFixed();
     this.dataSource.data.push(
-      {name: this.playerName, buyIn: this.buyInAmount, bounty: this.bountyAmount,
-        fee: this.feeAmount, lastMan: this.lastManAmount, lastWoman: this.lastWomanAmount, addOn: '0.00'}
+      {name: this.playerName, buyIn: this.buyInAmount, fee: this.feeAmount,
+        lastMan: this.lastManAmount, lastWoman: this.lastWomanAmount, addOn: '0.00'}
     );
     this.dataSource = new MatTableDataSource<PlayerData>(this.playerData);
     this.dataSource.sort = this.sort;
@@ -230,7 +225,6 @@ export class PokerComponent implements OnInit {
   computeTotals(): void {
     let playerTotals = 0;
     let totalBuyIn = 0;
-    let totalBounty = 0;
     let totalFee = 0;
     let totalLastMan = 0;
     let totalLastWoman = 0;
@@ -239,7 +233,6 @@ export class PokerComponent implements OnInit {
     this.dataSource.data.forEach(item => {
       playerTotals += 1;
       totalBuyIn += parseFloat(item.buyIn);
-      totalBounty += parseFloat(item.bounty);
       totalFee += parseFloat(item.fee);
       totalLastMan += parseFloat(item.lastMan);
       totalLastWoman += parseFloat(item.lastWoman);
@@ -247,7 +240,6 @@ export class PokerComponent implements OnInit {
     });
     this.totalPlayers = playerTotals;
     this.buyInTotal = totalBuyIn.toFixed(2);
-    this.bountyTotal = totalBounty.toFixed(2);
     this.feeTotal = totalFee.toFixed(2);
     this.lastManTotal = totalLastMan.toFixed(2);
     this.lastWomanTotal = totalLastWoman.toFixed(2);
