@@ -86,9 +86,9 @@ export class PokerComponent implements OnInit {
 
   chopPlayers: number;
   chopAmount: string;
-  lastManPlayers: number;
+  lastPersonPlayers: number;
   lastWomanPlayers: number;
-  lastManChopAmount: string;
+  lastPersonChopAmount: string;
 
   payoutRadio: string;
   selectedPayout: string;
@@ -354,17 +354,33 @@ export class PokerComponent implements OnInit {
 
   // Compute last man chop amount
   chopLastManBtn(): void {
-    const players = this.lastManPlayers;
+    const players = this.lastPersonPlayers;
     if (players > 0) {
       const lastManAmount = this.lastManTotal;
       const total = parseFloat(lastManAmount);
       const each  = total / players;
-      this.lastManChopAmount = each.toFixed(2);
-      console.log('chopLastManAmount: ' + this.lastManChopAmount);
-      console.log('chopLastManAmount: ' + Math.floor(Number(this.lastManChopAmount) / 1));
+      this.lastPersonChopAmount = each.toFixed(2);
+      console.log('chopLastManAmount: ' + this.lastPersonChopAmount);
+      console.log('chopLastManAmount: ' + Math.floor(Number(this.lastPersonChopAmount) / 1));
     }
     else {
-      this.lastManChopAmount = (0.00.toFixed(2));
+      this.lastPersonChopAmount = (0.00.toFixed(2));
+    }
+  }
+
+  // Compute last man chop amount
+  chopLastWomanBtn(): void {
+    const players = this.lastPersonPlayers;
+    if (players > 0) {
+      const lastWomanAmount = this.lastWomanTotal;
+      const total = parseFloat(lastWomanAmount);
+      const each  = total / players;
+      this.lastPersonChopAmount = each.toFixed(2);
+      console.log('chopLastWomanAmount: ' + this.lastPersonChopAmount);
+      console.log('chopLastwomanAmount: ' + Math.floor(Number(this.lastPersonChopAmount) / 1));
+    }
+    else {
+      this.lastPersonChopAmount = (0.00.toFixed(2));
     }
   }
 

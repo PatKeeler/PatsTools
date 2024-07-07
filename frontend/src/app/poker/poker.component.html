@@ -157,33 +157,35 @@
     <table border="0" width="100%" cellpadding="5">
       <tr>
         <th align="left" width="50%"><h1>Chops</h1></th>
-        <th align="left" width="50%"><h1>Last Man</h1></th>
+        <th align="left" width="50%"><h1>Last Person</h1></th>
       </tr>
     </table>
       <table border="0" width="100%" cellpadding="5">
       <tr>
-        <th align="left" width="25%">Player Count</th>
-        <th align="left" width="25%">Chop Amount</th>
-        <th align="left" width="20%">Last Man Count</th>
-        <th align="left" width="30%">Chop Amount</th>
+        <th align="left" width="15%">Player Count</th>
+        <th align="left" width="35%">Chop Amount</th>
+        <th align="left" width="15%">Player Count</th>
+        <th align="left" width="35%">Chop Amount</th>
       </tr>
       <tr>
         <td><input size="7" maxwidth="10" [(ngModel)]="chopPlayers"></td>
         <td><input size="7" maxwidth="10" [(ngModel)]="chopAmount"></td>
-        <td><input size="7" maxwidth="10" [(ngModel)]="lastManPlayers"></td>
-        <td><input size="7" maxwidth="10" [(ngModel)]="lastManChopAmount"></td>
+        <td><input size="7" maxwidth="10" [(ngModel)]="lastPersonPlayers"></td>
+        <td><input size="7" maxwidth="10" [(ngModel)]="lastPersonChopAmount"></td>
       </tr>
     </table>
     <table border="0" width="100%" cellpadding="5">
       <tr>
-        <th align="left" width="15%"></th>
-        <th align="left" width="35%"></th>
-        <th align="left" width="50%"></th>
+        <th align="left" width="10%"></th>
+        <th align="left" width="40%"></th>
+        <th align="left" width="10%"></th>
+        <th align="left" width="40%"></th>
       </tr>
       <tr>
         <td><button (click)="chopBtn()">BuyIn & AddOn</button></td>
         <td><button (click)="chopAllBtn()">+ Last Man</button></td>
         <td><button (click)="chopLastManBtn()">Last Man</button></td>
+        <td><button (click)="chopLastWomanBtn()">Last Woman</button></td>
         <td></td>
       </tr>
     </table>
