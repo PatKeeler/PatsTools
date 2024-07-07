@@ -14,6 +14,7 @@ export interface PlayerData {
   bounty: string;
   fee: string;
   lastMan: string;
+  lastWoman: string;
   addOn: string;
 }
 
@@ -75,6 +76,7 @@ export class PokerComponent implements OnInit {
   bountyAmount: string;
   feeAmount: string;
   lastManAmount: string;
+  lastWomanAmount: string;
   addOnAmount: string;
 
   totalPlayers: number;
@@ -82,11 +84,13 @@ export class PokerComponent implements OnInit {
   bountyTotal: string = '';
   feeTotal: string = '';
   lastManTotal: string = '';
+  lastWomanTotal: string = '';
   addOnTotal: string = '';
 
   chopPlayers: number;
   chopAmount: string;
   lastManPlayers: number;
+  lastWomanPlayers: number;
   lastManChopAmount: string;
 
   payoutRadio: string;
@@ -95,7 +99,7 @@ export class PokerComponent implements OnInit {
   position: number;
   amount: string;
 
-  displayedColumns: string[] = ['select', 'name', 'buyIn', 'bounty', 'fee', 'lastMan', 'addOn'];
+  displayedColumns: string[] = ['select', 'name', 'buyIn', 'bounty', 'fee', 'lastMan', 'lastWoman', 'addOn'];
   dataSource: MatTableDataSource<PlayerData>;
   selection = new SelectionModel<PlayerData>(true, []);
 
@@ -152,11 +156,13 @@ export class PokerComponent implements OnInit {
     const bounty = parseFloat(this.bountyAmount);
     const fee = parseFloat(this.feeAmount);
     const lastMan = parseFloat(this.lastManAmount);
+    const lastWoman = parseFloat(this.lastWomanAmount);
     const addOn = parseFloat(this.addOnAmount);
     this.buyInAmount = (buyIn ? buyIn.toFixed(2) : '0.00');
     this.bountyAmount = (bounty ? bounty.toFixed(2) : '0.00');
     this.feeAmount = (fee ? fee.toFixed(2) : '0.00');
     this.lastManAmount = (lastMan ? lastMan.toFixed(2) : '0.00');
+    this.lastWomanAmount = (lastWoman ? lastWoman.toFixed(2) : '0.00');
     this.addOnAmount = (addOn ? addOn.toFixed(2) : '0.00');
   }
 
@@ -211,7 +217,7 @@ export class PokerComponent implements OnInit {
     this.setAmountsToFixed();
     this.dataSource.data.push(
       {name: this.playerName, buyIn: this.buyInAmount, bounty: this.bountyAmount,
-        fee: this.feeAmount, lastMan: this.lastManAmount, addOn: '0.00'}
+        fee: this.feeAmount, lastMan: this.lastManAmount, lastWoman: this.lastWomanAmount, addOn: '0.00'}
     );
     this.dataSource = new MatTableDataSource<PlayerData>(this.playerData);
     this.dataSource.sort = this.sort;
@@ -227,6 +233,7 @@ export class PokerComponent implements OnInit {
     let totalBounty = 0;
     let totalFee = 0;
     let totalLastMan = 0;
+    let totalLastWoman = 0;
     let totalAddOn = 0;
 
     this.dataSource.data.forEach(item => {
@@ -235,6 +242,7 @@ export class PokerComponent implements OnInit {
       totalBounty += parseFloat(item.bounty);
       totalFee += parseFloat(item.fee);
       totalLastMan += parseFloat(item.lastMan);
+      totalLastWoman += parseFloat(item.lastWoman);
       totalAddOn += parseFloat(item.addOn);
     });
     this.totalPlayers = playerTotals;
@@ -242,6 +250,7 @@ export class PokerComponent implements OnInit {
     this.bountyTotal = totalBounty.toFixed(2);
     this.feeTotal = totalFee.toFixed(2);
     this.lastManTotal = totalLastMan.toFixed(2);
+    this.lastWomanTotal = totalLastWoman.toFixed(2);
     this.addOnTotal = totalAddOn.toFixed(2);
   }
 
@@ -330,6 +339,8 @@ export class PokerComponent implements OnInit {
     const total = parseFloat(buyInAmount) + parseFloat(addOnAmount);
     const each  = total / players;
     this.chopAmount = each.toFixed(2);
+    console.log('chopAmount: ' + this.chopAmount);
+    console.log('chopAmount: ' + Math.floor(Number(this.chopAmount) / 1));
   }
 
 
@@ -344,6 +355,8 @@ export class PokerComponent implements OnInit {
       parseFloat(lastManAmount);
     const each  = total / players;
     this.chopAmount = each.toFixed(2);
+    console.log('chopAllAmount: ' + this.chopAmount);
+    console.log('chopAllAmount: ' + Math.floor(Number(this.chopAmount) / 1));
   }
 
 
@@ -355,6 +368,8 @@ export class PokerComponent implements OnInit {
       const total = parseFloat(lastManAmount);
       const each  = total / players;
       this.lastManChopAmount = each.toFixed(2);
+      console.log('chopLastManAmount: ' + this.lastManChopAmount);
+      console.log('chopLastManAmount: ' + Math.floor(Number(this.lastManChopAmount) / 1));
     }
     else {
       this.lastManChopAmount = (0.00.toFixed(2));
