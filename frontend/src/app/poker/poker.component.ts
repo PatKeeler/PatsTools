@@ -71,18 +71,18 @@ export class PokerComponent implements OnInit {
   icmHide: boolean;
 
   playerName: string;
-  buyInAmount: string;
-  feeAmount: string;
-  lastManAmount: string;
-  lastWomanAmount: string;
-  addOnAmount: string;
+  buyInAmount: string = '0.00';
+  feeAmount: string = '0.00';
+  lastManAmount: string = '0.00';
+  lastWomanAmount: string = '0.00';
+  addOnAmount: string = '0.00';
 
-  totalPlayers: number;
-  buyInTotal: string = '';
-  feeTotal: string = '';
-  lastManTotal: string = '';
-  lastWomanTotal: string = '';
-  addOnTotal: string = '';
+  totalPlayers: number = 0;
+  buyInTotal: string = '0.00';
+  feeTotal: string = '0.00';
+  lastManTotal: string = '0.00';
+  lastWomanTotal: string = '0.00';
+  addOnTotal: string = '0.00';
 
   chopPlayers: number;
   chopAmount: string;
