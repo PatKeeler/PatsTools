@@ -52,12 +52,12 @@
       </thead>
       <tbody>
       <tr>
-        <td><input #playerTextEl size="12" width="10" [(ngModel)]='playerName' (keyup.enter)="savePlayer()"/></td>
-        <td><input size="6" [(ngModel)]='buyInAmount'/></td>
-        <td><input size="6" [(ngModel)]='feeAmount'/></td>
-        <td><input size="6" [(ngModel)]='lastManAmount'/></td>
-        <td><input size="6" [(ngModel)]='lastWomanAmount'/></td>
-        <td><input size="6" [(ngModel)]='addOnAmount'/></td>
+        <td><input #playerTextEl size="10" width="10" [(ngModel)]='playerName' (keyup.enter)="savePlayer()"/></td>
+        <td><input size="4" [(ngModel)]='buyInAmount'/></td>
+        <td><input size="4" [(ngModel)]='feeAmount'/></td>
+        <td><input size="4" [(ngModel)]='lastManAmount'/></td>
+        <td><input size="4" [(ngModel)]='lastWomanAmount'/></td>
+        <td><input size="4" [(ngModel)]='addOnAmount'/></td>
       </tr>
       </tbody>
     </table>
@@ -141,12 +141,12 @@
         <th align="left">AddOn</th>
       </tr>
       <tr>
-        <td><input size="7" maxwidth="10" type="text" [(ngModel)]="totalPlayers"></td>
-        <td><input size="7" maxwidth="10" type="text" [(ngModel)]="buyInTotal"></td>
-        <td><input size="7" maxwidth="10" type="text" [(ngModel)]="feeTotal"></td>
-        <td><input size="7" maxwidth="10" type="text" [(ngModel)]="lastManTotal"></td>
-        <td><input size="7" maxwidth="10" type="text" [(ngModel)]="lastWomanTotal"></td>
-        <td><input size="7" maxwidth="10" type="text" [(ngModel)]="addOnTotal"></td>
+        <td><input size="5" maxwidth="5" type="text" [(ngModel)]="totalPlayers"></td>
+        <td><input size="5" maxwidth="5" type="text" [(ngModel)]="buyInTotal"></td>
+        <td><input size="5" maxwidth="5" type="text" [(ngModel)]="feeTotal"></td>
+        <td><input size="5" maxwidth="5" type="text" [(ngModel)]="lastManTotal"></td>
+        <td><input size="5" maxwidth="5" type="text" [(ngModel)]="lastWomanTotal"></td>
+        <td><input size="5" maxwidth="5" type="text" [(ngModel)]="addOnTotal"></td>
       </tr>
     </table>
     <br/>
@@ -162,10 +162,10 @@
     </table>
       <table border="0" width="100%" cellpadding="5">
       <tr>
-        <th align="left" width="15%">Player Count</th>
-        <th align="left" width="33%">Chop Amount</th>
-        <th align="left" width="15%">Player Count</th>
-        <th align="left" width="35%">Chop Amount</th>
+        <th align="left" width="15%">Count</th>
+        <th align="left" width="33%">Amount</th>
+        <th align="left" width="15%">Count</th>
+        <th align="left" width="35%">Amount</th>
       </tr>
       <tr>
         <td><input size="7" maxwidth="10" [(ngModel)]="chopPlayers"></td>
@@ -176,10 +176,10 @@
     </table>
     <table border="0" width="100%" cellpadding="5">
       <tr>
-        <th align="left" width="15%"></th>
-        <th align="left" width="35%"></th>
-        <th align="left" width="15%"></th>
-        <th align="left" width="35%"></th>
+        <th align="left" width="10%"></th>
+        <th align="left" width="39%"></th>
+        <th align="left" width="8%"></th>
+        <th align="left" width="41%"></th>
       </tr>
       <tr>
         <td><button (click)="chopBtn()">BuyIn & AddOn</button></td>
@@ -197,7 +197,8 @@
     <div class="float-left-child">
       <th>Enter each winner percentage seperated by spaces.</th>
     </div>
-    <div class="f-17 float-left-child">
+    <br/>
+    <div class="f-17 align-left">
       <div class="percentage-tip">
         <p>You can auto fill suggested percentages by selecting the number of winners below.<br>
           &nbsp; &nbsp; Or, you can manually change or enter the percentages to get desired results.<br>
@@ -213,7 +214,6 @@
         </p>
       </div>
     </div>
-    <br/>
     <br/>
     <div align="left">
       <input #winnerTextEl type="text" size="35" [(ngModel)]="percentages">
