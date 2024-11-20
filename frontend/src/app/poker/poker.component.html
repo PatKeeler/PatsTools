@@ -194,8 +194,12 @@
     <div float:left width="50%">
       <h1>Winners:</h1>
     </div>
-    <div class="float-left-child">
-      <th>Enter each winner percentage seperated by spaces.</th>
+    <div align-left>
+      <th>Enter each winner percentage separated by spaces.</th>
+    </div>
+    <br/>
+    <div float:left>
+      <input #winnerTextEl type="text" size="35" [(ngModel)]="percentages">
     </div>
     <br/>
     <div class="f-17 align-left">
@@ -213,10 +217,6 @@
           <button class="button button10" (click)="setPercents(this.winners10)">10</button>
         </p>
       </div>
-    </div>
-    <br/>
-    <div align="left">
-      <input #winnerTextEl type="text" size="35" [(ngModel)]="percentages">
     </div>
     <br/>
     <table border="0" width="100%" cellpadding="10">
@@ -261,12 +261,12 @@
     <table mat-table matSort [dataSource]="winnerData" border="0" class="table-width-93 mt-10">
 
       <ng-container matColumnDef="position">
-        <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Winner positions</th>
+        <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Winner Positions</th>
         <td mat-cell class="f-15" *matCellDef="let element; let i = index"> {{element.position}} </td>
       </ng-container>
 
       <ng-container matColumnDef="amount">
-        <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Winner Amounts</th>
+        <th class="w-80 f-15" mat-header-cell *matHeaderCellDef mat-sort-header> Winner Payouts</th>
         <td mat-cell *matCellDef="let element; let i = index"> {{element.amount | number:'1.2-2'}} </td>
       </ng-container>
 
