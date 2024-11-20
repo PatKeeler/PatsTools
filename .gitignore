@@ -56,3 +56,4 @@ frontend/node_modules/__ngcc_entry_points__.json
 # System Files
 /src/main/frontend/.DS_Store
 /src/main/frontend/Thumbs.db
+/.metadata/
