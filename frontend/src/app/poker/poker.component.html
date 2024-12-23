@@ -250,14 +250,14 @@
           Payout Amounts:
         </td>
         <td width="15%" align="left">
+          <input type="radio" name="amountRadio" checked
+                 (change)="amountRadioHandler($event)"
+                 value="roundedPayout">Round to $5
+        </td>
+        <td width="70%" align="left">
           <input type="radio" name="amountRadio"
                  (change)="amountRadioHandler($event)"
                  value="rawPayout">Raw Amounts
-        </td>
-        <td width="70%" align="left">
-          <input type="radio" name="amountRadio" checked
-                 (change)="amountRadioHandler($event)"
-                 value="roundedPayout">Rounded by $5.00
         </td>
       </tr>
     </table>

@@ -69,6 +69,7 @@ export class PokerComponent implements OnInit {
   playersHide: boolean;
   winnersHide: boolean;
   icmHide: boolean;
+  displayRawAmount: boolean;
 
   playerName: string;
   buyInAmount: string = '0.00';
@@ -92,6 +93,7 @@ export class PokerComponent implements OnInit {
 
   payoutRadio: string;
   selectedPayout: string;
+  selectedAmout: string;
   percentages: string;
   position: number;
   amount: string;
@@ -121,6 +123,17 @@ export class PokerComponent implements OnInit {
       this.icmHide = true;
       this.winnersHide = false;
       this.setWinnerFocus();
+    }
+    setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
+  }
+
+  amountRadioHandler(event): void {
+    this.selectedAmout = event.target.value;
+    if (this.selectedAmout === 'rawPayout') {
+      this.displayRawAmount = true;
+    }
+    else {
+      this.displayRawAmount = false;
     }
     setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
   }
@@ -455,10 +468,16 @@ export class PokerComponent implements OnInit {
 
       //First get percentage payouts
       let tempArray: string[] = [];
+      let roundedArray: string[] = [];
       for (let i = 0; i < count; i++) {
         tempArray[i] = (Number(percentArray[i]) * each).toFixed(2);
       }
-      let roundedArray: string[] = this.getRoundedNumbers(tempArray);
+      if (this.displayRawAmount === true) {
+        roundedArray = tempArray;
+      }
+      else {
+        roundedArray = this.getRoundedNumbers(tempArray);
+      }
 
       //Now load rounded numbers into winner data
       for (let i = 0; i < count; i++) {
