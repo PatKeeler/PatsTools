@@ -143,7 +143,7 @@ export class PokerComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.winnerData = [];
     this.icmData = [];
-    this.setFocus();
+    this.setPlayerNameFocus();
     setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
   }
 
@@ -198,7 +198,7 @@ export class PokerComponent implements OnInit {
   /**
    * Set focus on the desired input field.
    */
-  setFocus(): void {
+  setPlayerNameFocus(): void {
     setTimeout(() => { this.playerText.nativeElement.focus(); }, 500);
   }
 
@@ -231,7 +231,7 @@ export class PokerComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.playerName = '';
     this.computeTotals();
-    this.setFocus();
+    this.setPlayerNameFocus();
   }
 
   // Accumulate table columns
