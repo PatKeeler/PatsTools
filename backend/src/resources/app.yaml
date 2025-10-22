@@ -2,7 +2,7 @@ runtime: java
 env: flex
 runtime_config:
   operating_system: windows
-  runtime_version: 1.8
+  runtime_version: 17
 entrypoint: "patstools.war"
 handlers:
   - url: /.*
