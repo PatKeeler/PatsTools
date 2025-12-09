@@ -5,7 +5,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { JavaService } from '../java.service';
 import { HttpParams } from '@angular/common/http';
-import {async} from 'rxjs/internal/scheduler/async';
 
 
 export interface PlayerData {
@@ -28,10 +27,6 @@ export interface IcmData {
   icmPayout: string;
 }
 
-export interface RoundedWinnerData {
-  amount: string;
-}
-
 @Component({
   selector: 'app-poker',
   templateUrl: './poker.component.html',
@@ -44,18 +39,18 @@ export class PokerComponent implements OnInit {
   winnerData: WinnerData[] = [];
   icmData:    IcmData[] = [];
   winnerPayouts: string [] = [];
-  icmPayouts: string [] = [];
-  roundedWinnerData: RoundedWinnerData[] = [];
 
-  winners2 = '70.0 30.0';
-  winners3 = '50.0 30.0 20.0';
-  winners4 = '42.5 27.0 17.5 13.0';
-  winners5 = '37.0 25.0 15.0 12.0 11.0';
-  winners6 = '35.0 22.0 15.0 11.0 9.0 8.0';
-  winners7 = '33.0 20.0 13.5 11.0 9.0 7.5 6.0';
-  winners8 = '32.0 18.0 12.5 10.5 8.3 7.3 6.2 5.2';
-  winners9 = '30.0 17.5 12.2 10.2 8.1 7.1 6.1 5.1 3.7';
+  winners2  = '70.0 30.0';
+  winners3  = '50.0 30.0 20.0';
+  winners4  = '42.5 27.0 17.5 13.0';
+  winners5  = '37.0 25.0 15.0 12.0 11.0';
+  winners6  = '35.0 22.0 15.0 11.0 9.0 8.0';
+  winners7  = '33.0 20.0 13.5 11.0 9.0 7.5 6.0';
+  winners8  = '32.0 18.0 12.5 10.5 8.3 7.3 6.2 5.2';
+  winners9  = '30.0 17.5 12.2 10.2 8.1 7.1 6.1 5.1 3.7';
   winners10 = '29.0 17.0 12.0 10.0 8.0 6.9 5.9 4.9 3.5 2.8';
+
+  firstPlacePercentages: string = '100.0 70.0 50.0 42.5 37.0 35.0 33.0 32.0 30.0 29.0';
 
   // ViewChild references html element
   // ElementRef references ts property
@@ -64,7 +59,6 @@ export class PokerComponent implements OnInit {
   @ViewChild('icmTextEl') icmText: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<PlayerData>;
-  @ViewChild('window') window;
 
   playersHide: boolean;
   winnersHide: boolean;
@@ -88,15 +82,15 @@ export class PokerComponent implements OnInit {
   chopPlayers: number;
   chopAmount: string;
   lastPersonPlayers: number;
-  lastWomanPlayers: number;
   lastPersonChopAmount: string;
 
   payoutRadio: string;
   selectedPayout: string;
-  selectedAmout: string;
+  selectedAmount: string;
   percentages: string;
   position: number;
   amount: string;
+  payoutCounts: number = 0;
 
   displayedColumns: string[] = ['select', 'name', 'buyIn', 'fee', 'lastMan', 'lastWoman', 'addOn'];
   dataSource: MatTableDataSource<PlayerData>;
@@ -128,13 +122,8 @@ export class PokerComponent implements OnInit {
   }
 
   amountRadioHandler(event): void {
-    this.selectedAmout = event.target.value;
-    if (this.selectedAmout === 'rawPayout') {
-      this.displayRawAmount = true;
-    }
-    else {
-      this.displayRawAmount = false;
-    }
+    this.selectedAmount = event.target.value;
+    this.displayRawAmount = this.selectedAmount === 'rawPayout';
     setTimeout(() => { window.scrollTo(0,document.body.scrollHeight); }, 100);
   }
 
@@ -182,9 +171,9 @@ export class PokerComponent implements OnInit {
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle(): void {
-    this.isAllSelected() ? this.selection.clear() : this.dataSource.data.forEach(r => this.selection.select(r));
-  }
+  // masterToggle(): void {
+  //   this.isAllSelected() ? this.selection.clear() : this.dataSource.data.forEach(r => this.selection.select(r));
+  // }
 
   /** The label for the checkbox on the passed row */
   checkboxLabel(row: PlayerData): string {
@@ -230,6 +219,7 @@ export class PokerComponent implements OnInit {
     this.dataSource = new MatTableDataSource<PlayerData>(this.playerData);
     this.dataSource.sort = this.sort;
     this.playerName = '';
+    this.getNumberPayouts();
     this.computeTotals();
     this.setPlayerNameFocus();
   }
@@ -334,6 +324,7 @@ export class PokerComponent implements OnInit {
       this.playersHide = true;
     }
     this.computeTotals();
+    this.getNumberPayouts();
   }
 
   // Compute chop amount
@@ -345,7 +336,7 @@ export class PokerComponent implements OnInit {
     const each  = total / players;
     this.chopAmount = each.toFixed(2);
     console.log('chopAmount: ' + this.chopAmount);
-    console.log('chopAmount: ' + Math.floor(Number(this.chopAmount) / 1));
+    console.log('chopAmount: ' + Math.floor(Number(this.chopAmount)));
   }
 
 
@@ -361,7 +352,7 @@ export class PokerComponent implements OnInit {
     const each  = total / players;
     this.chopAmount = each.toFixed(2);
     console.log('chopAllAmount: ' + this.chopAmount);
-    console.log('chopAllAmount: ' + Math.floor(Number(this.chopAmount) / 1));
+    console.log('chopAllAmount: ' + Math.floor(Number(this.chopAmount)));
   }
 
 
@@ -374,7 +365,7 @@ export class PokerComponent implements OnInit {
       const each  = total / players;
       this.lastPersonChopAmount = each.toFixed(2);
       console.log('chopLastManAmount: ' + this.lastPersonChopAmount);
-      console.log('chopLastManAmount: ' + Math.floor(Number(this.lastPersonChopAmount) / 1));
+      console.log('chopLastManAmount: ' + Math.floor(Number(this.lastPersonChopAmount)));
     }
     else {
       this.lastPersonChopAmount = (0.00.toFixed(2));
@@ -390,10 +381,42 @@ export class PokerComponent implements OnInit {
       const each  = total / players;
       this.lastPersonChopAmount = each.toFixed(2);
       console.log('chopLastWomanAmount: ' + this.lastPersonChopAmount);
-      console.log('chopLastwomanAmount: ' + Math.floor(Number(this.lastPersonChopAmount) / 1));
+      console.log('chopLastwomanAmount: ' + Math.floor(Number(this.lastPersonChopAmount)));
     }
     else {
       this.lastPersonChopAmount = (0.00.toFixed(2));
+    }
+  }
+
+  //Compute number of payouts (closest =< 8 * buyIn amount)
+  getNumberPayouts()  {
+
+    const str1: string = this.firstPlacePercentages;
+    const percentArray: string[] = str1.split(/[^0-9.]/g);
+
+    let numPayouts: number = 10;
+    let firstPayoutAmount: string = (Number(this.buyInAmount) * 8).toFixed(2);
+    let temp: string = "";
+
+    for (let i = 0; i < numPayouts; i++) {
+      temp = ((Number(this.buyInTotal) * Number(percentArray[i])) / 100).toFixed(4);
+
+      // alert(
+      //   "buyInTotal:        " + this.buyInTotal + "\n" +
+      //   "firstPayoutAmount: " + parseFloat(firstPayoutAmount) + "\n" +
+      //   "numPayouts:        " + i + "\n" +
+      //   "i:                 " + i + "\n" +
+      //   "temp:              " + parseFloat(temp));
+
+      if (parseFloat(firstPayoutAmount) >= parseFloat(temp)) {
+        this.payoutCounts = (Number(i) + 1);
+        // alert("number of payouts loop: " + (Number(i) + 1));
+        break;
+      }
+      if (Number(i) + 1 >= 10) {
+        this.payoutCounts = 10;
+        // alert("number of payouts default: 10")
+      }
     }
   }
 
@@ -406,7 +429,7 @@ export class PokerComponent implements OnInit {
     const total = Number(buyInTotal) + Number(addOnTotal);
     const each  = Number(total / 100);
 
-    this.showWinnerTable(each, total);
+    this.showWinnerTable(each);
   }
 
   // Compute Winners + LastMan amounts
@@ -418,7 +441,7 @@ export class PokerComponent implements OnInit {
     const total = Number(buyInTotal) + Number(addOnTotal) + Number(lastManTotal);
     const each  = Number(total / 100);
 
-    this.showWinnerTable(each, total);
+    this.showWinnerTable(each);
   }
 
   getRoundedNumbers(myArray): string[] {
@@ -436,8 +459,10 @@ export class PokerComponent implements OnInit {
 
       if (remainder === 0) {
         returnArray[i] = strVal;
+        // alert('bucket r = 0: ' + bucket );
       }
       else if (bucket + Number(myArray[i]) >= (quotient + 1) * 5) {
+        // alert('bucket r > 0: ' + bucket );
         returnArray[i] = ((quotient + 1) * 5).toFixed(2);
         bucket -= ((quotient + 1) * 5) - Number(strVal);
         bucket = Number(bucket.toFixed(2)) + .00009;
@@ -451,7 +476,7 @@ export class PokerComponent implements OnInit {
   }
 
   // Show winner table
-  showWinnerTable(each, total): void {
+  showWinnerTable(each): void {
 
     const str1 = this.percentages.replace(/[^0-9.]/g, ' ').trim();
     if (str1 === null || str1 === '' || str1.split(/[^0-9.]/g).length === 0) {
@@ -468,7 +493,7 @@ export class PokerComponent implements OnInit {
 
       //First get percentage payouts
       let tempArray: string[] = [];
-      let roundedArray: string[] = [];
+      let roundedArray: string[];
       for (let i = 0; i < count; i++) {
         tempArray[i] = (Number(percentArray[i]) * each).toFixed(2);
       }
@@ -494,7 +519,7 @@ export class PokerComponent implements OnInit {
       // console.log("Percentage payouts: 452: " + this.winnerPayouts);
 
       if (this.selectedPayout === "icmPayout") {
-        this.getIcmPayout(count, total);
+        this.getIcmPayout(count);
       }
       else {
         this.winnersHide = false;
@@ -506,13 +531,13 @@ export class PokerComponent implements OnInit {
   }
 
 
-  getIcmPayout(percentCount, total): void {
+  getIcmPayout(percentCount): void {
 
     const chipStr = this.chipCounts.replace(/[^0-9.]/g, ' ').trim();
     const tempStr = chipStr.replace(/[, ]+/g, ' ').trim();
     const chipsArray: string[] = tempStr.split(' ');
     const chipCount: number = chipsArray.length;
-    if (chipStr === null || chipStr === '' || chipStr.split(/[^0-9.]/g).length === 0) {
+    if (chipStr === '' || chipStr.split(/[^0-9.]/g).length === 0) {
       alert('You must add chip counts for each player, in any order.');
       this.icmHide = true;
       this.winnersHide = true;

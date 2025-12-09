@@ -1,18 +1,18 @@
 <div style="background: #f4f4f4" xmlns:float="http://www.w3.org/1999/xhtml">
-  <table bgcolor="#98edb4" border="0" width="100%" cellpadding="10">
+  <table bgcolor="#98edb4" border="0" style="width: 100%" cellpadding="10">
     <tr>
       <td>
         <h1 align="center">Poker Tournament Worksheet</h1>
         <h4>
-          <table border="0" width="100%" cellpadding="10">
+          <table border="0" style="width: 100%" cellpadding="10">
             <tr>
-              <td width="15%">
+              <td style="width: 15%">
                 <button (click)="getPokerAbout()">User Guide</button>
               </td>
-              <td width="55%">Email errors, comments or suggestions to
+              <td style="width: 55%">Email errors, comments or suggestions to
                 <a href="mailto:keelerpl@gmail.com">keelerpl@gmail.com</a>.
               </td>
-              <td width="30%"></td>
+              <td style="width: 30%"></td>
             </tr>
           </table>
         </h4>
@@ -43,7 +43,7 @@
     <br>
     <table class="full-width-table">
       <thead>
-      <th align="left">Player Name</th>
+      <th align="left" style="width: 150px">Player Name</th>
       <th align="left">BuyIn</th>
       <th align="left">Fee</th>
       <th align="left">Last Man</th>
@@ -52,7 +52,9 @@
       </thead>
       <tbody>
       <tr>
-        <td><input #playerTextEl size="10" width="10" [(ngModel)]='playerName' (keyup.enter)="savePlayer()"/></td>
+        <td><input #playerTextEl size="10"
+                   width="10" [(ngModel)]='playerName'
+                   (keyup.enter)="savePlayer()"/></td>
         <td><input size="4" [(ngModel)]='buyInAmount'/></td>
         <td><input size="4" [(ngModel)]='feeAmount'/></td>
         <td><input size="4" [(ngModel)]='lastManAmount'/></td>
@@ -141,45 +143,45 @@
         <th align="left">AddOn</th>
       </tr>
       <tr>
-        <td><input size="5" maxwidth="5" type="text" [(ngModel)]="totalPlayers"></td>
-        <td><input size="5" maxwidth="5" type="text" [(ngModel)]="buyInTotal"></td>
-        <td><input size="5" maxwidth="5" type="text" [(ngModel)]="feeTotal"></td>
-        <td><input size="5" maxwidth="5" type="text" [(ngModel)]="lastManTotal"></td>
-        <td><input size="5" maxwidth="5" type="text" [(ngModel)]="lastWomanTotal"></td>
-        <td><input size="5" maxwidth="5" type="text" [(ngModel)]="addOnTotal"></td>
+        <td><input size="5" style="width: 50px;" type="text" [(ngModel)]="totalPlayers"></td>
+        <td><input size="5" style="width: 50px;" type="text" [(ngModel)]="buyInTotal"></td>
+        <td><input size="5" style="width: 50px;" type="text" [(ngModel)]="feeTotal"></td>
+        <td><input size="5" style="width: 50px;" type="text" [(ngModel)]="lastManTotal"></td>
+        <td><input size="5" style="width: 50px;" type="text" [(ngModel)]="lastWomanTotal"></td>
+        <td><input size="5" style="width: 50px;" type="text" [(ngModel)]="addOnTotal"></td>
       </tr>
     </table>
     <br/>
     <br/>
-<!--    <div align="left" width="50%">-->
+<!--    <div align="left" style="width: 50%">-->
 <!--      <h1>Chops:</h1>-->
 <!--    </div>-->
-    <table border="0" width="100%" cellpadding="5">
+    <table border="0" style="width: 100%" cellpadding="5">
       <tr>
-        <th align="left" width="49%"><h1>Chops</h1></th>
-        <th align="left" width="51%"><h1>Last Person</h1></th>
+        <th align="left" style="width: 49%"><h1>Chops</h1></th>
+        <th align="left" style="width: 51%"><h1>Last Person</h1></th>
       </tr>
     </table>
-      <table border="0" width="100%" cellpadding="5">
+      <table border="0" style="width: 100%" cellpadding="5">
       <tr>
-        <th align="left" width="15%">Count</th>
-        <th align="left" width="33%">Amount</th>
-        <th align="left" width="15%">Count</th>
-        <th align="left" width="35%">Amount</th>
+        <th align="left" style="width: 15%">Count</th>
+        <th align="left" style="width: 33%">Amount</th>
+        <th align="left" style="width: 15%">Count</th>
+        <th align="left" style="width: 35%">Amount</th>
       </tr>
       <tr>
-        <td><input size="7" maxwidth="10" [(ngModel)]="chopPlayers"></td>
-        <td><input size="7" maxwidth="10" [(ngModel)]="chopAmount"></td>
-        <td><input size="7" maxwidth="10" [(ngModel)]="lastPersonPlayers"></td>
-        <td><input size="7" maxwidth="10" [(ngModel)]="lastPersonChopAmount"></td>
+        <td><input size="7" style="width: 100px;" [(ngModel)]="chopPlayers"></td>
+        <td><input size="7" style="width: 100px;" [(ngModel)]="chopAmount"></td>
+        <td><input size="7" style="width: 100px;" [(ngModel)]="lastPersonPlayers"></td>
+        <td><input size="7" style="width: 100px;" [(ngModel)]="lastPersonChopAmount"></td>
       </tr>
     </table>
-    <table border="0" width="100%" cellpadding="5">
+    <table border="0" style="width: 100%" cellpadding="5">
       <tr>
-        <th align="left" width="14%"></th>
-        <th align="left" width="35%"></th>
-        <th align="left" width="10%"></th>
-        <th align="left" width="39%"></th>
+        <th align="left" style="width: 14%"></th>
+        <th align="left" style="width: 35%"></th>
+        <th align="left" style="width: 10%"></th>
+        <th align="left" style="width: 39%"></th>
       </tr>
       <tr>
         <td><button (click)="chopBtn()">BuyIn & AddOn</button></td>
@@ -191,8 +193,11 @@
     </table>
     <br/>
     <br/>
-    <div float:left width="50%">
-      <h1>Winners:</h1>
+    <div float:left style="width: 50%">
+      <h1>
+        Winners: &nbsp;&nbsp;
+        <input type="text" size="3" value="0" style="width: 20px" [(ngModel)]="payoutCounts">
+      </h1>
     </div>
     <div class="f-17 align-left">
       <th>Enter each winner percentage separated by spaces.</th>
@@ -226,32 +231,32 @@
 	 </tr>
     </table>
     <br/>
-    <table border="0" width="100%" cellpadding="10">
+    <table border="0" style="width: 100%" cellpadding="10">
       <tr>
-        <td width="15%" align="left">
+        <td style="width: 15%" align="left">
           Payout Options:
         </td>
-        <td width="15%" align="left">
+        <td style="width: 15%" align="left">
           <input type="radio" name="payoutRadio" checked
                  (change)="payoutRadioHandler($event)"
                  value="positionPayout">Percentages
         </td>
-        <td width="70%" align="left">
+        <td style="width: 70%" align="left">
           <input type="radio" name="payoutRadio"
                  (change)="payoutRadioHandler($event)"
                  value="icmPayout">ICM Chop
         </td>
       </tr>
       <tr>
-        <td width="15%" align="left">
+        <td style="width: 15%" align="left">
           Payout Amounts:
         </td>
-        <td width="15%" align="left">
+        <td style="width: 15%" align="left">
           <input type="radio" name="amountRadio" checked
                  (change)="amountRadioHandler($event)"
                  value="roundedPayout">Round to $5
         </td>
-        <td width="70%" align="left">
+        <td style="width: 70%" align="left">
           <input type="radio" name="amountRadio"
                  (change)="amountRadioHandler($event)"
                  value="rawPayout">Raw Amounts
