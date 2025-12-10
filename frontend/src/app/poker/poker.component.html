@@ -2,7 +2,7 @@
   <table bgcolor="#98edb4" border="0" style="width: 100%" cellpadding="10">
     <tr>
       <td>
-        <h1 align="center">Poker Tournament Worksheet</h1>
+        <h1 style="text-align: center">Poker Tournament Worksheet</h1>
         <h4>
           <table border="0" style="width: 100%" cellpadding="10">
             <tr>
@@ -21,7 +21,7 @@
   </table>
 <!--  <br/>-->
   <div>
-    <div class="f-17" align="left" width="50%">
+    <div class="f-17" style="text-align: left; width: 50%">
       <div class="player-tip">
         <p>Option 1:<br>
            Enter first player name, set amounts for game, and click 'Save Player'.<br>
@@ -43,12 +43,12 @@
     <br>
     <table class="full-width-table">
       <thead>
-      <th align="left" style="width: 150px">Player Name</th>
-      <th align="left">BuyIn</th>
-      <th align="left">Fee</th>
-      <th align="left">Last Man</th>
-      <th align="left">Last Woman</th>
-      <th align="left">AddOn</th>
+      <th style="text-align: left; width: 150px">Player Name</th>
+      <th style="text-align: left">BuyIn</th>
+      <th style="text-align: left">Fee</th>
+      <th style="text-align: left">Last Man</th>
+      <th style="text-align: left">Last Woman</th>
+      <th style="text-align: left">AddOn</th>
       </thead>
       <tbody>
       <tr>
@@ -130,17 +130,17 @@
     </div>
     <br/>
     <br/>
-    <div class="f-15" align="left">
+    <div class="f-15" style="text-align: left">
       <h2>Running Totals:</h2>
     </div>
     <table class="full-width-table">
       <tr>
-        <th align="left">Players</th>
-        <th align="left">BuyIn</th>
-        <th align="left">Fee</th>
-        <th align="left">Last Man</th>
-        <th align="left">Last Woman</th>
-        <th align="left">AddOn</th>
+        <th style="text-align: left">Players</th>
+        <th style="text-align: left">BuyIn</th>
+        <th style="text-align: left">Fee</th>
+        <th style="text-align: left">Last Man</th>
+        <th style="text-align: left">Last Woman</th>
+        <th style="text-align: left">AddOn</th>
       </tr>
       <tr>
         <td><input size="5" style="width: 50px;" type="text" [(ngModel)]="totalPlayers"></td>
@@ -153,21 +153,21 @@
     </table>
     <br/>
     <br/>
-<!--    <div align="left" style="width: 50%">-->
+<!--    <div style="text-align: left; width: 50%">-->
 <!--      <h1>Chops:</h1>-->
 <!--    </div>-->
     <table border="0" style="width: 100%" cellpadding="5">
       <tr>
-        <th align="left" style="width: 49%"><h1>Chops</h1></th>
-        <th align="left" style="width: 51%"><h1>Last Person</h1></th>
+        <th style="text-align: left; width: 49%"><h1>Chops</h1></th>
+        <th style="text-align: left; width: 51%"><h1>Last Person</h1></th>
       </tr>
     </table>
       <table border="0" style="width: 100%" cellpadding="5">
       <tr>
-        <th align="left" style="width: 15%">Count</th>
-        <th align="left" style="width: 33%">Amount</th>
-        <th align="left" style="width: 15%">Count</th>
-        <th align="left" style="width: 35%">Amount</th>
+        <th style="text-align: left; width: 15%">Count</th>
+        <th style="text-align: left; width: 33%">Amount</th>
+        <th style="text-align: left; width: 15%">Count</th>
+        <th style="text-align: left; width: 35%">Amount</th>
       </tr>
       <tr>
         <td><input size="7" style="width: 100px;" [(ngModel)]="chopPlayers"></td>
@@ -178,10 +178,10 @@
     </table>
     <table border="0" style="width: 100%" cellpadding="5">
       <tr>
-        <th align="left" style="width: 14%"></th>
-        <th align="left" style="width: 35%"></th>
-        <th align="left" style="width: 10%"></th>
-        <th align="left" style="width: 39%"></th>
+        <th style="text-align: left; width: 14%"></th>
+        <th style="text-align: left; width: 35%"></th>
+        <th style="text-align: left; width: 10%"></th>
+        <th style="text-align: left; width: 39%"></th>
       </tr>
       <tr>
         <td><button (click)="chopBtn()">BuyIn & AddOn</button></td>
@@ -193,7 +193,7 @@
     </table>
     <br/>
     <br/>
-    <div float:left style="width: 50%">
+    <div style="width: 50%">
       <h1>
         Winners: &nbsp;&nbsp;
         <input type="text" size="3" value="0" style="width: 20px" [(ngModel)]="payoutCounts">
@@ -224,7 +224,7 @@
 	    </div>
 	  </td>
 	  <td>
-		<div align="left">
+		<div style="text-align: left">
 		  <input #winnerTextEl type="text" size="35" [(ngModel)]="percentages">
 		</div>
 	  </td>
@@ -233,30 +233,30 @@
     <br/>
     <table border="0" style="width: 100%" cellpadding="10">
       <tr>
-        <td style="width: 15%" align="left">
+        <td style="width: 15%; text-align: left">
           Payout Options:
         </td>
-        <td style="width: 15%" align="left">
+        <td style="width: 15%; text-align: left">
           <input type="radio" name="payoutRadio" checked
                  (change)="payoutRadioHandler($event)"
                  value="positionPayout">Percentages
         </td>
-        <td style="width: 70%" align="left">
+        <td style="width: 70%; text-align: left">
           <input type="radio" name="payoutRadio"
                  (change)="payoutRadioHandler($event)"
                  value="icmPayout">ICM Chop
         </td>
       </tr>
       <tr>
-        <td style="width: 15%" align="left">
+        <td style="width: 15%; text-align: left">
           Payout Amounts:
         </td>
-        <td style="width: 15%" align="left">
+        <td style="width: 15%; text-align: left">
           <input type="radio" name="amountRadio" checked
                  (change)="amountRadioHandler($event)"
                  value="roundedPayout">Round to $5
         </td>
-        <td style="width: 70%" align="left">
+        <td style="width: 70%; text-align: left">
           <input type="radio" name="amountRadio"
                  (change)="amountRadioHandler($event)"
                  value="rawPayout">Raw Amounts
@@ -270,7 +270,7 @@
       </div>
       <br/>
       <br/>
-      <div align="left">
+      <div style="text-align: left">
         <input #icmTextEl type="text" size="35" [(ngModel)]="chipCounts">
       </div>
       <br/>
