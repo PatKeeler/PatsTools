@@ -219,7 +219,7 @@ export class PokerComponent implements OnInit {
     this.dataSource = new MatTableDataSource<PlayerData>(this.playerData);
     this.dataSource.sort = this.sort;
     this.playerName = '';
-    this.getNumberPayouts();
+    // this.getNumberPayouts();
     this.computeTotals();
     this.setPlayerNameFocus();
   }
@@ -324,7 +324,7 @@ export class PokerComponent implements OnInit {
       this.playersHide = true;
     }
     this.computeTotals();
-    this.getNumberPayouts();
+    // this.getNumberPayouts();
   }
 
   // Compute chop amount
@@ -388,37 +388,37 @@ export class PokerComponent implements OnInit {
     }
   }
 
-  //Compute number of payouts (closest =< 8 * buyIn amount)
-  getNumberPayouts()  {
-
-    const str1: string = this.firstPlacePercentages;
-    const percentArray: string[] = str1.split(/[^0-9.]/g);
-
-    let numPayouts: number = 10;
-    let firstPayoutAmount: string = (Number(this.buyInAmount) * 8).toFixed(2);
-    let temp: string = "";
-
-    for (let i = 0; i < numPayouts; i++) {
-      temp = ((Number(this.buyInTotal) * Number(percentArray[i])) / 100).toFixed(4);
-
-      // alert(
-      //   "buyInTotal:        " + this.buyInTotal + "\n" +
-      //   "firstPayoutAmount: " + parseFloat(firstPayoutAmount) + "\n" +
-      //   "numPayouts:        " + i + "\n" +
-      //   "i:                 " + i + "\n" +
-      //   "temp:              " + parseFloat(temp));
-
-      if (parseFloat(firstPayoutAmount) >= parseFloat(temp)) {
-        this.payoutCounts = (Number(i) + 1);
-        // alert("number of payouts loop: " + (Number(i) + 1));
-        break;
-      }
-      if (Number(i) + 1 >= 10) {
-        this.payoutCounts = 10;
-        // alert("number of payouts default: 10")
-      }
-    }
-  }
+  // //Compute number of payouts (closest =< 8 * buyIn amount)
+  // getNumberPayouts()  {
+  //
+  //   const str1: string = this.firstPlacePercentages;
+  //   const percentArray: string[] = str1.split(/[^0-9.]/g);
+  //
+  //   let numPayouts: number = 10;
+  //   let firstPayoutAmount: string = (Number(this.buyInAmount) * 8).toFixed(2);
+  //   let temp: string = "";
+  //
+  //   for (let i = 0; i < numPayouts; i++) {
+  //     temp = ((Number(this.buyInTotal) * Number(percentArray[i])) / 100).toFixed(4);
+  //
+  //     // alert(
+  //     //   "buyInTotal:        " + this.buyInTotal + "\n" +
+  //     //   "firstPayoutAmount: " + parseFloat(firstPayoutAmount) + "\n" +
+  //     //   "numPayouts:        " + i + "\n" +
+  //     //   "i:                 " + i + "\n" +
+  //     //   "temp:              " + parseFloat(temp));
+  //
+  //     if (parseFloat(firstPayoutAmount) >= parseFloat(temp)) {
+  //       this.payoutCounts = (Number(i) + 1);
+  //       // alert("number of payouts loop: " + (Number(i) + 1));
+  //       break;
+  //     }
+  //     if (Number(i) + 1 >= 10) {
+  //       this.payoutCounts = 10;
+  //       // alert("number of payouts default: 10")
+  //     }
+  //   }
+  // }
 
 
   // Compute winner amounts
