@@ -22,11 +22,6 @@ export class JavaService {
     return this.http.post(API_URL, parameters);
   }
 
-  getXml(parameters: HttpParams): Observable<any> {
-    const API_URL = `${this.apiUrl}/formatXml`;
-    return this.http.post(API_URL, parameters);
-  }
-
   getIcmPayouts(parameters: HttpParams): Observable<any> {
     const API_URL = `${this.apiUrl}/getIcmPayouts`;
     return this.http.post(API_URL, parameters);

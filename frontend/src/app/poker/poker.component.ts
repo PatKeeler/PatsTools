@@ -219,7 +219,6 @@ export class PokerComponent implements OnInit {
     this.dataSource = new MatTableDataSource<PlayerData>(this.playerData);
     this.dataSource.sort = this.sort;
     this.playerName = '';
-    // this.getNumberPayouts();
     this.computeTotals();
     this.setPlayerNameFocus();
   }
@@ -324,7 +323,6 @@ export class PokerComponent implements OnInit {
       this.playersHide = true;
     }
     this.computeTotals();
-    // this.getNumberPayouts();
   }
 
   // Compute chop amount
@@ -387,38 +385,6 @@ export class PokerComponent implements OnInit {
       this.lastPersonChopAmount = (0.00.toFixed(2));
     }
   }
-
-  // //Compute number of payouts (closest =< 8 * buyIn amount)
-  // getNumberPayouts()  {
-  //
-  //   const str1: string = this.firstPlacePercentages;
-  //   const percentArray: string[] = str1.split(/[^0-9.]/g);
-  //
-  //   let numPayouts: number = 10;
-  //   let firstPayoutAmount: string = (Number(this.buyInAmount) * 8).toFixed(2);
-  //   let temp: string = "";
-  //
-  //   for (let i = 0; i < numPayouts; i++) {
-  //     temp = ((Number(this.buyInTotal) * Number(percentArray[i])) / 100).toFixed(4);
-  //
-  //     // alert(
-  //     //   "buyInTotal:        " + this.buyInTotal + "\n" +
-  //     //   "firstPayoutAmount: " + parseFloat(firstPayoutAmount) + "\n" +
-  //     //   "numPayouts:        " + i + "\n" +
-  //     //   "i:                 " + i + "\n" +
-  //     //   "temp:              " + parseFloat(temp));
-  //
-  //     if (parseFloat(firstPayoutAmount) >= parseFloat(temp)) {
-  //       this.payoutCounts = (Number(i) + 1);
-  //       // alert("number of payouts loop: " + (Number(i) + 1));
-  //       break;
-  //     }
-  //     if (Number(i) + 1 >= 10) {
-  //       this.payoutCounts = 10;
-  //       // alert("number of payouts default: 10")
-  //     }
-  //   }
-  // }
 
 
   // Compute winner amounts
@@ -491,6 +457,8 @@ export class PokerComponent implements OnInit {
       const percentArray: string[] = str1.split(/[^0-9.]/g);
       const count: number = percentArray.length;
 
+      alert('494 count: ' + count);
+
       //First get percentage payouts
       let tempArray: string[] = [];
       let roundedArray: string[];
@@ -504,6 +472,8 @@ export class PokerComponent implements OnInit {
         roundedArray = this.getRoundedNumbers(tempArray);
       }
 
+      alert(`509 roundedArray: ${roundedArray}`);
+
       //Now load rounded numbers into winner data
       for (let i = 0; i < count; i++) {
         this.winnerData.push(
@@ -513,6 +483,8 @@ export class PokerComponent implements OnInit {
           }
         );
       }
+
+      alert(JSON.stringify(this.winnerData, null, 2))
 
       //Save the payout amounts for the ICM calculations
       this.winnerPayouts = roundedArray;
