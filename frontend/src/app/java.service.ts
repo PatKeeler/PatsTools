@@ -17,11 +17,6 @@ export class JavaService {
 
   constructor(public http: HttpClient) { }
 
-  getSql(parameters: HttpParams): Observable<any> {
-    const API_URL = `${this.apiUrl}/formatSql`;
-    return this.http.post(API_URL, parameters);
-  }
-
   getIcmPayouts(parameters: HttpParams): Observable<any> {
     const API_URL = `${this.apiUrl}/getIcmPayouts`;
     return this.http.post(API_URL, parameters);

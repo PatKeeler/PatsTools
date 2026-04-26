@@ -8,10 +8,9 @@ import { AppComponent } from './app.component';
 import { FormsModule} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
+import { MathComponent } from './math/math.component';
 import { PasswordsComponent } from './passwords/passwords.component';
 import { PokerComponent } from './poker/poker.component';
-import { MathComponent } from './math/math.component';
-import { SqlComponent } from './sql/sql.component';
 import { JavaService } from './java.service';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -25,10 +24,9 @@ import { PlatformModule} from '@angular/cdk/platform';
 @NgModule({
   declarations: [
     AppComponent,
-    PasswordsComponent,
-    PokerComponent,
     MathComponent,
-    SqlComponent
+    PasswordsComponent,
+    PokerComponent
   ],
   imports: [
     BrowserModule,
